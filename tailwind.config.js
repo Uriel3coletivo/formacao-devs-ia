@@ -14,7 +14,7 @@ module.exports = {
         'agi-green': '#77df40',
       },
       fontFamily: {
-        'agibank': ['Inter', 'sans-serif'], // Placeholder, depois você muda
+        'agibank': ['Inter', 'sans-serif'],
       },
     },
   },

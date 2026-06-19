@@ -7,6 +7,7 @@ import FaixaVerde from '../components/FaixaVerde'
 import Timeline from '../components/Timeline'
 import Beneficios from '../components/Beneficios'
 import PreRequisitos from '../components/PreRequisitos'
+import RotinaVideo from '../components/RotinaVideo'
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <Timeline />
       <Beneficios />
       <PreRequisitos />
+      <RotinaVideo />
     </main>
   )
 }

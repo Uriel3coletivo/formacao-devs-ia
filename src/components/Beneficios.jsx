@@ -42,7 +42,6 @@ export default function Beneficios() {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           
-          {/* LADO ESQUERDO: Textos */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -84,25 +83,26 @@ export default function Beneficios() {
             </motion.ul>
           </motion.div>
 
-          {/* LADO DIREITO: Carrossel Infinito Duplo */}
+          {/* CARROSSEL AJUSTADO PARA IMAGENS 200x200 */}
           <div 
             className="col-span-12 lg:col-span-6 relative h-[500px] md:h-[600px] overflow-hidden flex justify-center"
             style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)' }}
           >
-            <div className="grid grid-cols-2 gap-4 md:gap-8 h-full w-full max-w-[500px]">
+            <div className="grid grid-cols-2 gap-4 md:gap-6 h-full w-full max-w-[450px]">
               
-              <div className="flex flex-col gap-4 md:gap-8 animate-scroll-up">
+              <div className="flex flex-col gap-4 md:gap-6 animate-scroll-up">
                 {[...col1Images, ...col1Images].map((img, index) => (
-                  <div key={index} className="w-full aspect-[4/5] rounded-[24px] overflow-hidden shadow-xl bg-[#0033b0]">
-                    <img src={`/images/${img}`} alt="Rotina Agibank" className="w-full h-full object-cover" onError={(e) => { e.target.src = `https://placehold.co/400x500/0033b0/ffffff?text=Foto+${(index % 4) + 1}` }} />
+                  // aspect-square garante que seja 1:1, max-w-[200px] garante que não estique!
+                  <div key={index} className="w-full max-w-[200px] mx-auto aspect-square rounded-[24px] overflow-hidden shadow-xl bg-[#0033b0]">
+                    <img src={`/images/${img}`} alt="Rotina Agibank" className="w-full h-full object-cover" onError={(e) => { e.target.src = `https://placehold.co/200x200/0033b0/ffffff?text=Foto+${(index % 4) + 1}` }} />
                   </div>
                 ))}
               </div>
 
-              <div className="flex flex-col gap-4 md:gap-8 animate-scroll-down">
+              <div className="flex flex-col gap-4 md:gap-6 animate-scroll-down">
                 {[...col2Images, ...col2Images].map((img, index) => (
-                  <div key={index} className="w-full aspect-[4/5] rounded-[24px] overflow-hidden shadow-xl bg-[#0064f5]">
-                    <img src={`/images/${img}`} alt="Rotina Agibank" className="w-full h-full object-cover" onError={(e) => { e.target.src = `https://placehold.co/400x500/0064f5/ffffff?text=Foto+${(index % 4) + 5}` }} />
+                  <div key={index} className="w-full max-w-[200px] mx-auto aspect-square rounded-[24px] overflow-hidden shadow-xl bg-[#0064f5]">
+                    <img src={`/images/${img}`} alt="Rotina Agibank" className="w-full h-full object-cover" onError={(e) => { e.target.src = `https://placehold.co/200x200/0064f5/ffffff?text=Foto+${(index % 4) + 5}` }} />
                   </div>
                 ))}
               </div>
@@ -113,8 +113,6 @@ export default function Beneficios() {
         </div>
       </div>
 
-      {/* CÓDIGO FLUTUANTE */}
-      {/* Ancorado pelo TOP (top-[80%]) em vez de bottom, garantindo distância segura do texto */}
       <motion.div 
         animate={{ x: mousePosition.x * 0.8, y: mousePosition.y * 0.8 }}
         transition={{ type: "spring", stiffness: 50, damping: 20 }}

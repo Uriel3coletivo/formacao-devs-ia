@@ -16,7 +16,8 @@ export default function Imagine() {
   }, [])
 
   return (
-    <section className="bg-white pt-12 pb-16 relative z-30">
+    // Padding restaurado (pt-20 pb-20) para a imagem central ter espaço para respirar
+    <section className="bg-white pt-20 pb-20 relative z-30">
       
       {/* Efeito Pixels no fundo branco (95% de opacidade) */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-95">
@@ -24,7 +25,7 @@ export default function Imagine() {
       </div>
 
       <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-12 gap-8 items-center mt-8 mb-8">
+        <div className="grid lg:grid-cols-12 gap-8 items-center">
           
           {/* LADO ESQUERDO: Textos e Botão */}
           <motion.div 
@@ -48,39 +49,38 @@ export default function Imagine() {
           </motion.div>
 
           {/* LADO DIREITO: Composição de Imagens */}
-          {/* A MÁGICA DO TOPO: lg:-mt-20 puxa o bloco todo para cima para invadir a seção anterior */}
-          <div className="col-span-12 lg:col-span-7 relative flex justify-center items-center mt-24 lg:-mt-20 z-30">
+          <div className="col-span-12 lg:col-span-7 relative flex justify-center items-center mt-20 lg:mt-0">
             
-            {/* IMAGEM CENTRAL */}
-            <div className="relative w-[65%] max-w-[460px] aspect-[4/5] z-10 rounded-[32px] shadow-2xl">
+            {/* IMAGEM CENTRAL (QUADRADA - aspect-square) */}
+            <div className="relative w-[75%] max-w-[500px] aspect-square z-10 rounded-[32px] shadow-2xl">
               <img src="/images/Imagine-Central.png" alt="Equipe Agibank" className="w-full h-full object-cover rounded-[32px]" />
 
-              {/* IMAGEM PEQUENA 1 (Topo) - A MENOR (28%) */}
+              {/* IMAGEM PEQUENA 1 (Topo - Logo AGBK) - A MENOR (30%) - Vaza para CIMA */}
               <motion.div 
                 whileHover={{ scale: 1.08, zIndex: 40 }}
                 animate={{ x: mousePosition.x * 1.5, y: mousePosition.y * 1.5 }}
                 transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                className="absolute -top-16 -left-8 w-[28%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
+                className="absolute -top-[20%] -left-[5%] w-[30%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
               >
                 <img src="/images/Imagine-Pequena-1.png" alt="NYSE" className="w-full h-full object-cover rounded-[24px]" />
               </motion.div>
 
-              {/* IMAGEM PEQUENA 2 (Base) - A MAIOR (42%) - Vaza para baixo, mas sem bater no título */}
+              {/* IMAGEM PEQUENA 2 (Base - Palestrante) - A MAIOR (42%) - Vaza para BAIXO */}
               <motion.div 
                 whileHover={{ scale: 1.08, zIndex: 40 }}
                 animate={{ x: mousePosition.x * -1, y: mousePosition.y * -1 }}
                 transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                className="absolute -bottom-16 -left-8 w-[42%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
+                className="absolute -bottom-[20%] -left-[10%] w-[42%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
               >
                 <img src="/images/Imagine-Pequena-2.png" alt="Palestrante" className="w-full h-full object-cover rounded-[24px]" />
               </motion.div>
 
-              {/* IMAGEM PEQUENA 3 (Direita) - MÉDIA (35%) */}
+              {/* IMAGEM PEQUENA 3 (Direita - Jaqueta) - MÉDIA (35%) */}
               <motion.div 
                 whileHover={{ scale: 1.08, zIndex: 40 }}
                 animate={{ x: mousePosition.x * 1.2, y: mousePosition.y * 1.2 }}
                 transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                className="absolute top-[35%] -right-12 w-[35%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
+                className="absolute top-[40%] -right-[12%] w-[35%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
               >
                 <img src="/images/Imagine-Pequena-3.png" alt="Jaqueta AGBK" className="w-full h-full object-cover rounded-[24px]" />
               </motion.div>

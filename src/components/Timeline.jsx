@@ -10,7 +10,6 @@ export default function Timeline() {
     offset: ["start center", "end center"]
   })
 
-  // Anima a altura da linha verde de 0 a 100%
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
 
   const steps = [
@@ -20,7 +19,6 @@ export default function Timeline() {
     { num: 4, text: "Hackathon de seleção para a 2ª etapa + 3 meses de atuação dentro das squads e mentoria com profissionais especializados" }
   ]
 
-  // Componente das setinhas (Tamanho e alinhamento corrigidos)
   const Arrows = () => (
     <div className="flex flex-col items-center justify-center gap-1.5 py-4 w-12 md:w-16">
       <svg width="24" height="14" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +36,6 @@ export default function Timeline() {
   return (
     <section id="etapas" className="bg-[#0033b0] py-32 relative overflow-hidden" ref={containerRef}>
       
-      {/* Pixels 95% */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-95">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
@@ -46,25 +43,26 @@ export default function Timeline() {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           
-          {/* LADO ESQUERDO: Foto (AUMENTADA) + Código Overlay */}
+          {/* LADO ESQUERDO */}
           <div className="relative w-full flex justify-start lg:justify-end mt-20 lg:mt-0">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              // Aumentei o max-w para 700px e forcei a altura para bater com a timeline
               className="relative z-10 rounded-[32px] overflow-hidden shadow-2xl w-full max-w-[700px] h-[600px] lg:h-[800px]"
             >
               <img src="/images/Rapaz-Timeline.png" alt="Estudante Agibank" className="w-full h-full object-cover" />
               <div className="absolute top-0 right-0 w-full h-[30%] bg-gradient-to-b from-[#000f44]/60 to-transparent" />
             </motion.div>
 
-            {/* Código Flutuante (Movido para cima e para a direita, fora do rosto) */}
+            {/* CÓDIGO FLUTUANTE CORRIGIDO: Usando a classe CSS para animação super fluida */}
             <motion.div 
-              animate={{ y: [-5, 5, -5] }}
-              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-              className="absolute top-4 right-4 lg:-right-4 text-white/90 font-mono text-[10px] sm:text-xs md:text-sm whitespace-pre select-none pointer-events-none z-20 drop-shadow-lg"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="absolute top-4 right-4 lg:-right-4 text-white/90 font-mono text-[10px] sm:text-xs md:text-sm whitespace-pre select-none pointer-events-none z-20 drop-shadow-lg animate-float-smooth"
             >
 {`model = Agibank.NeuralNetwork()
 
@@ -78,10 +76,9 @@ model.train(
             </motion.div>
           </div>
 
-          {/* LADO DIREITO: Timeline e Título Alinhados */}
+          {/* LADO DIREITO */}
           <div className="relative py-4 flex flex-col">
             
-            {/* Título perfeitamente alinhado com o eixo da Timeline */}
             <motion.h2 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -93,10 +90,8 @@ model.train(
             </motion.h2>
 
             <div className="relative">
-              {/* Eixo Vertical Central (Linha de fundo com gradiente nas pontas) */}
               <div className="absolute top-0 bottom-0 left-[22px] md:left-[30px] w-1 bg-gradient-to-b from-transparent via-[#0064f5] to-transparent opacity-40 rounded-full z-0" />
               
-              {/* Linha Animada do Scroll */}
               <motion.div 
                 style={{ height: lineHeight }}
                 className="absolute top-0 left-[22px] md:left-[30px] w-1 bg-[#77df40] rounded-full origin-top z-10 shadow-[0_0_10px_rgba(119,223,64,0.8)]"
@@ -107,8 +102,6 @@ model.train(
                   <div key={index} className="flex flex-col">
                     
                     <div className="flex items-center gap-6 md:gap-10">
-                      
-                      {/* Bolinha Premium */}
                       <motion.div 
                         initial={{ scale: 0, opacity: 0 }}
                         whileInView={{ scale: 1, opacity: 1 }}
@@ -123,7 +116,6 @@ model.train(
                         </span>
                       </motion.div>
                       
-                      {/* Texto */}
                       <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -137,14 +129,12 @@ model.train(
                       </motion.div>
                     </div>
 
-                    {/* Setas Alinhadas */}
                     {index < steps.length - 1 && (
                       <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true, margin: "-20%" }}
                         transition={{ duration: 0.5, delay: 0.4 }}
-                        // A Margem aqui alinha o bloco de setas com o centro do círculo
                         className="ml-[0px] md:ml-[0px]"
                       >
                         <Arrows />

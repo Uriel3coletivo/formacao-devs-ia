@@ -28,12 +28,12 @@ export default function Beneficios() {
     show: { opacity: 1, x: 0, transition: { duration: 0.5 } }
   }
 
-  // Arrays de imagens. Quando você subir as fotos reais, elas vão aparecer aqui.
   const col1Images = ["Img-B-1.png", "Img-B-2.png", "Img-B-3.png", "Img-B-4.png"]
   const col2Images = ["Img-B-5.png", "Img-B-6.png", "Img-B-7.png", "Img-B-8.png"]
 
   return (
-    <section id="beneficios" className="bg-[#000f44] pt-32 pb-32 relative z-20">
+    // Reduzi o padding top/bottom para diminuir a altura total do bloco
+    <section id="beneficios" className="bg-[#000f44] pt-24 pb-24 relative z-20">
       
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img src="/images/Hero-Banner-1.jpg" alt="Background" className="w-full h-full object-cover" />
@@ -86,15 +86,13 @@ export default function Beneficios() {
           </motion.div>
 
           {/* LADO DIREITO: Carrossel Infinito Duplo */}
-          {/* MÁSCARA AJUSTADA: Começa em 0% e vai até 15%, liberando muito mais área visível no meio */}
+          {/* Reduzi a altura do carrossel (h-[600px]) para enxugar a seção */}
           <div 
-            className="col-span-12 lg:col-span-6 relative h-[600px] md:h-[800px] overflow-hidden flex justify-center"
+            className="col-span-12 lg:col-span-6 relative h-[500px] md:h-[600px] overflow-hidden flex justify-center"
             style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)' }}
           >
-            {/* ROTAÇÃO REMOVIDA. Agora está 100% reto e o gap foi ajustado */}
             <div className="grid grid-cols-2 gap-4 md:gap-8 h-full w-full max-w-[500px]">
               
-              {/* Coluna 1 (Sobe) */}
               <div className="flex flex-col gap-4 md:gap-8 animate-scroll-up">
                 {[...col1Images, ...col1Images].map((img, index) => (
                   <div key={index} className="w-full aspect-[4/5] rounded-[24px] overflow-hidden shadow-xl bg-[#0033b0]">
@@ -103,7 +101,6 @@ export default function Beneficios() {
                 ))}
               </div>
 
-              {/* Coluna 2 (Desce) */}
               <div className="flex flex-col gap-4 md:gap-8 animate-scroll-down">
                 {[...col2Images, ...col2Images].map((img, index) => (
                   <div key={index} className="w-full aspect-[4/5] rounded-[24px] overflow-hidden shadow-xl bg-[#0064f5]">
@@ -118,11 +115,12 @@ export default function Beneficios() {
         </div>
       </div>
 
-      {/* CÓDIGO VAZANDO PARA O BLOCO DE BAIXO */}
+      {/* CÓDIGO FLUTUANTE */}
+      {/* Subi ele para ficar mais perto do texto (-bottom-8) */}
       <motion.div 
         animate={{ x: mousePosition.x * 0.8, y: mousePosition.y * 0.8 }}
         transition={{ type: "spring", stiffness: 50, damping: 20 }}
-        className="absolute -bottom-16 md:-bottom-24 left-[5%] md:left-[10%] z-40"
+        className="absolute -bottom-8 md:-bottom-12 left-[5%] md:left-[10%] z-40"
       >
         <div className="font-mono text-xs md:text-sm whitespace-pre select-none pointer-events-none drop-shadow-2xl">
           <span className="text-[#0064f5] opacity-60">

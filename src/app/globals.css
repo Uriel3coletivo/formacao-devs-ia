@@ -144,3 +144,12 @@ body {
 .animate-scroll-up:hover, .animate-scroll-down:hover {
   animation-play-state: paused;
 }
+
+/* Esconder barra de rolagem do carrossel */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

@@ -90,7 +90,7 @@ export default function RotinaVideo() {
           </p>
         </motion.div>
 
-        {/* Grid de Cards (Hover Azul Oficial) */}
+        {/* Grid de Cards (Hover Resolvido com CSS Puro para Fluidez Máxima) */}
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {cards.map((text, index) => (
             <motion.div
@@ -99,8 +99,8 @@ export default function RotinaVideo() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.05, backgroundColor: "#0064f5", y: -5 }}
-              className="bg-[#0033b0] p-6 md:p-8 rounded-[24px] shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center text-center cursor-default"
+              // A MÁGICA AQUI: Tailwind cuidando de toda a transição de forma nativa e fluida
+              className="bg-[#0033b0] hover:bg-[#0064f5] hover:-translate-y-2 hover:scale-[1.03] p-6 md:p-8 rounded-[24px] shadow-lg hover:shadow-2xl transition-all duration-300 ease-out flex items-center justify-center text-center cursor-default"
             >
               <p className="text-white text-base md:text-lg font-medium leading-snug">
                 {text}

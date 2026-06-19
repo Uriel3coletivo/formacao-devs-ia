@@ -38,20 +38,22 @@ export default function Hero() {
 
       {/* CAMADA 4: Conteúdo Principal */}
       <div className="container-custom relative z-20 w-full mt-4">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
+        {/* Nova Grade: 12 Colunas para dar mais espaço ao Dev */}
+        <div className="grid lg:grid-cols-12 gap-0 items-center">
           
-          {/* Esquerda - Título SVG, Botão e Subtexto (Alinhados perfeitamente à esquerda) */}
+          {/* Esquerda - Título SVG, Botão e Subtexto (Ocupa 5 colunas) */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.8 }} 
-            className="flex flex-col items-start text-left w-full"
+            className="col-span-12 lg:col-span-5 flex flex-col items-start justify-center text-left w-full z-30"
           >
-            {/* Título SVG (Tamanho Aumentado e alinhado à esquerda) */}
+            {/* Título SVG - Forçando alinhamento total à esquerda */}
             <img 
               src="/images/Logo-Formacao-Devs.svg" 
               alt="Formação de Devs nativos em IA" 
-              className="w-full max-w-[750px] xl:max-w-[850px] mb-10 object-left object-contain"
+              className="w-full max-w-[650px] xl:max-w-[750px] mb-10 object-contain"
+              style={{ objectPosition: 'left center' }}
             />
             
             <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
@@ -62,7 +64,7 @@ export default function Hero() {
             <motion.div 
               animate={{ x: mousePosition.x * 0.3, y: mousePosition.y * 0.3 }}
               transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-              className="mt-12 text-sm md:text-base text-[#0064f5] font-mono opacity-90 leading-relaxed"
+              className="mt-12 text-sm md:text-base text-[#0064f5] font-mono opacity-90 leading-relaxed text-left"
             >
               <p>&lt;DevAgibank&gt; &lt;Carreira</p>
               <p className="pl-4">status="growing" /&gt;  &lt;Futuro</p>
@@ -71,14 +73,15 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Direita - Imagem do Dev (Tamanho Aumentado) */}
-          <div className="relative h-[600px] md:h-[700px] lg:h-[850px] flex justify-center items-end pointer-events-none">
+          {/* Direita - Imagem do Dev (Ocupa 7 colunas - Mais espaço para crescer para a esquerda) */}
+          <div className="col-span-12 lg:col-span-7 relative h-[600px] md:h-[750px] lg:h-[900px] flex justify-center items-end pointer-events-none mt-10 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#0064f5] rounded-full blur-[120px] opacity-30 z-0" />
             
             <motion.div
               animate={{ x: mousePosition.x, y: mousePosition.y }}
               transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-              className="relative w-full h-full flex justify-center items-end z-10 scale-125 origin-bottom"
+              {/* Dev aumentado para scale-145 e movido para a esquerda com -translate-x-16 */}
+              className="relative w-full h-full flex justify-center items-end z-10 scale-[1.2] lg:scale-[1.45] origin-bottom lg:-translate-x-16"
             >
               <img
                 src="/images/Dev-01.png"
@@ -94,9 +97,9 @@ export default function Hero() {
       {/* CAMADA 5: Códigos Flutuantes (NA FRENTE do Dev) */}
       <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden font-mono text-sm md:text-base">
         {/* Este fica perto do laptop, na frente */}
-        <motion.div animate={{ y: [0, 30, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }} className="absolute bottom-[25%] left-[45%] lg:left-[55%] text-[#77df40]">if (learning) &#123; grow(); &#125;</motion.div>
+        <motion.div animate={{ y: [0, 30, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }} className="absolute bottom-[20%] left-[45%] lg:left-[55%] text-[#77df40]">if (learning) &#123; grow(); &#125;</motion.div>
         {/* Este fica na direita, na frente do braço */}
-        <motion.div animate={{ y: [0, 25, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }} className="absolute top-[65%] right-[20%] text-white">const future = new Developer();</motion.div>
+        <motion.div animate={{ y: [0, 25, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }} className="absolute top-[65%] right-[15%] text-white">const future = new Developer();</motion.div>
       </div>
 
     </section>

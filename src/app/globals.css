@@ -2,18 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Importando a Família Agibank Sans */
+@font-face {
+  font-family: 'Agibank Sans';
+  src: url('/fonts/AgibankSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Agibank Sans';
+  src: url('/fonts/AgibankSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Agibank Sans';
+  src: url('/fonts/AgibankSans-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Agibank Sans';
+  src: url('/fonts/AgibankSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* Aplicando a fonte no site inteiro */
 body {
+  font-family: 'Agibank Sans', system-ui, -apple-system, sans-serif;
   background: #ffffff;
   color: #000f44;
   overflow-x: hidden;
 }
 
+/* Scrollbar customizada */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #0064f5;
+  border-radius: 5px;
+}
+
+/* Classes utilitárias */
 .container-custom {
   max-width: 1400px;
   margin: 0 auto;
@@ -31,7 +83,7 @@ body {
   color: #000f44;
   padding: 16px 48px;
   border-radius: 50px;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 18px;
   border: none;
   cursor: pointer;

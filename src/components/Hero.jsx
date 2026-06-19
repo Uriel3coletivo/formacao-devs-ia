@@ -16,7 +16,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center bg-[#000f44] overflow-hidden pt-32 pb-12">
+    <section className="relative min-h-screen flex items-center bg-[#000f44] overflow-hidden pt-20 pb-12">
       
       <div className="absolute inset-0 z-0">
         <img src="/images/Hero-Banner-1.jpg" alt="Background" className="w-full h-full object-cover" />
@@ -32,7 +32,7 @@ export default function Hero() {
         <motion.div animate={{ y: [0, -15, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 2 }} className="absolute top-[30%] right-[10%] text-[#0064f5] text-xl">import &#123; AI &#125; from 'agibank';</motion.div>
       </div>
 
-      <div className="container-custom relative z-20 w-full mt-4">
+      <div className="container-custom relative z-20 w-full">
         <div className="grid lg:grid-cols-12 gap-0 items-center">
           
           <motion.div 
@@ -44,11 +44,11 @@ export default function Hero() {
             <img 
               src="/images/Logo-Formacao-Devs.svg" 
               alt="Formação de Devs nativos em IA" 
-              className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain"
+              className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain -ml-8 lg:-ml-12"
               style={{ objectPosition: 'left center' }}
             />
             
-            <div className="pl-6 md:pl-8 lg:pl-10 xl:pl-12">
+            <div className="pl-12 md:pl-16 lg:pl-[75px] xl:pl-[90px]">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
               </button>

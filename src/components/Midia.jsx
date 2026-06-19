@@ -7,7 +7,8 @@ export default function Midia() {
 
   const scroll = (direction) => {
     if (carouselRef.current) {
-      const scrollAmount = direction === 'left' ? -350 : 350
+      // Ajustei a distância do clique para o tamanho exato de 1 card + gap
+      const scrollAmount = direction === 'left' ? -364 : 364
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
     }
   }
@@ -31,10 +32,10 @@ export default function Midia() {
   ]
 
   return (
-    // overflow-hidden apenas no Y (vertical) para permitir o vazamento no eixo X (horizontal)
-    <section className="bg-white py-24 md:py-32 relative overflow-y-hidden z-10 overflow-x-hidden">
+    // overflow-hidden apenas no Y para não criar barra de rolagem embaixo da página inteira
+    <section className="bg-white py-24 md:py-32 relative overflow-y-hidden overflow-x-hidden z-10">
       
-      {/* Efeito Pixels no Fundo */}
+      {/* Efeito Pixels no Fundo (Opacidade 40%) */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
@@ -48,9 +49,9 @@ export default function Midia() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="col-span-12 lg:col-span-4 flex flex-col items-start"
+            className="col-span-12 lg:col-span-4 flex flex-col items-start relative z-20"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#0064f5] leading-tight mb-6 tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#0064f5] leading-[1.1] mb-6 tracking-tight">
               Agibank na mídia
             </h2>
             
@@ -58,7 +59,7 @@ export default function Midia() {
               Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
             </p>
             
-            {/* Botões do Carrossel */}
+            {/* Botões do Carrossel (Setas Simples) */}
             <div className="flex gap-4">
               <button 
                 onClick={() => scroll('left')}
@@ -79,13 +80,18 @@ export default function Midia() {
             </div>
           </motion.div>
 
-          {/* LADO DIREITO: Carrossel com "Bleed" (Vazamento) */}
+          {/* LADO DIREITO: Carrossel com "Bleed" (Vazamento) e Sombras Protegidas */}
           <div className="col-span-12 lg:col-span-8 relative">
             
-            {/* O truque do width: 100vw e margin-right negativa faz o carrossel ignorar a margem do container e ir até o fim da tela */}
+            {/* 
+              A MÁGICA ESTÁ AQUI: 
+              1. -mr-[50vw] e pr-[50vw] fazem a div rasgar a tela para a direita.
+              2. py-12 (padding top e bottom) cria a "folga" para a sombra e o hover não serem cortados.
+              3. -my-12 compensa o padding para o carrossel não empurrar a tela para baixo.
+            */}
             <div 
               ref={carouselRef}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-8 pt-4 w-[100vw] lg:w-[calc(100vw-33.333%)] pr-[20vw] lg:pr-[10vw]"
+              className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar py-12 -my-12 -mr-[50vw] pr-[50vw]"
             >
               {noticias.map((noticia, index) => (
                 <motion.a
@@ -97,10 +103,12 @@ export default function Midia() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
-                  whileHover={{ y: -10 }}
-                  className="snap-start shrink-0 w-[280px] md:w-[320px] bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,100,245,0.15)] transition-all duration-300 flex flex-col overflow-hidden group block"
+                  // Pulinho suave no hover garantido!
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  // w-[340px] garante que o terceiro card fique exatamente cortado na borda
+                  className="snap-start shrink-0 w-[280px] md:w-[340px] bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,100,245,0.15)] transition-shadow duration-300 flex flex-col overflow-hidden group block"
                 >
-                  <div className="p-4 pb-0 h-[200px]">
+                  <div className="p-4 pb-0 h-[220px]">
                     <img 
                       src={`/images/${noticia.img}`} 
                       alt="Notícia Agibank" 

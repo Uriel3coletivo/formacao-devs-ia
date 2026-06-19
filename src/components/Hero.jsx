@@ -24,30 +24,28 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[#000f44]/40" />
       </div>
 
-      {/* CAMADA 2: Efeito Pixels (Atrás do Dev) */}
+      {/* CAMADA 2: Efeito Pixels */}
       <div className="absolute bottom-0 right-0 w-full md:w-2/3 h-full z-10 pointer-events-none flex justify-end items-end opacity-80">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="object-contain max-h-full" />
       </div>
 
-      {/* CAMADA 3: Códigos Flutuantes (ATRÁS do Dev) */}
+      {/* CAMADA 3: Codigos Flutuantes Fundo */}
       <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden font-mono text-sm md:text-base">
         <motion.div animate={{ y: [0, -20, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} className="absolute top-[20%] left-[5%] text-[#0064f5]">&lt;FormacaoIA /&gt;</motion.div>
-        {/* Este fica perto da cabeça, por trás */}
         <motion.div animate={{ y: [0, -15, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 2 }} className="absolute top-[30%] right-[10%] text-[#0064f5] text-xl">import &#123; AI &#125; from 'agibank';</motion.div>
       </div>
 
-      {/* CAMADA 4: Conteúdo Principal */}
+      {/* CAMADA 4: Conteudo Principal */}
       <div className="container-custom relative z-20 w-full mt-4">
         <div className="grid lg:grid-cols-12 gap-0 items-center">
           
-          {/* Esquerda - Título SVG, Botão e Subtexto */}
+          {/* Esquerda */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.8 }} 
             className="col-span-12 lg:col-span-5 flex flex-col items-start justify-center text-left w-full z-30"
           >
-            {/* Título SVG - Usando Margem Negativa para arrancar o espaço transparente da imagem */}
             <img 
               src="/images/Logo-Formacao-Devs.svg" 
               alt="Formação de Devs nativos em IA" 
@@ -55,13 +53,11 @@ export default function Hero() {
               style={{ objectPosition: 'left center' }}
             />
             
-            {/* WRAPPER DE ALINHAMENTO: Agora sem recuo, alinhado direto com a margem real da tela */}
             <div className="pl-2">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
               </button>
 
-              {/* Código Novo Formatado (Com Parallax Suave) */}
               <motion.div 
                 animate={{ x: mousePosition.x * 0.3, y: mousePosition.y * 0.3 }}
                 transition={{ type: 'spring', stiffness: 50, damping: 20 }}
@@ -75,14 +71,13 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Direita - Imagem do Dev */}
+          {/* Direita */}
           <div className="col-span-12 lg:col-span-7 relative h-[600px] md:h-[800px] lg:h-[950px] flex justify-center items-end pointer-events-none mt-10 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#0064f5] rounded-full blur-[120px] opacity-30 z-0" />
             
             <motion.div
               animate={{ x: mousePosition.x, y: mousePosition.y }}
               transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-              {/* Scale aumentado para 1.8 e puxado AINDA MAIS para a esquerda (-translate-x-32) */}
               className="relative w-full h-full flex justify-center items-end z-10 scale-[1.4] lg:scale-[1.8] origin-bottom lg:-translate-x-32"
             >
               <img
@@ -96,11 +91,9 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* CAMADA 5: Códigos Flutuantes (NA FRENTE do Dev) */}
+      {/* CAMADA 5: Codigos Flutuantes Frente */}
       <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden font-mono text-sm md:text-base">
-        {/* Este fica perto do laptop, na frente */}
         <motion.div animate={{ y: [0, 30, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }} className="absolute bottom-[20%] left-[45%] lg:left-[55%] text-[#77df40]">if (learning) &#123; grow(); &#125;</motion.div>
-        {/* Este fica na direita, na frente do braço */}
         <motion.div animate={{ y: [0, 25, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }} className="absolute top-[65%] right-[15%] text-white">const future = new Developer();</motion.div>
       </div>
 

@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 
 export default function Diferenciais() {
   
-  // SVGs puros para podermos animar as linhas (Trim Path)
   const cards = [
     {
       paths: ["M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"],
@@ -23,7 +22,6 @@ export default function Diferenciais() {
     }
   ]
 
-  // Configuração da animação "Trim Path"
   const iconVariants = {
     rest: { pathLength: 1, stroke: "#ffffff" },
     hover: { 
@@ -34,15 +32,15 @@ export default function Diferenciais() {
   }
 
   return (
-    <section id="diferenciais" className="pt-32 pb-24 relative z-20 -mt-20 overflow-hidden bg-[#000f44]">
+    // Z-INDEX alterado para 10. Assim a seção branca (z-30) e suas fotos ficam por cima.
+    <section id="diferenciais" className="pt-32 pb-24 relative z-10 -mt-20 overflow-hidden bg-[#000f44]">
       
-      {/* BACKGROUND DO HERO REAPROVEITADO */}
       <div className="absolute inset-0 z-0">
         <img src="/images/Hero-Banner-1.jpg" alt="Background" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-[#000f44]/85" />
+        {/* Opacidade reduzida para 60% para revelar mais a imagem */}
+        <div className="absolute inset-0 bg-[#000f44]/60" />
       </div>
 
-      {/* Animação de Fade In para o bloco inteiro */}
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -51,8 +49,7 @@ export default function Diferenciais() {
         className="container-custom relative z-10"
       >
         
-        {/* Título Centralizado */}
-        <div className="relative flex justify-center items-center mb-16">
+        <div className="relative flex justify-center items-center mb-16 mt-10">
           <motion.div 
             animate={{ y: [-10, 10, -10] }}
             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
@@ -74,7 +71,6 @@ export default function Diferenciais() {
           </motion.div>
         </div>
 
-        {/* Grid de Cards */}
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
           {cards.map((card, index) => (
             <motion.div
@@ -82,10 +78,8 @@ export default function Diferenciais() {
               initial="rest"
               whileHover="hover"
               animate="rest"
-              // Cores e Pulinho ajustados
               className="bg-[#0064f5] hover:bg-[#0033b0] p-8 md:p-10 rounded-[24px] shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-default transform hover:-translate-y-2 hover:scale-[1.02]"
             >
-              {/* Ícone Outline com Trim Path */}
               <motion.svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
@@ -105,7 +99,6 @@ export default function Diferenciais() {
           ))}
         </div>
 
-        {/* Card Destaque Extra (Base) */}
         <motion.div
           initial="rest"
           whileHover="hover"

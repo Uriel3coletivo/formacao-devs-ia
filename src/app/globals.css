@@ -104,3 +104,17 @@ body {
   color: #ffffff;
   transform: scale(0.98);
 }
+/* Animação de Flutuação Suave (Hardware Accelerated) */
+@keyframes floatSmooth {
+  0%, 100% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.animate-float-smooth {
+  animation: floatSmooth 6s ease-in-out infinite;
+  will-change: transform;
+}

@@ -1,8 +1,20 @@
 'use client'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 export default function PreRequisitos() {
-  
+  const [mousePosition, setMousePosition] = useState({ x: 0 })
+
+  // Rastreia o mouse APENAS no eixo X para o parallax horizontal
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const x = (window.innerWidth / 2 - e.clientX) / 40
+      setMousePosition({ x })
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
   const cursos = [
     "Ciência da Computação",
     "Sistemas de Informação",
@@ -23,6 +35,7 @@ export default function PreRequisitos() {
     <section id="requisitos" className="bg-white py-24 relative z-10">
       <div className="container-custom">
         
+        {/* Título com Símbolos em Azul Oficial */}
         <motion.h2 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -30,13 +43,13 @@ export default function PreRequisitos() {
           transition={{ duration: 0.8 }}
           className="text-3xl md:text-4xl lg:text-[40px] font-bold text-[#000f44] text-center mb-16 tracking-tight"
         >
-          &lt;/Pré-requisitos para embarcar <br className="hidden md:block"/> nessa jornada de crescimento&gt;
+          <span className="text-[#0064f5]">&lt;/</span>Pré-requisitos para embarcar <br className="hidden md:block"/> nessa jornada de crescimento<span className="text-[#0064f5]">&gt;</span>
         </motion.h2>
 
         {/* Linha de Cima (2 Cards) */}
         <div className="grid lg:grid-cols-12 gap-6 mb-6">
           
-          {/* CARD 1: Quem pode se candidatar (AZUL MÉDIO) */}
+          {/* CARD 1: Quem pode se candidatar */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -44,7 +57,6 @@ export default function PreRequisitos() {
             transition={{ duration: 0.6 }}
             className="col-span-12 lg:col-span-7 bg-[#0033b0] rounded-[32px] p-8 md:p-12 shadow-xl relative z-10"
           >
-            {/* Título Corrigido para Verde */}
             <h3 className="text-2xl md:text-3xl font-bold text-[#77df40] mb-6">Quem pode se candidatar:</h3>
             <ul className="space-y-6">
               <li className="text-white font-light text-lg flex gap-3">
@@ -67,7 +79,7 @@ export default function PreRequisitos() {
             </ul>
           </motion.div>
 
-          {/* CARD 2: Disponibilidade (AZUL OFICIAL) */}
+          {/* CARD 2: Disponibilidade */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -87,23 +99,20 @@ export default function PreRequisitos() {
 
         </div>
 
-        {/* CARD 3: Diferenciais + Imagem Vazando (AZUL MARINHO) */}
+        {/* CARD 3: Diferenciais + Imagem Vazando */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          // Removi o overflow-hidden para a moça poder vazar!
           className="bg-[#000f44] rounded-[32px] shadow-xl flex flex-col lg:flex-row relative z-20"
         >
-          {/* Efeito Pixels (Opacidade 60%) - Apenas no fundo do card, não sobrepõe o texto */}
-          <div className="absolute inset-0 z-0 pointer-events-none opacity-60 rounded-[32px] overflow-hidden">
+          {/* Efeito Pixels (Opacidade aumentada para 85%) */}
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-85 rounded-[32px] overflow-hidden">
             <img src="/images/Pixels.png" alt="" className="w-full h-full object-cover" />
           </div>
 
-          {/* Lado Esquerdo: Textos (Reduzi o padding para o card ficar mais baixo) */}
           <div className="p-8 md:px-12 md:py-10 lg:w-[65%] flex flex-col justify-center relative z-10">
-            {/* Título Corrigido para Azul Médio */}
             <h3 className="text-2xl md:text-3xl font-bold text-[#0033b0] mb-8">Isso pode te diferenciar no processo:</h3>
             <ul className="space-y-4">
               {diferenciais.map((item, i) => (
@@ -115,14 +124,15 @@ export default function PreRequisitos() {
             </ul>
           </div>
           
-          {/* Lado Direito: A Moça Vazando para Cima */}
+          {/* Lado Direito: A Moça com Parallax Horizontal */}
           <div className="lg:w-[35%] relative flex justify-center items-end">
-            {/* A Mágica do Vazamento: -mt-24 puxa a imagem para rasgar o teto do card */}
             <motion.div 
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 50, delay: 0.6 }}
+              /* Parallax aplicado APENAS no eixo X */
+              animate={{ x: mousePosition.x }}
+              transition={{ type: "spring", stiffness: 50, damping: 20 }}
               className="relative w-full h-[350px] lg:h-auto lg:absolute lg:bottom-0 lg:-mt-24 lg:right-4 z-30"
             >
               <img 

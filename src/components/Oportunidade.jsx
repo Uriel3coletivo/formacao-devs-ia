@@ -10,17 +10,11 @@ export default function Oportunidade() {
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="object-contain max-h-full" />
       </div>
 
-      {/* CAMADA 2: Código Flutuante Background */}
+      {/* CAMADA 2: Código Flutuante Background (Agora 100% fluido) */}
       <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 0.15, y: 0 }}
-        viewport={{ once: true }}
         animate={{ y: [-15, 15, -15] }}
-        transition={{ 
-          opacity: { duration: 1 },
-          y: { repeat: Infinity, duration: 8, ease: "linear" } 
-        }}
-        className="absolute top-[5%] right-[2%] lg:right-[4%] text-white font-mono text-xs md:text-sm whitespace-pre select-none pointer-events-none z-10"
+        transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+        className="absolute top-[5%] right-[2%] lg:right-[4%] text-white font-mono text-xs md:text-sm whitespace-pre select-none pointer-events-none z-10 opacity-15"
       >
 {`import future from agibank
 import ai_models as ai
@@ -32,7 +26,7 @@ def start_journey(dev):
 # system.init(career_mode="ON")`}
       </motion.div>
 
-      {/* Símbolo < (Branco) - Animação Fluida */}
+      {/* Símbolo < (Branco) */}
       <motion.div 
         animate={{ y: [-20, 20, -20] }}
         transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
@@ -41,7 +35,7 @@ def start_journey(dev):
         &lt;
       </motion.div>
 
-      {/* Símbolo /> (Branco) - Animação Fluida invertida */}
+      {/* Símbolo /> (Branco) */}
       <motion.div 
         animate={{ y: [20, -20, 20] }}
         transition={{ repeat: Infinity, duration: 7, ease: "linear" }}
@@ -62,7 +56,6 @@ def start_journey(dev):
             A sua oportunidade de se tornar um DEV habilitado em IA
           </h2>
 
-          {/* Textos Corrigidos: Fonte Light (peso 300) para contraste com o Bold (peso 700) */}
           <div className="space-y-6 text-lg md:text-xl text-white/90 font-light leading-relaxed mb-12">
             <p>
               A Formação de Devs nativa em IA é para quem quer começar na área de tecnologia de forma <span className="font-bold text-[#77df40]">agilizada, praticando o desenvolvimento de software aliado à inteligência artificial desde o dia um.</span>

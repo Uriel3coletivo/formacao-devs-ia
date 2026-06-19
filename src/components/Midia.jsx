@@ -3,9 +3,9 @@ import { useRef } from 'react'
 import { motion } from 'framer-motion'
 
 export default function Midia() {
+  // AQUI: A referência se chama carouselRef
   const carouselRef = useRef(null)
 
-  // Função para rolar o carrossel pelos botões
   const scroll = (direction) => {
     if (carouselRef.current) {
       const scrollAmount = direction === 'left' ? -380 : 380
@@ -34,7 +34,6 @@ export default function Midia() {
   return (
     <section className="bg-white py-24 md:py-32 relative overflow-hidden z-10">
       
-      {/* Efeito Pixels no Fundo */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
@@ -42,7 +41,6 @@ export default function Midia() {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           
-          {/* LADO ESQUERDO: Textos e Controles */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -58,7 +56,6 @@ export default function Midia() {
               Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
             </p>
             
-            {/* Botões do Carrossel */}
             <div className="flex gap-4">
               <button 
                 onClick={() => scroll('left')}
@@ -79,15 +76,13 @@ export default function Midia() {
             </div>
           </motion.div>
 
-          {/* LADO DIREITO: Carrossel Vazando a Tela */}
           <div className="col-span-12 lg:col-span-8 relative">
             
-            {/* Fade Branco na direita para as fotos sumirem suavemente */}
             <div className="absolute top-0 -right-4 md:-right-20 w-16 md:w-32 h-full bg-gradient-to-l from-white to-transparent z-20 pointer-events-none" />
 
-            {/* Container do Carrossel (O truque do -mr-[50vw] faz ele vazar a tela) */}
+            {/* AQUI ESTAVA O ERRO: Corrigido para carouselRef */}
             <div 
-              ref={scrollRef}
+              ref={carouselRef}
               className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-8 pt-4 -mr-[50vw] pr-[50vw]"
             >
               {noticias.map((noticia, index) => (
@@ -103,7 +98,6 @@ export default function Midia() {
                   whileHover={{ y: -10 }}
                   className="snap-start shrink-0 w-[300px] md:w-[350px] bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,100,245,0.15)] transition-all duration-300 flex flex-col overflow-hidden group block"
                 >
-                  {/* Imagem do Card */}
                   <div className="p-4 pb-0 h-[220px]">
                     <img 
                       src={`/images/${noticia.img}`} 
@@ -113,7 +107,6 @@ export default function Midia() {
                     />
                   </div>
                   
-                  {/* Texto do Card */}
                   <div className="p-6 md:p-8 flex-1 flex items-center">
                     <p className="text-[#0064f5] font-medium text-lg md:text-xl leading-snug group-hover:text-[#0033b0] transition-colors">
                       {noticia.title}

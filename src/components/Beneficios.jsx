@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 export default function Beneficios() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-  // Efeito Parallax para o código flutuante
   useEffect(() => {
     const handleMouseMove = (e) => {
       const x = (window.innerWidth / 2 - e.clientX) / 30
@@ -16,7 +15,6 @@ export default function Beneficios() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Variantes para animação em cascata (Stagger) da lista
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -30,15 +28,13 @@ export default function Beneficios() {
     show: { opacity: 1, x: 0, transition: { duration: 0.5 } }
   }
 
-  // Array de imagens temporárias (depois você troca pelos nomes reais)
+  // Arrays de imagens. Quando você subir as fotos reais, elas vão aparecer aqui.
   const col1Images = ["Img-B-1.png", "Img-B-2.png", "Img-B-3.png", "Img-B-4.png"]
   const col2Images = ["Img-B-5.png", "Img-B-6.png", "Img-B-7.png", "Img-B-8.png"]
 
   return (
-    // ATENÇÃO: Sem overflow-hidden aqui para permitir que o código vaze para baixo
     <section id="beneficios" className="bg-[#000f44] pt-32 pb-32 relative z-20">
       
-      {/* Background Hero reaproveitado */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img src="/images/Hero-Banner-1.jpg" alt="Background" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-[#000f44]/80" />
@@ -90,29 +86,28 @@ export default function Beneficios() {
           </motion.div>
 
           {/* LADO DIREITO: Carrossel Infinito Duplo */}
-          {/* A máscara cria um fade (degradê invisível) no topo e na base para as fotos sumirem suavemente */}
+          {/* MÁSCARA AJUSTADA: Começa em 0% e vai até 15%, liberando muito mais área visível no meio */}
           <div 
-            className="col-span-12 lg:col-span-6 relative h-[500px] md:h-[700px] overflow-hidden"
-            style={{ maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)' }}
+            className="col-span-12 lg:col-span-6 relative h-[600px] md:h-[800px] overflow-hidden flex justify-center"
+            style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)' }}
           >
-            <div className="grid grid-cols-2 gap-4 md:gap-6 h-full transform rotate-2 scale-105">
+            {/* ROTAÇÃO REMOVIDA. Agora está 100% reto e o gap foi ajustado */}
+            <div className="grid grid-cols-2 gap-4 md:gap-8 h-full w-full max-w-[500px]">
               
               {/* Coluna 1 (Sobe) */}
-              <div className="flex flex-col gap-4 md:gap-6 animate-scroll-up">
-                {/* Duplicamos o array para criar o loop infinito invisível */}
+              <div className="flex flex-col gap-4 md:gap-8 animate-scroll-up">
                 {[...col1Images, ...col1Images].map((img, index) => (
-                  <div key={index} className="w-full aspect-[4/5] rounded-[24px] overflow-hidden shadow-2xl bg-[#0033b0]">
-                    {/* Placeholder. Depois você sobe as fotos reais e troca o src */}
-                    <img src={`https://placehold.co/400x500/0033b0/ffffff?text=Foto+${(index % 4) + 1}`} alt="Rotina Agibank" className="w-full h-full object-cover" />
+                  <div key={index} className="w-full aspect-[4/5] rounded-[24px] overflow-hidden shadow-xl bg-[#0033b0]">
+                    <img src={`/images/${img}`} alt="Rotina Agibank" className="w-full h-full object-cover" onError={(e) => { e.target.src = `https://placehold.co/400x500/0033b0/ffffff?text=Foto+${(index % 4) + 1}` }} />
                   </div>
                 ))}
               </div>
 
               {/* Coluna 2 (Desce) */}
-              <div className="flex flex-col gap-4 md:gap-6 animate-scroll-down">
+              <div className="flex flex-col gap-4 md:gap-8 animate-scroll-down">
                 {[...col2Images, ...col2Images].map((img, index) => (
-                  <div key={index} className="w-full aspect-[4/5] rounded-[24px] overflow-hidden shadow-2xl bg-[#0064f5]">
-                    <img src={`https://placehold.co/400x500/0064f5/ffffff?text=Foto+${(index % 4) + 5}`} alt="Rotina Agibank" className="w-full h-full object-cover" />
+                  <div key={index} className="w-full aspect-[4/5] rounded-[24px] overflow-hidden shadow-xl bg-[#0064f5]">
+                    <img src={`/images/${img}`} alt="Rotina Agibank" className="w-full h-full object-cover" onError={(e) => { e.target.src = `https://placehold.co/400x500/0064f5/ffffff?text=Foto+${(index % 4) + 5}` }} />
                   </div>
                 ))}
               </div>
@@ -124,7 +119,6 @@ export default function Beneficios() {
       </div>
 
       {/* CÓDIGO VAZANDO PARA O BLOCO DE BAIXO */}
-      {/* Absolute, posicionado para baixo e com z-index alto para ficar sobre a próxima seção */}
       <motion.div 
         animate={{ x: mousePosition.x * 0.8, y: mousePosition.y * 0.8 }}
         transition={{ type: "spring", stiffness: 50, damping: 20 }}

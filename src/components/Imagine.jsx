@@ -16,14 +16,15 @@ export default function Imagine() {
   }, [])
 
   return (
-    <section className="bg-white py-12 md:py-16 relative z-30">
+    // Reduzi muito o 'pt' (padding-top) para que o teto da seção fique bem perto da imagem
+    <section className="bg-white pt-4 pb-16 relative z-30">
       
       <div className="absolute inset-0 z-0 pointer-events-none opacity-95">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
 
       <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-12 gap-8 items-center my-16">
+        <div className="grid lg:grid-cols-12 gap-8 items-center mt-12 mb-20">
           
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
@@ -45,28 +46,28 @@ export default function Imagine() {
             </button>
           </motion.div>
 
-          <div className="col-span-12 lg:col-span-7 relative flex justify-center items-center mt-24 mb-24 lg:mt-0 lg:mb-0">
+          <div className="col-span-12 lg:col-span-7 relative flex justify-center items-center mt-24 lg:mt-0">
             
             <div className="relative w-[70%] max-w-[480px] aspect-square z-10">
               
               <img src="/images/Imagine-Central.png" alt="Equipe Agibank" className="w-full h-full object-cover rounded-[32px] shadow-2xl" />
 
-              {/* IMAGEM PEQUENA 1 (Topo) - A MENOR (30%) */}
+              {/* IMAGEM PEQUENA 1 (Topo) - A MENOR (30%) - Empurrada agressivamente para cima (-top-[35%]) */}
               <motion.div 
                 whileHover={{ scale: 1.08, zIndex: 40 }}
                 animate={{ x: mousePosition.x * 1.5, y: mousePosition.y * 1.5 }}
                 transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                className="absolute -top-[22%] -left-[5%] w-[30%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
+                className="absolute -top-[35%] -left-[5%] w-[30%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
               >
                 <img src="/images/Imagine-Pequena-1.png" alt="NYSE" className="w-full h-full object-cover rounded-[24px]" />
               </motion.div>
 
-              {/* IMAGEM PEQUENA 2 (Base) - A MAIOR (42%) */}
+              {/* IMAGEM PEQUENA 2 (Base) - A MAIOR (42%) - Empurrada agressivamente para baixo (-bottom-[30%]) */}
               <motion.div 
                 whileHover={{ scale: 1.08, zIndex: 40 }}
                 animate={{ x: mousePosition.x * -1, y: mousePosition.y * -1 }}
                 transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                className="absolute -bottom-[25%] -left-[10%] w-[42%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
+                className="absolute -bottom-[30%] -left-[10%] w-[42%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
               >
                 <img src="/images/Imagine-Pequena-2.png" alt="Palestrante" className="w-full h-full object-cover rounded-[24px]" />
               </motion.div>

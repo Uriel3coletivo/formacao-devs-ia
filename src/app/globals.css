@@ -118,3 +118,29 @@ body {
   animation: floatSmooth 6s ease-in-out infinite;
   will-change: transform;
 }
+
+/* Animações para o Carrossel Infinito Vertical */
+@keyframes scrollUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes scrollDown {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
+.animate-scroll-up {
+  animation: scrollUp 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll-down {
+  animation: scrollDown 30s linear infinite;
+  will-change: transform;
+}
+
+/* Pausa a animação quando o usuário passa o mouse por cima (opcional, mas fica premium) */
+.animate-scroll-up:hover, .animate-scroll-down:hover {
+  animation-play-state: paused;
+}

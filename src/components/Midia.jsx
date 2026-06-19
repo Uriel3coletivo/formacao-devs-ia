@@ -3,12 +3,11 @@ import { useRef } from 'react'
 import { motion } from 'framer-motion'
 
 export default function Midia() {
-  // AQUI: A referência se chama carouselRef
   const carouselRef = useRef(null)
 
   const scroll = (direction) => {
     if (carouselRef.current) {
-      const scrollAmount = direction === 'left' ? -380 : 380
+      const scrollAmount = direction === 'left' ? -350 : 350
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
     }
   }
@@ -32,8 +31,10 @@ export default function Midia() {
   ]
 
   return (
-    <section className="bg-white py-24 md:py-32 relative overflow-hidden z-10">
+    // overflow-hidden apenas no Y (vertical) para permitir o vazamento no eixo X (horizontal)
+    <section className="bg-white py-24 md:py-32 relative overflow-y-hidden z-10 overflow-x-hidden">
       
+      {/* Efeito Pixels no Fundo */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
@@ -41,6 +42,7 @@ export default function Midia() {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           
+          {/* LADO ESQUERDO: Textos e Controles */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -56,34 +58,34 @@ export default function Midia() {
               Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
             </p>
             
+            {/* Botões do Carrossel */}
             <div className="flex gap-4">
               <button 
                 onClick={() => scroll('left')}
-                className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-colors shadow-md"
+                className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                 </svg>
               </button>
               <button 
                 onClick={() => scroll('right')}
-                className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-colors shadow-md"
+                className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
               </button>
             </div>
           </motion.div>
 
+          {/* LADO DIREITO: Carrossel com "Bleed" (Vazamento) */}
           <div className="col-span-12 lg:col-span-8 relative">
             
-            <div className="absolute top-0 -right-4 md:-right-20 w-16 md:w-32 h-full bg-gradient-to-l from-white to-transparent z-20 pointer-events-none" />
-
-            {/* AQUI ESTAVA O ERRO: Corrigido para carouselRef */}
+            {/* O truque do width: 100vw e margin-right negativa faz o carrossel ignorar a margem do container e ir até o fim da tela */}
             <div 
               ref={carouselRef}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-8 pt-4 -mr-[50vw] pr-[50vw]"
+              className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-8 pt-4 w-[100vw] lg:w-[calc(100vw-33.333%)] pr-[20vw] lg:pr-[10vw]"
             >
               {noticias.map((noticia, index) => (
                 <motion.a
@@ -96,9 +98,9 @@ export default function Midia() {
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
                   whileHover={{ y: -10 }}
-                  className="snap-start shrink-0 w-[300px] md:w-[350px] bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,100,245,0.15)] transition-all duration-300 flex flex-col overflow-hidden group block"
+                  className="snap-start shrink-0 w-[280px] md:w-[320px] bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,100,245,0.15)] transition-all duration-300 flex flex-col overflow-hidden group block"
                 >
-                  <div className="p-4 pb-0 h-[220px]">
+                  <div className="p-4 pb-0 h-[200px]">
                     <img 
                       src={`/images/${noticia.img}`} 
                       alt="Notícia Agibank" 
@@ -108,7 +110,7 @@ export default function Midia() {
                   </div>
                   
                   <div className="p-6 md:p-8 flex-1 flex items-center">
-                    <p className="text-[#0064f5] font-medium text-lg md:text-xl leading-snug group-hover:text-[#0033b0] transition-colors">
+                    <p className="text-[#0064f5] font-medium text-base md:text-lg leading-snug group-hover:text-[#0033b0] transition-colors">
                       {noticia.title}
                     </p>
                   </div>

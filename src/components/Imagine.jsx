@@ -16,12 +16,11 @@ export default function Imagine() {
   }, [])
 
   return (
-    // Reduzi o padding top/bottom para permitir que as imagens alcancem as bordas e vazem
-    <section className="bg-white pt-16 pb-20 relative z-30">
+    <section className="bg-white pt-24 pb-32 relative z-30">
       
-      {/* Efeito Pixels no fundo branco (80% de opacidade) */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-80">
-        <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover opacity-50" />
+      {/* Efeito Pixels no fundo branco (95% de opacidade) */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-95">
+        <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
 
       <div className="container-custom relative z-10">
@@ -35,7 +34,8 @@ export default function Imagine() {
             transition={{ duration: 0.8 }}
             className="col-span-12 lg:col-span-5 max-w-xl relative z-20"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-[52px] font-bold text-[#000f44] leading-[1.1] mb-6 tracking-tight">
+            {/* Título em Azul Médio */}
+            <h2 className="text-4xl md:text-5xl lg:text-[52px] font-bold text-[#0033b0] leading-[1.1] mb-6 tracking-tight">
               Imagine começar sua carreira tech em uma empresa listada na maior bolsa de valores do mundo.
             </h2>
             
@@ -44,44 +44,44 @@ export default function Imagine() {
             </p>
             
             <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
-              Quero fazer parte!
+              Vamos crescer juntos?
             </button>
           </motion.div>
 
           {/* LADO DIREITO: Composição de Imagens idêntica ao Figma */}
-          <div className="col-span-12 lg:col-span-7 relative h-[600px] md:h-[700px] mt-20 lg:mt-0">
+          <div className="col-span-12 lg:col-span-7 relative flex justify-center items-center h-[500px] md:h-[700px] mt-20 lg:mt-0">
             
-            {/* IMAGEM CENTRAL (Atrás de todas, retangular vertical) */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%] h-[90%] z-10 rounded-[32px] shadow-2xl">
+            {/* IMAGEM CENTRAL (Larga, proporção 4/5) */}
+            <div className="relative w-[70%] aspect-[4/5] z-10 rounded-[32px] shadow-2xl">
               <img src="/images/Imagine-Central.png" alt="Equipe Agibank" className="w-full h-full object-cover rounded-[32px]" />
             </div>
 
-            {/* IMAGEM PEQUENA 1 (Topo - Logo AGBK) - Vazando muito para CIMA */}
+            {/* IMAGEM PEQUENA 1 (Topo - Logo AGBK) - Vazando para CIMA */}
             <motion.div 
               whileHover={{ scale: 1.08, zIndex: 40 }}
               animate={{ x: mousePosition.x * 1.5, y: mousePosition.y * 1.5 }}
               transition={{ type: "spring", stiffness: 50, damping: 20 }}
-              className="absolute -top-20 md:-top-32 left-[15%] md:left-[20%] w-[30%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
+              className="absolute -top-12 md:-top-24 left-[15%] md:left-[25%] w-[35%] md:w-[28%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
             >
               <img src="/images/Imagine-Pequena-1.png" alt="NYSE" className="w-full h-full object-cover rounded-[24px]" />
             </motion.div>
 
-            {/* IMAGEM PEQUENA 2 (Base Esquerda - Palestrante) - Quadrada, Vazando para BAIXO */}
+            {/* IMAGEM PEQUENA 2 (Base Esquerda - Palestrante) - Vazando para BAIXO */}
             <motion.div 
               whileHover={{ scale: 1.08, zIndex: 40 }}
               animate={{ x: mousePosition.x * -1, y: mousePosition.y * -1 }}
               transition={{ type: "spring", stiffness: 50, damping: 20 }}
-              className="absolute -bottom-16 md:-bottom-24 left-[5%] md:left-[10%] w-[32%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
+              className="absolute -bottom-16 md:-bottom-24 left-[15%] md:left-[25%] w-[40%] md:w-[32%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
             >
               <img src="/images/Imagine-Pequena-2.png" alt="Palestrante" className="w-full h-full object-cover rounded-[24px]" />
             </motion.div>
 
-            {/* IMAGEM PEQUENA 3 (Direita - Jaqueta) - Acima do centro */}
+            {/* IMAGEM PEQUENA 3 (Direita - Jaqueta) - Quadrada */}
             <motion.div 
               whileHover={{ scale: 1.08, zIndex: 40 }}
               animate={{ x: mousePosition.x * 1.2, y: mousePosition.y * 1.2 }}
               transition={{ type: "spring", stiffness: 50, damping: 20 }}
-              className="absolute top-[35%] md:top-[40%] -right-[5%] md:-right-[8%] w-[35%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
+              className="absolute top-[40%] md:top-[35%] -right-[5%] md:-right-[2%] w-[40%] md:w-[32%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
             >
               <img src="/images/Imagine-Pequena-3.png" alt="Jaqueta AGBK" className="w-full h-full object-cover rounded-[24px]" />
             </motion.div>

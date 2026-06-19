@@ -32,7 +32,7 @@ export default function Hero() {
         <motion.div animate={{ y: [0, -15, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 2 }} className="absolute top-[30%] right-[10%] text-[#0064f5] text-xl">import &#123; AI &#125; from 'agibank';</motion.div>
       </div>
 
-      <div className="container-custom relative z-20 w-full">
+      <div className="container-custom relative z-20 w-full mt-4">
         <div className="grid lg:grid-cols-12 gap-0 items-center">
           
           <motion.div 
@@ -44,11 +44,12 @@ export default function Hero() {
             <img 
               src="/images/Logo-Formacao-Devs.svg" 
               alt="Formação de Devs nativos em IA" 
-              className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain -ml-8 lg:-ml-12"
+              className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain"
               style={{ objectPosition: 'left center' }}
             />
             
-            <div className="pl-12 md:pl-16 lg:pl-[75px] xl:pl-[90px]">
+            {/* Recuo restaurado para a versão exata que você aprovou */}
+            <div className="pl-6 md:pl-8 lg:pl-10 xl:pl-12">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
               </button>

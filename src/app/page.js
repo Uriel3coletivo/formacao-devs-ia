@@ -6,6 +6,7 @@ import Diferenciais from '../components/Diferenciais'
 import FaixaVerde from '../components/FaixaVerde'
 import Timeline from '../components/Timeline'
 import Beneficios from '../components/Beneficios'
+import PreRequisitos from '../components/PreRequisitos'
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <FaixaVerde />
       <Timeline />
       <Beneficios />
+      <PreRequisitos />
     </main>
   )
 }

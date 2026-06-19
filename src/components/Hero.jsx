@@ -56,7 +56,7 @@ export default function Hero() {
               style={{ objectPosition: 'left center' }}
             />
             
-            {/* WRAPPER DE ALINHAMENTO: Este recuo (ml-12 a ml-20) empurra o botão e o código para alinharem com o "F" de Formação */}
+            {/* WRAPPER DE ALINHAMENTO: Este recuo empurra o botão e o código para alinharem com o "F" de Formação */}
             <div className="ml-10 sm:ml-12 md:ml-16 lg:ml-[72px] xl:ml-[85px]">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
@@ -83,7 +83,6 @@ export default function Hero() {
             <motion.div
               animate={{ x: mousePosition.x, y: mousePosition.y }}
               transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-              {/* Scale aumentado para 1.6 e puxado MUITO para a esquerda (-translate-x-24) */}
               className="relative w-full h-full flex justify-center items-end z-10 scale-[1.3] lg:scale-[1.6] origin-bottom lg:-translate-x-24"
             >
               <img

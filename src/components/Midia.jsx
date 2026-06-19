@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 export default function Midia() {
   const carouselRef = useRef(null)
 
-  // Função de Scroll Dinâmica (Calcula o tamanho exato do card para esconder 100%)
   const scroll = (direction) => {
     if (carouselRef.current && carouselRef.current.children.length > 0) {
       // Pega a largura do primeiro card + o gap (24px)
@@ -35,7 +34,6 @@ export default function Midia() {
   ]
 
   return (
-    // overflow-x-hidden no container principal para não gerar barra de rolagem na página
     <section className="bg-white py-24 md:py-32 relative overflow-hidden z-10">
       
       {/* Efeito Pixels no Fundo */}
@@ -43,20 +41,18 @@ export default function Midia() {
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
 
+      {/* A MÁGICA 1: O container-custom segura o texto, mas não trava o carrossel */}
       <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-12 gap-0 items-center">
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
           
-          {/* LADO ESQUERDO: Textos e Controles (Com bg-white para cobrir os cards que rolam para a esquerda) */}
+          {/* LADO ESQUERDO: Textos e Controles */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="col-span-12 lg:col-span-4 flex flex-col items-start relative z-20 bg-white py-8 lg:pr-8"
+            className="col-span-12 lg:col-span-4 flex flex-col items-start relative z-20"
           >
-            {/* Máscara de degradê para suavizar a entrada dos cards por trás do texto */}
-            <div className="absolute top-0 -right-8 w-8 h-full bg-gradient-to-r from-white to-transparent pointer-events-none z-30" />
-
             <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#0064f5] leading-[1.1] mb-6 tracking-tight">
               Agibank na mídia
             </h2>
@@ -86,13 +82,13 @@ export default function Midia() {
             </div>
           </motion.div>
 
-          {/* LADO DIREITO: Carrossel com "Full Bleed" (Vazamento Total) */}
+          {/* LADO DIREITO: Carrossel */}
           <div className="col-span-12 lg:col-span-8 relative z-10">
             
-            {/* A MÁGICA: -ml-[50vw] e pr-[50vw] fazem o carrossel ignorar as margens da tela */}
+            {/* A MÁGICA 2: A margem direita negativa (-mr-[50vw]) faz esta div ir até o final da tela, ignorando o limite do container */}
             <div 
               ref={carouselRef}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar py-12 -my-12 -ml-[50vw] pl-[50vw] -mr-[50vw] pr-[50vw]"
+              className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar py-12 -my-12 -mr-[50vw] pr-[50vw]"
             >
               {noticias.map((noticia, index) => (
                 <motion.a
@@ -105,7 +101,6 @@ export default function Midia() {
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
                   whileHover={{ y: -10, scale: 1.02 }}
-                  // Largura fixa garante que o cálculo do scroll funcione perfeitamente
                   className="snap-start shrink-0 w-[280px] md:w-[340px] xl:w-[360px] bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,100,245,0.15)] transition-all duration-300 flex flex-col overflow-hidden group block"
                 >
                   <div className="p-4 pb-0 h-[220px]">

@@ -26,7 +26,7 @@ export default function Hero() {
 
       {/* CAMADA 2: Efeito Pixels (Atrás do Dev) */}
       <div className="absolute bottom-0 right-0 w-full md:w-2/3 h-full z-10 pointer-events-none flex justify-end items-end opacity-80">
-        <img src="/images/Pixels.png" alt="" className="object-contain max-h-full" />
+        <img src="/images/Pixels.png" alt="Pixels Decorativos" className="object-contain max-h-full" />
       </div>
 
       {/* CAMADA 3: Códigos Flutuantes (ATRÁS do Dev) */}
@@ -38,50 +38,53 @@ export default function Hero() {
 
       {/* CAMADA 4: Conteúdo Principal */}
       <div className="container-custom relative z-20 w-full mt-4">
-        {/* Nova Grade: 12 Colunas para dar mais espaço ao Dev */}
-        <div className="grid lg:grid-cols-12 gap-0 items-center">
+        {/* Usando 50/50 na grade, mas o Dev vai "invadir" a esquerda pelo scale */}
+        <div className="grid lg:grid-cols-2 gap-0 items-center">
           
-          {/* Esquerda - Título SVG, Botão e Subtexto (Ocupa 5 colunas) */}
+          {/* Esquerda - Título SVG, Botão e Subtexto */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.8 }} 
-            className="col-span-12 lg:col-span-5 flex flex-col items-start justify-center text-left w-full z-30"
+            className="flex flex-col items-start justify-center text-left w-full z-30"
           >
-            {/* Título SVG - Forçando alinhamento total à esquerda */}
+            {/* Título SVG (Ainda MAIOR) */}
             <img 
               src="/images/Logo-Formacao-Devs.svg" 
               alt="Formação de Devs nativos em IA" 
-              className="w-full max-w-[650px] xl:max-w-[750px] mb-10 object-contain"
+              className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain"
               style={{ objectPosition: 'left center' }}
             />
             
-            <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
-              Fazer inscrição
-            </button>
+            {/* WRAPPER DE ALINHAMENTO: Este recuo (ml-12 a ml-20) empurra o botão e o código para alinharem com o "F" de Formação */}
+            <div className="ml-10 sm:ml-12 md:ml-16 lg:ml-[72px] xl:ml-[85px]">
+              <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
+                Fazer inscrição
+              </button>
 
-            {/* Código Novo Formatado (Com Parallax Suave) */}
-            <motion.div 
-              animate={{ x: mousePosition.x * 0.3, y: mousePosition.y * 0.3 }}
-              transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-              className="mt-12 text-sm md:text-base text-[#0064f5] font-mono opacity-90 leading-relaxed text-left"
-            >
-              <p>&lt;DevAgibank&gt; &lt;Carreira</p>
-              <p className="pl-4">status="growing" /&gt;  &lt;Futuro</p>
-              <p className="pl-4">bright=&#123;true&#125; /&gt;  &lt;/DevAgibank&gt; //</p>
-              <p className="mt-2 text-[#77df40]">Props: você</p>
-            </motion.div>
+              {/* Código Novo Formatado (Com Parallax Suave) */}
+              <motion.div 
+                animate={{ x: mousePosition.x * 0.3, y: mousePosition.y * 0.3 }}
+                transition={{ type: 'spring', stiffness: 50, damping: 20 }}
+                className="mt-10 text-sm md:text-base text-[#0064f5] font-mono opacity-90 leading-relaxed text-left"
+              >
+                <p>&lt;DevAgibank&gt; &lt;Carreira</p>
+                <p className="pl-4">status="growing" /&gt;  &lt;Futuro</p>
+                <p className="pl-4">bright=&#123;true&#125; /&gt;  &lt;/DevAgibank&gt; //</p>
+                <p className="mt-2 text-[#77df40]">Props: você</p>
+              </motion.div>
+            </div>
           </motion.div>
 
-          {/* Direita - Imagem do Dev (Ocupa 7 colunas - Mais espaço para crescer para a esquerda) */}
-          <div className="col-span-12 lg:col-span-7 relative h-[600px] md:h-[750px] lg:h-[900px] flex justify-center items-end pointer-events-none mt-10 lg:mt-0 z-20">
+          {/* Direita - Imagem do Dev */}
+          <div className="relative h-[600px] md:h-[750px] lg:h-[900px] flex justify-center items-end pointer-events-none mt-10 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#0064f5] rounded-full blur-[120px] opacity-30 z-0" />
             
             <motion.div
               animate={{ x: mousePosition.x, y: mousePosition.y }}
               transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-              {/* Dev aumentado para scale-145 e movido para a esquerda com -translate-x-16 */}
-              className="relative w-full h-full flex justify-center items-end z-10 scale-[1.2] lg:scale-[1.45] origin-bottom lg:-translate-x-16"
+              {/* Scale aumentado para 1.6 e puxado MUITO para a esquerda (-translate-x-24) */}
+              className="relative w-full h-full flex justify-center items-end z-10 scale-[1.3] lg:scale-[1.6] origin-bottom lg:-translate-x-24"
             >
               <img
                 src="/images/Dev-01.png"

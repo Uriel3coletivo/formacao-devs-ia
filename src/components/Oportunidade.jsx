@@ -3,25 +3,25 @@ import { motion } from 'framer-motion'
 
 export default function Oportunidade() {
   return (
-    // Zerei o padding-top (pt-0) para colar de vez no Hero
-    <section id="programa" className="relative bg-[#000f44] pt-0 pb-32 overflow-hidden">
+    // Adicionado -mt-12 e z-20 para puxar a seção para cima e colar no Hero
+    <section id="programa" className="relative bg-[#000f44] pt-0 pb-32 overflow-hidden -mt-12 z-20">
       
-      {/* CAMADA 1: Efeito Pixels */}
-      <div className="absolute top-0 right-0 w-full md:w-1/2 h-full z-0 pointer-events-none flex justify-end items-start opacity-30 transform rotate-180">
+      {/* CAMADA 1: Efeito Pixels (Opacidade aumentada para 70%) */}
+      <div className="absolute top-0 right-0 w-full md:w-1/2 h-full z-0 pointer-events-none flex justify-end items-start opacity-70 transform rotate-180">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="object-contain max-h-full" />
       </div>
 
-      {/* CAMADA 2: Novo Código Flutuante (Background) */}
+      {/* CAMADA 2: Código Flutuante (Movido para cima e para a direita) */}
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 0.15, y: 0 }}
+        whileInView={{ opacity: 0.25, y: 0 }}
         viewport={{ once: true }}
         animate={{ y: [0, -20, 0] }}
         transition={{ 
           opacity: { duration: 1 },
           y: { repeat: Infinity, duration: 6, ease: "easeInOut" } 
         }}
-        className="absolute top-[35%] right-[5%] lg:right-[10%] text-white font-mono text-xs md:text-sm whitespace-pre select-none pointer-events-none z-10"
+        className="absolute top-[5%] right-[2%] lg:right-[4%] text-white font-mono text-xs md:text-sm whitespace-pre select-none pointer-events-none z-10"
       >
 {`import future from agibank
 import ai_models as ai
@@ -49,7 +49,7 @@ def start_journey(dev):
         &lt;
       </motion.div>
 
-      {/* Símbolo /> (Agora Branco) */}
+      {/* Símbolo /> (Branco) */}
       <motion.div 
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 0.6, x: 0 }}
@@ -71,19 +71,19 @@ def start_journey(dev):
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="max-w-[1100px]"
+          // Largura máxima levemente reduzida para não bater no código da direita
+          className="max-w-[950px]"
         >
           <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#77df40] mb-10 leading-tight">
             A sua oportunidade de se tornar um DEV habilitado em IA
           </h2>
 
-          {/* Textos Corrigidos: Tudo Regular, apenas verde em Bold */}
           <div className="space-y-6 text-lg md:text-xl text-white/90 font-normal leading-relaxed mb-12">
             <p>
               A Formação de Devs nativa em IA é para quem quer começar na área de tecnologia de forma <span className="font-bold text-[#77df40]">agilizada, praticando o desenvolvimento de software aliado à inteligência artificial desde o dia um.</span>
             </p>
             <p>
-              Com uma verdadeira imersão na teoria e na prática, você passa por <span className="font-bold text-[#77df40]">4 meses de treinamento em Java + IA</span> podendo seguir para a 2ª etapa e fazer parte de uma das nossas squads.
+              Com uma verdadeira imersão na teoria e na prática, você passa por <span className="font-bold text-[#77df40]">6 meses de treinamento em Java + IA</span> podendo seguir para a 2ª etapa e fazer parte de uma das nossas squads.
             </p>
             <p>
               Buscamos talentos que não têm medo de superar desafios para construir uma carreira com entregas que realmente impactam o crescimento do negócio.

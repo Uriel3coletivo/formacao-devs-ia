@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 856.7 261.7">
+  <!-- Generator: Adobe Illustrator 30.0.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 123)  -->
+  <defs>
+    <style>
+      .st0, .st1 {
+        font-size: 96.3px;
+      }
+
+      .st0, .st1, .st2 {
+        font-family: AgibankSans-Bold, 'Agibank Sans';
+        font-weight: 700;
+      }
+
+      .st3 {
+        font-size: 74.1px;
+        letter-spacing: 0em;
+      }
+
+      .st3, .st4 {
+        font-family: AgibankSans-Light, 'Agibank Sans';
+        font-weight: 300;
+      }
+
+      .st1, .st2 {
+        fill: #0064f5;
+      }
+
+      .st5, .st4 {
+        fill: #fff;
+      }
+
+      .st4 {
+        font-size: 32.6px;
+      }
+
+      .st2 {
+        font-size: 60.5px;
+      }
+    </style>
+  </defs>
+  <text class="st5" transform="translate(107.6 91)"><tspan class="st3"><tspan x="0" y="0">Formação de Devs</tspan></tspan><tspan class="st0"><tspan x=".1" y="90.9">nativos em IA</tspan></tspan></text>
+  <text class="st4" transform="translate(113.2 231.2)"><tspan x="0" y="0">Seja o agente de mudança da sua carreira</tspan></text>
+  <text class="st1" transform="translate(41.6 136.8)"><tspan x="0" y="0">&lt;</tspan></text>
+  <g>
+    <text class="st1" transform="translate(771.1 136.8)"><tspan x="0" y="0">&gt;</tspan></text>
+    <text class="st2" transform="translate(748.9 126)"><tspan x="0" y="0">/</tspan></text>
+  </g>
+</svg>

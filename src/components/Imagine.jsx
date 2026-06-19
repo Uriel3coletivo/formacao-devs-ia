@@ -16,18 +16,15 @@ export default function Imagine() {
   }, [])
 
   return (
-    // Reduzi o padding vertical (py-12 md:py-16) para garantir que as imagens alcancem as bordas e vazem
     <section className="bg-white py-12 md:py-16 relative z-30">
       
-      {/* Efeito Pixels no fundo branco (95% de opacidade) */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-95">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
 
       <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-12 gap-8 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 items-center my-16">
           
-          {/* LADO ESQUERDO: Textos e Botão */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -48,42 +45,38 @@ export default function Imagine() {
             </button>
           </motion.div>
 
-          {/* LADO DIREITO: Composição de Imagens */}
           <div className="col-span-12 lg:col-span-7 relative flex justify-center items-center mt-24 mb-24 lg:mt-0 lg:mb-0">
             
-            {/* ÂNCORA: IMAGEM CENTRAL (QUADRADA - aspect-square) */}
             <div className="relative w-[70%] max-w-[480px] aspect-square z-10">
               
               <img src="/images/Imagine-Central.png" alt="Equipe Agibank" className="w-full h-full object-cover rounded-[32px] shadow-2xl" />
 
-              {/* IMAGEM PEQUENA 1 (Topo - Logo AGBK) - VAZANDO AGRESSIVAMENTE PARA CIMA */}
+              {/* IMAGEM PEQUENA 1 (Topo) - A MENOR (30%) */}
               <motion.div 
                 whileHover={{ scale: 1.08, zIndex: 40 }}
                 animate={{ x: mousePosition.x * 1.5, y: mousePosition.y * 1.5 }}
                 transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                // Usando -top-[25%] para forçar a saída da caixa
-                className="absolute -top-[25%] -left-[10%] w-[35%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
+                className="absolute -top-[22%] -left-[5%] w-[30%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
               >
                 <img src="/images/Imagine-Pequena-1.png" alt="NYSE" className="w-full h-full object-cover rounded-[24px]" />
               </motion.div>
 
-              {/* IMAGEM PEQUENA 2 (Base Esquerda - Palestrante) - VAZANDO AGRESSIVAMENTE PARA BAIXO */}
+              {/* IMAGEM PEQUENA 2 (Base) - A MAIOR (42%) */}
               <motion.div 
                 whileHover={{ scale: 1.08, zIndex: 40 }}
                 animate={{ x: mousePosition.x * -1, y: mousePosition.y * -1 }}
                 transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                // Usando -bottom-[25%] para forçar a saída da caixa
-                className="absolute -bottom-[25%] -left-[5%] w-[38%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
+                className="absolute -bottom-[25%] -left-[10%] w-[42%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
               >
                 <img src="/images/Imagine-Pequena-2.png" alt="Palestrante" className="w-full h-full object-cover rounded-[24px]" />
               </motion.div>
 
-              {/* IMAGEM PEQUENA 3 (Direita - Jaqueta) */}
+              {/* IMAGEM PEQUENA 3 (Direita) - MÉDIA (34%) */}
               <motion.div 
                 whileHover={{ scale: 1.08, zIndex: 40 }}
                 animate={{ x: mousePosition.x * 1.2, y: mousePosition.y * 1.2 }}
                 transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                className="absolute top-[35%] -right-[15%] w-[35%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
+                className="absolute top-[40%] -right-[12%] w-[34%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
               >
                 <img src="/images/Imagine-Pequena-3.png" alt="Jaqueta AGBK" className="w-full h-full object-cover rounded-[24px]" />
               </motion.div>

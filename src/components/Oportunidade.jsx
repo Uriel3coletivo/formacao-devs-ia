@@ -3,23 +3,22 @@ import { motion } from 'framer-motion'
 
 export default function Oportunidade() {
   return (
-    // Adicionado -mt-12 e z-20 para puxar a seção para cima e colar no Hero
     <section id="programa" className="relative bg-[#000f44] pt-0 pb-32 overflow-hidden -mt-12 z-20">
       
-      {/* CAMADA 1: Efeito Pixels (Opacidade aumentada para 70%) */}
+      {/* CAMADA 1: Efeito Pixels */}
       <div className="absolute top-0 right-0 w-full md:w-1/2 h-full z-0 pointer-events-none flex justify-end items-start opacity-70 transform rotate-180">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="object-contain max-h-full" />
       </div>
 
-      {/* CAMADA 2: Código Flutuante (Movido para cima e para a direita) */}
+      {/* CAMADA 2: Código Flutuante Background */}
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 0.25, y: 0 }}
+        whileInView={{ opacity: 0.15, y: 0 }}
         viewport={{ once: true }}
-        animate={{ y: [0, -20, 0] }}
+        animate={{ y: [-15, 15, -15] }}
         transition={{ 
           opacity: { duration: 1 },
-          y: { repeat: Infinity, duration: 6, ease: "easeInOut" } 
+          y: { repeat: Infinity, duration: 8, ease: "linear" } 
         }}
         className="absolute top-[5%] right-[2%] lg:right-[4%] text-white font-mono text-xs md:text-sm whitespace-pre select-none pointer-events-none z-10"
       >
@@ -33,34 +32,20 @@ def start_journey(dev):
 # system.init(career_mode="ON")`}
       </motion.div>
 
-      {/* Símbolo < (Branco) */}
+      {/* Símbolo < (Branco) - Animação Fluida */}
       <motion.div 
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 0.6, x: 0 }}
-        viewport={{ once: true }}
-        animate={{ y: [0, -15, 0] }}
-        transition={{ 
-          x: { duration: 0.8 }, 
-          opacity: { duration: 0.8 },
-          y: { repeat: Infinity, duration: 4, ease: "easeInOut" } 
-        }}
-        className="absolute top-10 left-[2%] text-white text-6xl md:text-8xl font-light select-none pointer-events-none z-10"
+        animate={{ y: [-20, 20, -20] }}
+        transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
+        className="absolute top-10 left-[2%] text-white text-6xl md:text-8xl font-light select-none pointer-events-none z-10 opacity-60"
       >
         &lt;
       </motion.div>
 
-      {/* Símbolo /> (Branco) */}
+      {/* Símbolo /> (Branco) - Animação Fluida invertida */}
       <motion.div 
-        initial={{ opacity: 0, x: 50 }}
-        whileInView={{ opacity: 0.6, x: 0 }}
-        viewport={{ once: true }}
-        animate={{ y: [0, 20, 0] }}
-        transition={{ 
-          x: { duration: 0.8 }, 
-          opacity: { duration: 0.8 },
-          y: { repeat: Infinity, duration: 5, ease: "easeInOut" } 
-        }}
-        className="absolute bottom-20 right-[2%] text-white text-5xl md:text-7xl font-light select-none pointer-events-none z-10"
+        animate={{ y: [20, -20, 20] }}
+        transition={{ repeat: Infinity, duration: 7, ease: "linear" }}
+        className="absolute bottom-20 right-[2%] text-white text-5xl md:text-7xl font-light select-none pointer-events-none z-10 opacity-60"
       >
         /&gt;
       </motion.div>
@@ -71,14 +56,14 @@ def start_journey(dev):
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          // Largura máxima levemente reduzida para não bater no código da direita
           className="max-w-[950px]"
         >
           <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#77df40] mb-10 leading-tight">
             A sua oportunidade de se tornar um DEV habilitado em IA
           </h2>
 
-          <div className="space-y-6 text-lg md:text-xl text-white/90 font-normal leading-relaxed mb-12">
+          {/* Textos Corrigidos: Fonte Light (peso 300) para contraste com o Bold (peso 700) */}
+          <div className="space-y-6 text-lg md:text-xl text-white/90 font-light leading-relaxed mb-12">
             <p>
               A Formação de Devs nativa em IA é para quem quer começar na área de tecnologia de forma <span className="font-bold text-[#77df40]">agilizada, praticando o desenvolvimento de software aliado à inteligência artificial desde o dia um.</span>
             </p>

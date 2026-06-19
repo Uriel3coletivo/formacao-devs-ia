@@ -1,90 +1,126 @@
 'use client'
-import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-export default function Imagine() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const x = (window.innerWidth / 2 - e.clientX) / 40
-      const y = (window.innerHeight / 2 - e.clientY) / 40
-      setMousePosition({ x, y })
+export default function Diferenciais() {
+  
+  const cards = [
+    {
+      paths: ["M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"],
+      text: "Temos parceria com o Instituto Eldorado, referência em pesquisa, desenvolvimento e inovação no Brasil. O Instituto é anexo à Unicamp."
+    },
+    {
+      paths: ["M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"],
+      text: "A formação acontece em duas etapas e durante toda a jornada os bolsistas contam com apoio de especialistas e desafios reais para aplicar o aprendizado."
+    },
+    {
+      paths: ["M15 10.5a3 3 0 11-6 0 3 3 0 016 0z", "M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"],
+      text: "O curso é 100% presencial, com infraestrutura dividida entre nossa sede, o Agi Campus e o Instituto, em Campinas."
+    },
+    {
+      paths: ["M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"],
+      text: "Após os 6 primeiros meses de formação, você pode ser contratado para uma das nossas squads e ainda participar de uma mentoria com duração de 2 meses, enquanto segue para a segunda etapa de capacitação."
     }
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+  ]
+
+  const iconVariants = {
+    rest: { pathLength: 1, stroke: "#ffffff" },
+    hover: { 
+      pathLength: [0, 1], 
+      stroke: "#77df40",
+      transition: { duration: 0.8, ease: "easeInOut" }
+    }
+  }
 
   return (
-    // A MÁGICA AQUI: Mudei pb-32 para pb-0. Tirei o excesso de fundo branco na base!
-    <section className="bg-white pt-24 pb-0 relative z-30">
+    // Z-INDEX alterado para 10. Assim a seção branca (z-30) e suas fotos ficam por cima.
+    <section id="diferenciais" className="pt-32 pb-24 relative z-10 -mt-20 overflow-hidden bg-[#000f44]">
       
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-95">
-        <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
+      <div className="absolute inset-0 z-0">
+        <img src="/images/Hero-Banner-1.jpg" alt="Background" className="w-full h-full object-cover" />
+        {/* Opacidade reduzida para 60% para revelar mais a imagem */}
+        <div className="absolute inset-0 bg-[#000f44]/60" />
       </div>
 
-      <div className="container-custom relative z-10">
-        {/* Reduzi a margem inferior do grid para a seção acabar logo após a foto */}
-        <div className="grid lg:grid-cols-12 gap-8 items-center mt-10 mb-8 lg:mb-12">
-          
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 1 }}
+        className="container-custom relative z-10"
+      >
+        
+        <div className="relative flex justify-center items-center mb-16 mt-10">
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="col-span-12 lg:col-span-5 max-w-xl relative z-20"
+            animate={{ y: [-10, 10, -10] }}
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+            className="absolute left-0 md:left-[10%] text-[#0064f5] text-5xl md:text-6xl font-light select-none pointer-events-none opacity-60"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-[52px] font-bold text-[#0033b0] leading-[1.1] mb-6 tracking-tight">
-              Imagine começar sua carreira tech em uma empresa listada na maior bolsa de valores do mundo.
-            </h2>
-            
-            <p className="text-2xl md:text-3xl font-bold text-[#0064f5] mb-10">
-              Aqui, isso é realidade!
-            </p>
-            
-            <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
-              Vamos crescer juntos?
-            </button>
+            &lt;
           </motion.div>
 
-          <div className="col-span-12 lg:col-span-7 relative flex justify-center items-center h-[500px] md:h-[700px] mt-20 lg:mt-0">
-            
-            <div className="relative w-[70%] max-w-[500px] aspect-[4/5] z-10 rounded-[32px] shadow-2xl">
-              <img src="/images/Imagine-Central.png" alt="Equipe Agibank" className="w-full h-full object-cover rounded-[32px]" />
-            </div>
+          <h2 className="text-3xl md:text-4xl lg:text-[40px] font-bold text-white text-center max-w-3xl leading-tight z-10">
+            O que torna a Formação de Devs nativos em IA diferente
+          </h2>
 
-            <motion.div 
-              whileHover={{ scale: 1.08, zIndex: 40 }}
-              animate={{ x: mousePosition.x * 1.5, y: mousePosition.y * 1.5 }}
-              transition={{ type: "spring", stiffness: 50, damping: 20 }}
-              className="absolute -top-12 md:-top-24 left-[15%] md:left-[25%] w-[35%] md:w-[28%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
-            >
-              <img src="/images/Imagine-Pequena-1.png" alt="NYSE" className="w-full h-full object-cover rounded-[24px]" />
-            </motion.div>
-
-            {/* A MÁGICA 2: Empurrei a foto bem mais para baixo (-bottom-32) para ela vazar com vontade */}
-            <motion.div 
-              whileHover={{ scale: 1.08, zIndex: 40 }}
-              animate={{ x: mousePosition.x * -1, y: mousePosition.y * -1 }}
-              transition={{ type: "spring", stiffness: 50, damping: 20 }}
-              className="absolute -bottom-20 md:-bottom-32 left-[15%] md:left-[25%] w-[40%] md:w-[32%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
-            >
-              <img src="/images/Imagine-Pequena-2.png" alt="Palestrante" className="w-full h-full object-cover rounded-[24px]" />
-            </motion.div>
-
-            <motion.div 
-              whileHover={{ scale: 1.08, zIndex: 40 }}
-              animate={{ x: mousePosition.x * 1.2, y: mousePosition.y * 1.2 }}
-              transition={{ type: "spring", stiffness: 50, damping: 20 }}
-              className="absolute top-[40%] md:top-[35%] -right-[5%] md:-right-[2%] w-[40%] md:w-[32%] aspect-square z-20 rounded-[24px] shadow-xl cursor-pointer"
-            >
-              <img src="/images/Imagine-Pequena-3.png" alt="Jaqueta AGBK" className="w-full h-full object-cover rounded-[24px]" />
-            </motion.div>
-
-          </div>
-
+          <motion.div 
+            animate={{ y: [10, -10, 10] }}
+            transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+            className="absolute right-0 md:right-[10%] text-[#0064f5] text-5xl md:text-6xl font-light select-none pointer-events-none opacity-60"
+          >
+            /&gt;
+          </motion.div>
         </div>
-      </div>
+
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+          {cards.map((card, index) => (
+            <motion.div
+              key={index}
+              initial="rest"
+              whileHover="hover"
+              animate="rest"
+              className="bg-[#0064f5] hover:bg-[#0033b0] p-8 md:p-10 rounded-[24px] shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-default transform hover:-translate-y-2 hover:scale-[1.02]"
+            >
+              <motion.svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                strokeWidth={1.5} 
+                className="w-10 h-10 mb-6"
+              >
+                {card.paths.map((path, i) => (
+                  <motion.path key={i} strokeLinecap="round" strokeLinejoin="round" d={path} variants={iconVariants} />
+                ))}
+              </motion.svg>
+              
+              <p className="text-white text-base md:text-lg font-light leading-relaxed">
+                {card.text}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial="rest"
+          whileHover="hover"
+          animate="rest"
+          className="mt-6 lg:mt-8 bg-[#0064f5] hover:bg-[#0033b0] p-8 md:p-10 rounded-[24px] shadow-lg hover:shadow-2xl flex flex-col md:flex-row items-center gap-6 transition-all duration-300 cursor-default transform hover:-translate-y-2 hover:scale-[1.02]"
+        >
+          <motion.svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            strokeWidth={1.5} 
+            className="w-10 h-10 shrink-0"
+          >
+            <motion.path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" variants={iconVariants} />
+          </motion.svg>
+          
+          <p className="text-white text-base md:text-lg font-light leading-relaxed text-center md:text-left">
+            Além de Java, você também conclui a formação dominando os principais conceitos de IA aplicada ao desenvolvimento de software.
+          </p>
+        </motion.div>
+
+      </motion.div>
     </section>
   )
 }

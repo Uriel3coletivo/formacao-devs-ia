@@ -38,26 +38,25 @@ export default function Hero() {
 
       {/* CAMADA 4: Conteúdo Principal */}
       <div className="container-custom relative z-20 w-full mt-4">
-        {/* Usando 50/50 na grade, mas o Dev vai "invadir" a esquerda pelo scale */}
-        <div className="grid lg:grid-cols-2 gap-0 items-center">
+        <div className="grid lg:grid-cols-12 gap-0 items-center">
           
           {/* Esquerda - Título SVG, Botão e Subtexto */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.8 }} 
-            className="flex flex-col items-start justify-center text-left w-full z-30"
+            className="col-span-12 lg:col-span-5 flex flex-col items-start justify-center text-left w-full z-30"
           >
-            {/* Título SVG (Ainda MAIOR) */}
+            {/* Título SVG - Usando Margem Negativa para arrancar o espaço transparente da imagem */}
             <img 
               src="/images/Logo-Formacao-Devs.svg" 
               alt="Formação de Devs nativos em IA" 
-              className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain"
+              className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain -ml-8 lg:-ml-12"
               style={{ objectPosition: 'left center' }}
             />
             
-            {/* WRAPPER DE ALINHAMENTO: Este recuo empurra o botão e o código para alinharem com o "F" de Formação */}
-            <div className="ml-10 sm:ml-12 md:ml-16 lg:ml-[72px] xl:ml-[85px]">
+            {/* WRAPPER DE ALINHAMENTO: Agora sem recuo, alinhado direto com a margem real da tela */}
+            <div className="pl-2">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
               </button>
@@ -77,13 +76,14 @@ export default function Hero() {
           </motion.div>
 
           {/* Direita - Imagem do Dev */}
-          <div className="relative h-[600px] md:h-[750px] lg:h-[900px] flex justify-center items-end pointer-events-none mt-10 lg:mt-0 z-20">
+          <div className="col-span-12 lg:col-span-7 relative h-[600px] md:h-[800px] lg:h-[950px] flex justify-center items-end pointer-events-none mt-10 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#0064f5] rounded-full blur-[120px] opacity-30 z-0" />
             
             <motion.div
               animate={{ x: mousePosition.x, y: mousePosition.y }}
               transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-              className="relative w-full h-full flex justify-center items-end z-10 scale-[1.3] lg:scale-[1.6] origin-bottom lg:-translate-x-24"
+              {/* Scale aumentado para 1.8 e puxado AINDA MAIS para a esquerda (-translate-x-32) */}
+              className="relative w-full h-full flex justify-center items-end z-10 scale-[1.4] lg:scale-[1.8] origin-bottom lg:-translate-x-32"
             >
               <img
                 src="/images/Dev-01.png"

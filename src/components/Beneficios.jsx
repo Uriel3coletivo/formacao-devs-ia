@@ -32,7 +32,6 @@ export default function Beneficios() {
   const col2Images = ["Img-B-5.png", "Img-B-6.png", "Img-B-7.png", "Img-B-8.png"]
 
   return (
-    // Reduzi o padding top/bottom para diminuir a altura total do bloco
     <section id="beneficios" className="bg-[#000f44] pt-24 pb-24 relative z-20">
       
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -86,7 +85,6 @@ export default function Beneficios() {
           </motion.div>
 
           {/* LADO DIREITO: Carrossel Infinito Duplo */}
-          {/* Reduzi a altura do carrossel (h-[600px]) para enxugar a seção */}
           <div 
             className="col-span-12 lg:col-span-6 relative h-[500px] md:h-[600px] overflow-hidden flex justify-center"
             style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)' }}
@@ -116,11 +114,11 @@ export default function Beneficios() {
       </div>
 
       {/* CÓDIGO FLUTUANTE */}
-      {/* Subi ele para ficar mais perto do texto (-bottom-8) */}
+      {/* Ancorado pelo TOP (top-[80%]) em vez de bottom, garantindo distância segura do texto */}
       <motion.div 
         animate={{ x: mousePosition.x * 0.8, y: mousePosition.y * 0.8 }}
         transition={{ type: "spring", stiffness: 50, damping: 20 }}
-        className="absolute -bottom-8 md:-bottom-12 left-[5%] md:left-[10%] z-40"
+        className="absolute top-[80%] left-[5%] md:left-[10%] z-40"
       >
         <div className="font-mono text-xs md:text-sm whitespace-pre select-none pointer-events-none drop-shadow-2xl">
           <span className="text-[#0064f5] opacity-60">

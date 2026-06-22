@@ -10,6 +10,8 @@ import PreRequisitos from '../components/PreRequisitos'
 import RotinaVideo from '../components/RotinaVideo'
 import Midia from '../components/Midia'
 import Depoimento from '../components/Depoimento'
+import Escritorio from '../components/Escritorio'
+import Footer from '../components/Footer'
 
 export default function Home() {
   return (
@@ -26,6 +28,8 @@ export default function Home() {
       <RotinaVideo />
       <Midia />
       <Depoimento />
+      <Escritorio />
+      <Footer />
     </main>
   )
 }

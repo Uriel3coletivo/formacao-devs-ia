@@ -16,7 +16,6 @@ export default function Hero() {
   }, [])
 
   return (
-    // Mobile: pt-24 pb-0 (compacto). Desktop: lg:min-h-screen lg:pt-32 lg:pb-12 (O que você aprovou)
     <section className="relative flex items-center bg-[#000f44] overflow-hidden pt-24 pb-0 lg:min-h-screen lg:pt-32 lg:pb-12">
       
       <div className="absolute inset-0 z-0">
@@ -29,29 +28,27 @@ export default function Hero() {
       </div>
 
       <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden font-mono text-xs md:text-base">
-        <motion.div animate={{ y: [0, -20, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} className="absolute top-[15%] lg:top-[20%] left-[5%] text-[#0064f5]">&lt;FormacaoIA /&gt;</motion.div>
-        <motion.div animate={{ y: [0, -15, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 2 }} className="absolute top-[25%] lg:top-[30%] right-[5%] lg:right-[10%] text-[#0064f5] text-lg lg:text-xl">import &#123; AI &#125; from 'agibank';</motion.div>
+        {/* AQUI: Adicionado 'hidden lg:block' para esconder esses códigos no celular e limpar a tela */}
+        <motion.div animate={{ y: [0, -20, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} className="hidden lg:block absolute top-[15%] lg:top-[20%] left-[5%] text-[#0064f5]">&lt;FormacaoIA /&gt;</motion.div>
+        <motion.div animate={{ y: [0, -15, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 2 }} className="hidden lg:block absolute top-[25%] lg:top-[30%] right-[5%] lg:right-[10%] text-[#0064f5] text-lg lg:text-xl">import &#123; AI &#125; from 'agibank';</motion.div>
       </div>
 
       <div className="container-custom relative z-20 w-full mt-4">
-        {/* Mobile: 1 coluna. Desktop: 12 colunas */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
           
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.8 }} 
-            // Mobile: centralizado. Desktop: lg:items-start lg:text-left
             className="col-span-1 lg:col-span-5 flex flex-col items-center lg:items-start justify-center text-center lg:text-left w-full z-30"
           >
-            {/* Mobile: object-center. Desktop: lg:object-left lg:-ml-12 (O alinhamento perfeito que fizemos) */}
+            {/* Imagem do Logo: Se você exportar como PNG, mude a extensão aqui para .png */}
             <img 
               src="/images/Logo-Formacao-Devs.svg" 
-              alt="Formação de Devs nativos em IA" 
+              alt="Formação de Devs" 
               className="w-[90%] lg:w-full max-w-[400px] lg:max-w-[700px] xl:max-w-[850px] mb-8 object-contain object-center lg:object-left lg:-ml-8 xl:-ml-12"
             />
             
-            {/* Mobile: pl-0. Desktop: lg:pl-10 xl:pl-12 (O recuo exato da letra F) */}
             <div className="pl-0 md:pl-8 lg:pl-10 xl:pl-12 w-full flex flex-col items-center lg:items-start">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
@@ -70,14 +67,13 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Mobile: h-[450px]. Desktop: lg:h-[900px] (A altura gigante que configuramos) */}
-          <div className="col-span-1 lg:col-span-7 relative h-[450px] md:h-[600px] lg:h-[800px] xl:h-[950px] flex justify-center items-end pointer-events-none mt-4 lg:mt-0 z-20">
+          {/* AQUI: Adicionado -mt-10 no mobile para puxar a foto do rapaz para cima e grudar no texto */}
+          <div className="col-span-1 lg:col-span-7 relative h-[380px] md:h-[600px] lg:h-[800px] xl:h-[950px] flex justify-center items-end pointer-events-none -mt-10 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] bg-[#0064f5] rounded-full blur-[80px] lg:blur-[120px] opacity-30 z-0" />
             
             <motion.div
               animate={{ x: mousePosition.x, y: mousePosition.y }}
               transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-              // Mobile: scale-[1.1]. Desktop: lg:scale-[1.8] lg:-translate-x-32 (O Dev gigante colado no texto)
               className="relative w-full h-full flex justify-center items-end z-10 scale-[1.1] lg:scale-[1.4] xl:scale-[1.8] origin-bottom lg:-translate-x-32"
             >
               <img

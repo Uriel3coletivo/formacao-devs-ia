@@ -44,7 +44,6 @@ export default function Midia() {
             transition={{ duration: 0.8 }}
             className="col-span-12 lg:col-span-4 flex flex-col items-start relative z-20 py-8"
           >
-            {/* Título com espaçamento (leading-tight) restaurado */}
             <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#0064f5] leading-tight mb-8 tracking-tight">
               Agibank na mídia
             </h2>
@@ -53,7 +52,7 @@ export default function Midia() {
               Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
             </p>
             
-            {/* Botões Verdes */}
+            {/* Botões do Carrossel */}
             <div className="flex gap-4">
               <button 
                 onClick={() => swiperInstance?.slidePrev()}
@@ -75,12 +74,21 @@ export default function Midia() {
           </motion.div>
 
           {/* LADO DIREITO: Carrossel Swiper */}
-          <div className="col-span-12 lg:col-span-8 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="col-span-12 lg:col-span-8 relative z-10"
+          >
             
-            {/* A MÁGICA: clipPath corta apenas a esquerda (0), deixando vazar topo, baixo e direita (-50vh/vw) */}
-            <div style={{ clipPath: 'inset(-50vh -50vw -50vh 0)' }} className="py-12 -my-12">
+            {/* 
+              A MÁGICA DA SOMBRA: 
+              Mudei o último valor do clipPath de '0' para '-20px'.
+              Isso dá exatos 20 pixels de "respiro" para a sombra do lado esquerdo aparecer inteira!
+            */}
+            <div style={{ clipPath: 'inset(-50vh -50vw -50vh -20px)' }} className="py-12 -my-12">
               
-              {/* !overflow-visible permite que o carrossel vá até o infinito na direita */}
               <Swiper
                 onSwiper={setSwiperInstance}
                 slidesPerView="auto"
@@ -90,7 +98,6 @@ export default function Midia() {
                 {noticias.map((noticia, index) => (
                   <SwiperSlide key={index} className="!w-[280px] md:!w-[340px] xl:!w-[400px]">
                     
-                    {/* O Card: Animação 100% CSS Puro para fluidez máxima */}
                     <a 
                       href={noticia.link} 
                       target="_blank" 
@@ -118,7 +125,7 @@ export default function Midia() {
               </Swiper>
 
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>

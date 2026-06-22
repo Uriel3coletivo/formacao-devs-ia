@@ -26,9 +26,9 @@ export default function Midia() {
   ]
 
   return (
-    <section className="bg-white py-24 md:py-32 relative overflow-hidden z-10">
+    // overflow-hidden apenas no Eixo X geral para a página não criar barra de rolagem embaixo
+    <section className="bg-white py-24 md:py-32 relative overflow-x-hidden z-10">
       
-      {/* Efeito Pixels no Fundo (Intacto) */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
@@ -36,7 +36,7 @@ export default function Midia() {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* LADO ESQUERDO: Textos e Controles (Sem fundo branco!) */}
+          {/* LADO ESQUERDO: Textos e Controles */}
           <div className="col-span-12 lg:col-span-4 relative z-20">
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
@@ -53,7 +53,6 @@ export default function Midia() {
                 Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
               </p>
               
-              {/* Botões do Carrossel */}
               <div className="flex gap-4">
                 <button 
                   onClick={() => swiperInstance?.slidePrev()}
@@ -75,7 +74,7 @@ export default function Midia() {
             </motion.div>
           </div>
 
-          {/* LADO DIREITO: Carrossel com Máscara Invisível na Esquerda */}
+          {/* LADO DIREITO: Carrossel Swiper */}
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -84,14 +83,13 @@ export default function Midia() {
             className="col-span-12 lg:col-span-8 relative z-10"
           >
             {/* 
-              A MÁGICA DA MÁSCARA: 
-              Apaga 100% o que estiver à esquerda (0% a 5%), 
-              e deixa 100% visível o que for para a direita, sem estragar o fundo!
+              A SOLUÇÃO DEFINITIVA:
+              1. overflow-hidden na div pai garante que o card da esquerda suma ao rolar.
+              2. py-12 e -my-12 dão a folga vertical para a sombra não ser cortada em cima/baixo.
+              3. -ml-8 e pl-8 dão a folga para a sombra não ser cortada na esquerda.
+              4. A margem negativa gigante na direita (-mr-[50vw] pr-[50vw]) empurra a "parede de corte" para o infinito, permitindo o vazamento do Card 3.
             */}
-            <div 
-              style={{ maskImage: 'linear-gradient(to right, transparent 0%, transparent 2%, black 10%, black 100%)', WebkitMaskImage: 'linear-gradient(to right, transparent 0%, transparent 2%, black 10%, black 100%)' }}
-              className="py-12 -my-12 -ml-8 pl-8"
-            >
+            <div className="overflow-hidden py-12 -my-12 -ml-8 pl-8 -mr-[50vw] pr-[50vw]">
               <Swiper
                 onSwiper={setSwiperInstance}
                 slidesPerView="auto"
@@ -127,6 +125,7 @@ export default function Midia() {
                 ))}
               </Swiper>
             </div>
+
           </motion.div>
 
         </div>

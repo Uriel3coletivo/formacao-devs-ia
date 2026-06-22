@@ -1,22 +1,27 @@
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+// Trazendo de volta o EffectCoverflow para o efeito 3D real
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Navigation } from 'swiper/modules'
+import { EffectCoverflow, Autoplay, Navigation } from 'swiper/modules'
 
 import 'swiper/css'
+import 'swiper/css/effect-coverflow'
 import 'swiper/css/navigation'
 
 export default function Escritorio() {
   const [swiperInstance, setSwiperInstance] = useState(null)
   
-  const fotos = [
+  const baseFotos = [
     "Escritorio-1.png",
     "Escritorio-2.png",
     "Escritorio-3.png",
     "Escritorio-4.png",
     "Escritorio-5.png"
   ]
+
+  // Duplicando para o loop 3D funcionar perfeitamente
+  const fotos = [...baseFotos, ...baseFotos]
 
   return (
     <section className="bg-white pt-12 pb-24 relative z-10 overflow-hidden -mt-24">
@@ -34,7 +39,7 @@ export default function Escritorio() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12 mt-20"
+          className="text-center mb-16 mt-20"
         >
           <h2 className="text-3xl md:text-4xl lg:text-[44px] font-bold text-[#000f44] leading-tight tracking-tight max-w-2xl mx-auto">
             Conheça o escritório mais agilizado de Campinas e Região!
@@ -42,7 +47,7 @@ export default function Escritorio() {
         </motion.div>
       </div>
 
-      {/* CARROSSEL CUSTOMIZADO (Sem o efeito sanfona) */}
+      {/* CARROSSEL COVERFLOW 3D (IGUAL AO SITE OFICIAL) */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -52,33 +57,38 @@ export default function Escritorio() {
       >
         <Swiper
           onSwiper={setSwiperInstance}
+          effect={'coverflow'}
           grabCursor={true}
           centeredSlides={true}
           slidesPerView={'auto'}
-          // O segredo: Espaçamento negativo para elas se sobreporem LEVEMENTE (como no seu Figma), mas sem espremer
-          spaceBetween={-40} 
           loop={true}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
           }}
-          modules={[Autoplay, Navigation]}
-          // A classe "swiper-escritorio" vai ser usada no CSS global abaixo para controlar a escala
+          coverflowEffect={{
+            rotate: 0,       // Mantém as imagens retas (sem tombar para os lados)
+            stretch: 150,    // A MÁGICA DO OVERLAP: Puxa as imagens laterais para debaixo da central
+            depth: 250,      // Empurra as imagens laterais para o fundo (deixando menores)
+            modifier: 1,
+            slideShadows: false, // Desliga a sombra preta padrão do Swiper
+          }}
+          modules={[EffectCoverflow, Autoplay, Navigation]}
           className="w-full py-10 swiper-escritorio"
         >
           {fotos.map((foto, index) => (
-            // A largura base do slide é de 600px. O CSS abaixo vai encolher os que não são o central.
-            <SwiperSlide key={index} className="!w-[300px] md:!w-[450px] lg:!w-[600px] aspect-[16/10] transition-all duration-500 ease-out">
+            // A largura do slide dita o tamanho da imagem central
+            <SwiperSlide key={index} className="!w-[300px] md:!w-[500px] lg:!w-[700px] aspect-[16/10]">
               <div className="w-full h-full rounded-[32px] overflow-hidden shadow-2xl relative">
                 
                 <img 
                   src={`/images/${foto}`} 
                   alt="Escritório Agibank" 
                   className="w-full h-full object-cover"
-                  onError={(e) => { e.target.src = `https://placehold.co/800x500/0064f5/ffffff?text=Escritório+${index + 1}` }}
+                  onError={(e) => { e.target.src = `https://placehold.co/800x500/0064f5/ffffff?text=Escritório+${(index % 5) + 1}` }}
                 />
 
-                {/* OVERLAY AZUL MARINHO: Fica ativo por padrão. A classe global do CSS abaixo apaga ele na imagem central */}
+                {/* OVERLAY AZUL MARINHO: Fica em todas, mas o CSS apaga na imagem do centro */}
                 <div className="absolute inset-0 bg-[#000f44] opacity-70 transition-opacity duration-500 swiper-overlay pointer-events-none" />
                 
               </div>
@@ -86,8 +96,8 @@ export default function Escritorio() {
           ))}
         </Swiper>
 
-        {/* CONTROLES */}
-        <div className="flex items-center justify-center gap-6 mt-4 relative z-30">
+        {/* CONTROLES (Setinhas) */}
+        <div className="flex items-center justify-center gap-6 mt-8 relative z-30">
           <button 
             onClick={() => swiperInstance?.slidePrev()}
             className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md"
@@ -109,30 +119,15 @@ export default function Escritorio() {
 
       </motion.div>
 
-      {/* ESTILOS GLOBAIS DA MATEMÁTICA DO CARROSSEL */}
+      {/* ESTILOS GLOBAIS DO SWIPER */}
       <style dangerouslySetContent={{__html: `
-        /* 1. Slide Central (O Foco) */
-        .swiper-escritorio .swiper-slide-active {
-          transform: scale(1) !important;
-          z-index: 50 !important;
-        }
-        /* Remove o overlay azul do slide central */
+        /* Remove o overlay azul da imagem que está no centro */
         .swiper-escritorio .swiper-slide-active .swiper-overlay {
           opacity: 0 !important;
         }
-
-        /* 2. Slides Secundários (Os vizinhos imediatos) */
-        .swiper-escritorio .swiper-slide-prev,
-        .swiper-escritorio .swiper-slide-next {
-          transform: scale(0.8) !important;
-          z-index: 40 !important;
-        }
-
-        /* 3. Slides Terciários (As pontas extremas) */
-        /* Todos os outros slides que não são o ativo nem os vizinhos imediatos vão ficar bem pequenos no fundo */
-        .swiper-escritorio .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
-          transform: scale(0.6) !important;
-          z-index: 30 !important;
+        /* Garante que a imagem do centro fique na frente de todas */
+        .swiper-escritorio .swiper-slide-active {
+          z-index: 50 !important;
         }
       `}} />
     </section>

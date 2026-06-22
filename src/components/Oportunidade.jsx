@@ -3,10 +3,10 @@ import { motion } from 'framer-motion'
 
 export default function Oportunidade() {
   return (
-    <section id="programa" className="relative bg-[#000f44] pt-0 pb-32 overflow-hidden z-20">
+    <section id="programa" className="relative bg-[#000f44] pt-0 pb-32 overflow-hidden -mt-0 lg:-mt-12 z-20">
       
-      {/* Degradê para continuidade - APENAS MOBILE */}
-      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#000f44] via-[#000f44] to-transparent z-0 lg:hidden" />
+      {/* Degradê para continuidade - APENAS MOBILE - Mais forte */}
+      <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-[#000f44]/0 via-[#000f44]/50 to-[#000f44] z-0 lg:hidden -mt-12" />
       
       {/* CAMADA 1: Efeito Pixels */}
       <div className="absolute top-0 right-0 w-full md:w-1/2 h-full z-0 pointer-events-none flex justify-end items-start opacity-70 transform rotate-180">
@@ -47,7 +47,7 @@ def start_journey(dev):
         /&gt;
       </motion.div>
 
-      <div className="container-custom relative z-20 pt-24 lg:pt-0">
+      <div className="container-custom relative z-20 pt-32 lg:pt-0">
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}

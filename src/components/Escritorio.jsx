@@ -19,10 +19,10 @@ export default function Escritorio() {
     "Escritorio-5.png"
   ]
 
+  // Array duplicado para garantir o loop 3D
   const fotos = [...baseFotos, ...baseFotos]
 
   return (
-    // Reduzi a margem negativa (-mt-16) para descolar um pouco do bloco de depoimentos
     <section className="bg-white pt-12 pb-24 relative z-10 overflow-hidden -mt-16">
       
       <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
@@ -58,7 +58,7 @@ export default function Escritorio() {
           slidesPerView={'auto'}
           loop={true}
           autoplay={{
-            delay: 5000, // AUMENTADO PARA 5 SEGUNDOS (Imagem fica mais tempo na tela)
+            delay: 5000,
             disableOnInteraction: false,
           }}
           coverflowEffect={{
@@ -69,23 +69,26 @@ export default function Escritorio() {
             slideShadows: false, 
           }}
           modules={[EffectCoverflow, Autoplay, Navigation]}
-          className="w-full py-10 swiper-escritorio"
+          className="w-full py-10"
         >
           {fotos.map((foto, index) => (
-            <SwiperSlide key={index} className="!w-[300px] md:!w-[500px] lg:!w-[650px] xl:!w-[750px] aspect-[16/10] transition-all duration-500 swiper-slide-custom">
-              <div className="w-full h-full rounded-[32px] overflow-hidden shadow-[0_20px_40px_rgba(0,15,68,0.3)] relative">
-                
-                <img 
-                  src={`/images/${foto}`} 
-                  alt={`Escritório Agibank ${index + 1}`} 
-                  className="w-full h-full object-cover"
-                  onError={(e) => { e.target.src = `https://placehold.co/800x500/0064f5/ffffff?text=Escritório+${index + 1}` }}
-                />
+            <SwiperSlide key={index} className="!w-[300px] md:!w-[500px] lg:!w-[650px] xl:!w-[750px] aspect-[16/10]">
+              {/* A MÁGICA NATIVA: O Swiper nos diz qual slide está ativo */}
+              {({ isActive }) => (
+                <div className="w-full h-full rounded-[32px] overflow-hidden shadow-[0_20px_40px_rgba(0,15,68,0.3)] relative">
+                  
+                  <img 
+                    src={`/images/${foto}`} 
+                    alt={`Escritório Agibank ${index + 1}`} 
+                    className="w-full h-full object-cover"
+                    onError={(e) => { e.target.src = `https://placehold.co/800x500/0064f5/ffffff?text=Escritório+${index + 1}` }}
+                  />
 
-                {/* OVERLAY AZUL MARINHO: A classe CSS vai forçar opacidade 0 apenas no slide central */}
-                <div className="absolute inset-0 bg-[#000f44] transition-opacity duration-500 swiper-overlay pointer-events-none" />
-                
-              </div>
+                  {/* OVERLAY AZUL MARINHO: Fica invisível (opacity-0) se for a imagem do centro, senão fica com 60% */}
+                  <div className={`absolute inset-0 bg-[#000f44] transition-opacity duration-500 pointer-events-none ${isActive ? 'opacity-0' : 'opacity-60'}`} />
+                  
+                </div>
+              )}
             </SwiperSlide>
           ))}
         </Swiper>
@@ -111,31 +114,6 @@ export default function Escritorio() {
         </div>
 
       </motion.div>
-
-      {/* ESTILOS GLOBAIS DO SWIPER (FORÇANDO AS REGRAS) */}
-      <style dangerouslySetContent={{__html: `
-        /* Garante que a imagem do centro fique 100% limpa (sem overlay) */
-        .swiper-escritorio .swiper-slide-active .swiper-overlay {
-          opacity: 0 !important;
-        }
-        
-        /* Garante que as imagens laterais fiquem com o overlay azul marinho a 60% */
-        .swiper-escritorio .swiper-slide:not(.swiper-slide-active) .swiper-overlay {
-          opacity: 0.6 !important;
-        }
-
-        /* Garante que a imagem do centro fique na frente de todas */
-        .swiper-escritorio .swiper-slide-active {
-          z-index: 50 !important;
-        }
-
-        /* Esconde completamente qualquer slide que não seja o central ou os dois vizinhos imediatos */
-        /* Isso garante que apenas 5 imagens apareçam na tela (1 central + 2 na esquerda + 2 na direita) */
-        .swiper-escritorio .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next):not(.swiper-slide-next + .swiper-slide):not(:has(+ .swiper-slide-prev)) {
-          opacity: 0 !important;
-          pointer-events: none !important;
-        }
-      `}} />
     </section>
   )
 }

@@ -42,6 +42,7 @@ export default function Beneficios() {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           
+          {/* LADO ESQUERDO: Textos */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -83,23 +84,22 @@ export default function Beneficios() {
             </motion.ul>
           </motion.div>
 
-          {/* CARROSSEL AJUSTADO PARA IMAGENS 200x200 */}
+          {/* LADO DIREITO: Carrossel Infinito Duplo */}
           <div 
             className="col-span-12 lg:col-span-6 relative h-[500px] md:h-[600px] overflow-hidden flex justify-center"
             style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)' }}
           >
             <div className="grid grid-cols-2 gap-4 md:gap-6 h-full w-full max-w-[450px]">
               
-              <div className="flex flex-col gap-4 md:gap-6 animate-scroll-up">
+              <div className="flex flex-col gap-4 md:gap-8 animate-scroll-up">
                 {[...col1Images, ...col1Images].map((img, index) => (
-                  // aspect-square garante que seja 1:1, max-w-[200px] garante que não estique!
                   <div key={index} className="w-full max-w-[200px] mx-auto aspect-square rounded-[24px] overflow-hidden shadow-xl bg-[#0033b0]">
                     <img src={`/images/${img}`} alt="Rotina Agibank" className="w-full h-full object-cover" onError={(e) => { e.target.src = `https://placehold.co/200x200/0033b0/ffffff?text=Foto+${(index % 4) + 1}` }} />
                   </div>
                 ))}
               </div>
 
-              <div className="flex flex-col gap-4 md:gap-6 animate-scroll-down">
+              <div className="flex flex-col gap-4 md:gap-8 animate-scroll-down">
                 {[...col2Images, ...col2Images].map((img, index) => (
                   <div key={index} className="w-full max-w-[200px] mx-auto aspect-square rounded-[24px] overflow-hidden shadow-xl bg-[#0064f5]">
                     <img src={`/images/${img}`} alt="Rotina Agibank" className="w-full h-full object-cover" onError={(e) => { e.target.src = `https://placehold.co/200x200/0064f5/ffffff?text=Foto+${(index % 4) + 5}` }} />
@@ -113,13 +113,15 @@ export default function Beneficios() {
         </div>
       </div>
 
+      {/* CÓDIGO FLUTUANTE (Corrigido para Azul Médio para leitura no fundo branco) */}
       <motion.div 
         animate={{ x: mousePosition.x * 0.8, y: mousePosition.y * 0.8 }}
         transition={{ type: "spring", stiffness: 50, damping: 20 }}
         className="absolute top-[80%] left-[5%] md:left-[10%] z-40"
       >
         <div className="font-mono text-xs md:text-sm whitespace-pre select-none pointer-events-none drop-shadow-2xl">
-          <span className="text-[#0064f5] opacity-60">
+          {/* Tudo em Azul Médio (#0033b0) e font-bold para garantir o contraste */}
+          <span className="text-[#0033b0] opacity-90 font-bold">
 {`const AgiDev = ({ passion, logic }) => {
   const [career, setCareer] = useState("Loading...");
 
@@ -133,7 +135,7 @@ export default function Beneficios() {
 };`}
           </span>
           <br/>
-          <span className="text-white opacity-90 font-bold">
+          <span className="text-[#0033b0] opacity-100 font-bold">
             // Renderizando sua melhor versão
           </span>
         </div>

@@ -85,11 +85,12 @@ export default function Hero() {
               transition={{ type: 'spring', stiffness: 50, damping: 20 }}
               className="relative w-full h-full flex justify-center items-end z-10 scale-[1.4] lg:scale-[1.8] origin-bottom lg:-translate-x-32"
             >
-              <img
-                src="/images/Dev-01.png"
-                alt="Desenvolvedor Agibank"
-                className="object-contain max-h-full drop-shadow-2xl"
-              />
+              <img 
+  src="/images/Logo_Formacao_Devs.png" 
+  alt="Formação de Devs nativos em IA" 
+  className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain mt-12 lg:mt-0"
+  style={{ objectPosition: 'left center' }}
+/>
             </motion.div>
 
             {/* Código NA FRENTE do rapaz - MOBILE */}

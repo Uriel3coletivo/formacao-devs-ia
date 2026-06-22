@@ -71,11 +71,11 @@ export default function Hero() {
           <div className="col-span-12 lg:col-span-7 relative h-[450px] md:h-[800px] lg:h-[950px] flex justify-center items-end pointer-events-none mt-0 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#0064f5] rounded-full blur-[120px] opacity-30 z-0" />
             
-            {/* Código NA FRENTE do rapaz - MOBILE (era o branco) */}
+            {/* Código BRANCO ATRÁS do rapaz - MOBILE */}
             <motion.div 
               animate={{ y: [0, 25, 0], opacity: [0.2, 0.6, 0.2] }}
               transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }}
-              className="lg:hidden absolute top-[45%] right-[5%] text-white font-mono text-sm z-20"
+              className="lg:hidden absolute top-[45%] right-[5%] text-white font-mono text-sm z-0"
             >
               const future = new Developer();
             </motion.div>
@@ -92,11 +92,11 @@ export default function Hero() {
               />
             </motion.div>
 
-            {/* Código ATRÁS do rapaz - MOBILE (era o verde) */}
+            {/* Código VERDE NA FRENTE do rapaz - MOBILE */}
             <motion.div 
               animate={{ y: [0, 30, 0], opacity: [0.3, 0.8, 0.3] }}
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
-              className="lg:hidden absolute bottom-[35%] left-[5%] text-[#77df40] font-mono text-sm z-0"
+              className="lg:hidden absolute bottom-[35%] left-[5%] text-[#77df40] font-mono text-sm z-20"
             >
               if (learning) &#123; grow(); &#125;
             </motion.div>

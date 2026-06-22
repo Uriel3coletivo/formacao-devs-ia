@@ -5,11 +5,11 @@ import { motion } from 'framer-motion'
 export default function Midia() {
   const carouselRef = useRef(null)
 
+  // Scroll matemático: Pega a largura exata do card + gap para a rolagem perfeita
   const scroll = (direction) => {
     if (carouselRef.current && carouselRef.current.children.length > 0) {
-      // Pega a largura do primeiro card + o gap (24px)
       const cardWidth = carouselRef.current.children[0].offsetWidth
-      const gap = 24 
+      const gap = 24 // 24px é o equivalente ao gap-6 do Tailwind
       const scrollAmount = direction === 'left' ? -(cardWidth + gap) : (cardWidth + gap)
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
     }
@@ -41,17 +41,16 @@ export default function Midia() {
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
 
-      {/* A MÁGICA 1: O container-custom segura o texto, mas não trava o carrossel */}
       <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* LADO ESQUERDO: Textos e Controles */}
+          {/* LADO ESQUERDO: Textos e Controles (Limpo, sem fundo branco falso) */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="col-span-12 lg:col-span-4 flex flex-col items-start relative z-20"
+            className="col-span-12 lg:col-span-4 flex flex-col items-start relative z-20 py-8"
           >
             <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#0064f5] leading-[1.1] mb-6 tracking-tight">
               Agibank na mídia
@@ -61,7 +60,6 @@ export default function Midia() {
               Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
             </p>
             
-            {/* Botões do Carrossel */}
             <div className="flex gap-4">
               <button 
                 onClick={() => scroll('left')}
@@ -82,43 +80,53 @@ export default function Midia() {
             </div>
           </motion.div>
 
-          {/* LADO DIREITO: Carrossel */}
+          {/* LADO DIREITO: Carrossel com a Guilhotina Invisível */}
           <div className="col-span-12 lg:col-span-8 relative z-10">
             
-            {/* A MÁGICA 2: A margem direita negativa (-mr-[50vw]) faz esta div ir até o final da tela, ignorando o limite do container */}
+            {/* 
+              A MÁGICA DO CLIP-PATH:
+              Corta exatamente na esquerda (0), mas deixa vazar para cima (-50vh), baixo (-50vh) e direita (-50vw).
+              Isso faz o card sumir perfeitamente quando rola pra esquerda, sem cortar a sombra em cima/embaixo!
+            */}
             <div 
-              ref={carouselRef}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar py-12 -my-12 -mr-[50vw] pr-[50vw]"
+              style={{ clipPath: 'inset(-50vh -50vw -50vh 0)' }} 
+              className="py-12 -my-12"
             >
-              {noticias.map((noticia, index) => (
-                <motion.a
-                  key={index}
-                  href={noticia.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  className="snap-start shrink-0 w-[280px] md:w-[340px] xl:w-[360px] bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,100,245,0.15)] transition-all duration-300 flex flex-col overflow-hidden group block"
-                >
-                  <div className="p-4 pb-0 h-[220px]">
-                    <img 
-                      src={`/images/${noticia.img}`} 
-                      alt="Notícia Agibank" 
-                      className="w-full h-full object-cover rounded-[24px]"
-                      onError={(e) => { e.target.src = `https://placehold.co/400x300/0064f5/ffffff?text=Notícia+${index + 1}` }}
-                    />
-                  </div>
-                  
-                  <div className="p-6 md:p-8 flex-1 flex items-center">
-                    <p className="text-[#0064f5] font-medium text-base md:text-lg leading-snug group-hover:text-[#0033b0] transition-colors">
-                      {noticia.title}
-                    </p>
-                  </div>
-                </motion.a>
-              ))}
+              <div 
+                ref={carouselRef}
+                className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pr-[50vw]"
+              >
+                {noticias.map((noticia, index) => (
+                  <motion.a
+                    key={index}
+                    href={noticia.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                    whileHover={{ y: -10, scale: 1.02 }}
+                    // Aumentei o tamanho xl:w-[400px] para garantir que o 3º card vaze na tela do Mac 14"
+                    className="snap-start shrink-0 w-[280px] md:w-[340px] xl:w-[400px] bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,100,245,0.15)] transition-all duration-300 flex flex-col overflow-hidden group block"
+                  >
+                    <div className="p-4 pb-0 h-[220px] md:h-[250px]">
+                      <img 
+                        src={`/images/${noticia.img}`} 
+                        alt="Notícia Agibank" 
+                        className="w-full h-full object-cover rounded-[24px]"
+                        onError={(e) => { e.target.src = `https://placehold.co/400x300/0064f5/ffffff?text=Notícia+${index + 1}` }}
+                      />
+                    </div>
+                    
+                    <div className="p-6 md:p-8 flex-1 flex items-center">
+                      <p className="text-[#0064f5] font-medium text-base md:text-lg xl:text-xl leading-snug group-hover:text-[#0033b0] transition-colors">
+                        {noticia.title}
+                      </p>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
             </div>
 
           </div>

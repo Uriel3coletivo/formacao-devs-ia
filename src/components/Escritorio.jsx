@@ -19,7 +19,6 @@ export default function Escritorio() {
     "Escritorio-5.png"
   ]
 
-  // Array duplicado para garantir o loop 3D
   const fotos = [...baseFotos, ...baseFotos]
 
   return (
@@ -73,9 +72,9 @@ export default function Escritorio() {
         >
           {fotos.map((foto, index) => (
             <SwiperSlide key={index} className="!w-[300px] md:!w-[500px] lg:!w-[650px] xl:!w-[750px] aspect-[16/10]">
-              {/* A MÁGICA NATIVA: O Swiper nos diz qual slide está ativo */}
               {({ isActive }) => (
-                <div className="w-full h-full rounded-[32px] overflow-hidden shadow-[0_20px_40px_rgba(0,15,68,0.3)] relative">
+                // REMOVIDO: shadow-[0_20px_40px_rgba(0,15,68,0.3)]
+                <div className="w-full h-full rounded-[32px] overflow-hidden relative">
                   
                   <img 
                     src={`/images/${foto}`} 
@@ -84,7 +83,6 @@ export default function Escritorio() {
                     onError={(e) => { e.target.src = `https://placehold.co/800x500/0064f5/ffffff?text=Escritório+${index + 1}` }}
                   />
 
-                  {/* OVERLAY AZUL MARINHO: Fica invisível (opacity-0) se for a imagem do centro, senão fica com 60% */}
                   <div className={`absolute inset-0 bg-[#000f44] transition-opacity duration-500 pointer-events-none ${isActive ? 'opacity-0' : 'opacity-60'}`} />
                   
                 </div>

@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 export default function Depoimento() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  // Array com os dados dos 3 depoimentos
   const depoimentos = [
     {
       img: "depoimento-1.png",
@@ -30,7 +29,6 @@ export default function Depoimento() {
     }
   ]
 
-  // Funções de navegação do carrossel (com loop infinito)
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex === depoimentos.length - 1 ? 0 : prevIndex + 1))
   }
@@ -57,11 +55,11 @@ export default function Depoimento() {
 
           <div className="grid lg:grid-cols-12 gap-0 items-stretch relative z-10 h-full">
             
-            {/* LADO ESQUERDO: Foto (Com transição animada) */}
-            <div className="col-span-12 lg:col-span-5 relative flex justify-center items-end bg-gradient-to-t from-[#0033b0]/40 to-transparent pt-12 lg:pt-0 min-h-[400px] lg:min-h-full">
+            {/* LADO ESQUERDO: Foto (Limpo, sem fundos ou sombras retas) */}
+            <div className="col-span-12 lg:col-span-5 relative flex justify-center items-end pt-12 lg:pt-0 min-h-[400px] lg:min-h-full">
               <AnimatePresence mode="wait">
                 <motion.img 
-                  key={currentIndex} // O React entende que a imagem mudou e roda a animação
+                  key={currentIndex}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
@@ -74,14 +72,14 @@ export default function Depoimento() {
               </AnimatePresence>
             </div>
 
-            {/* LADO DIREITO: Depoimento (Com transição animada) */}
-            <div className="col-span-12 lg:col-span-7 p-8 md:p-12 lg:p-16 flex flex-col justify-center bg-[#0064f5]/90 backdrop-blur-sm lg:bg-transparent lg:backdrop-blur-none min-h-[450px]">
+            {/* LADO DIREITO: Depoimento */}
+            <div className="col-span-12 lg:col-span-7 p-8 md:p-12 lg:p-16 flex flex-col justify-center min-h-[450px]">
               
-              <h2 className="text-3xl md:text-4xl lg:text-[44px] font-bold text-white leading-tight mb-8">
-                Quem abraçou as oportunidades <br className="hidden lg:block"/> chegou muito longe por aqui.
+              {/* Título Ajustado (Tamanho, Entrelinhas e Cor Verde) */}
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-normal mb-8">
+                Quem abraçou as oportunidades <br className="hidden lg:block"/> <span className="text-[#77df40]">chegou muito longe</span> por aqui.
               </h2>
               
-              {/* Textos que mudam com a setinha */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentIndex}
@@ -108,7 +106,7 @@ export default function Depoimento() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Controles do Depoimento */}
+              {/* Controles */}
               <div className="flex gap-4 mt-8">
                 <button 
                   onClick={prevSlide}

@@ -1,3 +1,5 @@
+HERO
+
 'use client'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
@@ -16,7 +18,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative flex items-center bg-[#000f44] overflow-hidden pt-32 pb-12 min-h-screen">
+    <section className="relative min-h-screen flex items-center bg-[#000f44] overflow-hidden pt-20 pb-12">
       
       <div className="absolute inset-0 z-0">
         <img src="/images/Hero-Banner-1.jpg" alt="Background" className="w-full h-full object-cover" />
@@ -27,26 +29,29 @@ export default function Hero() {
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="object-contain max-h-full" />
       </div>
 
+      <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden font-mono text-sm md:text-base">
+        <motion.div animate={{ y: [0, -20, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} className="absolute top-[20%] left-[5%] text-[#0064f5]">&lt;FormacaoIA /&gt;</motion.div>
+        <motion.div animate={{ y: [0, -15, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 2 }} className="absolute top-[30%] right-[10%] text-[#0064f5] text-xl">import &#123; AI &#125; from 'agibank';</motion.div>
+      </div>
+
       <div className="container-custom relative z-20 w-full mt-4">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
+        <div className="grid lg:grid-cols-12 gap-0 items-center">
           
-          {/* LADO ESQUERDO: FORÇADO À ESQUERDA EM TODAS AS TELAS */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.8 }} 
-            className="col-span-1 lg:col-span-5 flex flex-col items-start text-left w-full z-30"
+            className="col-span-12 lg:col-span-5 flex flex-col items-start justify-center text-left w-full z-30"
           >
-            {/* LOGO: Forçado na esquerda (object-left) */}
             <img 
               src="/images/Logo-Formacao-Devs.svg" 
               alt="Formação de Devs nativos em IA" 
-              className="w-full max-w-[400px] md:max-w-[600px] lg:max-w-[700px] xl:max-w-[850px] mb-8 object-contain object-left"
+              className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain"
               style={{ objectPosition: 'left center' }}
             />
             
-            {/* WRAPPER DO BOTÃO E CÓDIGO: Com recuo para alinhar na letra F */}
-            <div className="w-full flex flex-col items-start pl-[10%] sm:pl-[40px] md:pl-[60px] lg:pl-[75px] xl:pl-[90px]">
+            {/* Recuo restaurado para a versão exata que você aprovou */}
+            <div className="pl-6 md:pl-8 lg:pl-10 xl:pl-12">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
               </button>
@@ -54,7 +59,7 @@ export default function Hero() {
               <motion.div 
                 animate={{ x: mousePosition.x * 0.3, y: mousePosition.y * 0.3 }}
                 transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-                className="mt-10 text-xs md:text-sm lg:text-base text-[#0064f5] font-mono opacity-90 leading-relaxed text-left"
+                className="mt-10 text-sm md:text-base text-[#0064f5] font-mono opacity-90 leading-relaxed text-left"
               >
                 <p>&lt;DevAgibank&gt; &lt;Carreira</p>
                 <p className="pl-4">status="growing" /&gt;  &lt;Futuro</p>
@@ -64,14 +69,13 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* LADO DIREITO: IMAGEM DO DEV */}
-          <div className="col-span-1 lg:col-span-7 relative h-[450px] md:h-[600px] lg:h-[800px] xl:h-[950px] flex justify-center items-end pointer-events-none mt-10 lg:mt-0 z-20">
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] bg-[#0064f5] rounded-full blur-[80px] lg:blur-[120px] opacity-30 z-0" />
+          <div className="col-span-12 lg:col-span-7 relative h-[600px] md:h-[800px] lg:h-[950px] flex justify-center items-end pointer-events-none mt-10 lg:mt-0 z-20">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#0064f5] rounded-full blur-[120px] opacity-30 z-0" />
             
             <motion.div
               animate={{ x: mousePosition.x, y: mousePosition.y }}
               transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-              className="relative w-full h-full flex justify-center items-end z-10 scale-[1.1] lg:scale-[1.4] xl:scale-[1.8] origin-bottom lg:-translate-x-32"
+              className="relative w-full h-full flex justify-center items-end z-10 scale-[1.4] lg:scale-[1.8] origin-bottom lg:-translate-x-32"
             >
               <img
                 src="/images/Dev-01.png"
@@ -83,6 +87,12 @@ export default function Hero() {
 
         </div>
       </div>
+
+      <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden font-mono text-sm md:text-base">
+        <motion.div animate={{ y: [0, 30, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }} className="absolute bottom-[20%] left-[45%] lg:left-[55%] text-[#77df40]">if (learning) &#123; grow(); &#125;</motion.div>
+        <motion.div animate={{ y: [0, 25, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }} className="absolute top-[65%] right-[15%] text-white">const future = new Developer();</motion.div>
+      </div>
+
     </section>
   )
 }

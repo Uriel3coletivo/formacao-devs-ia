@@ -28,7 +28,6 @@ export default function Hero() {
       </div>
 
       <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden font-mono text-xs md:text-base">
-        {/* AQUI: Adicionado 'hidden lg:block' para esconder esses códigos no celular e limpar a tela */}
         <motion.div animate={{ y: [0, -20, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} className="hidden lg:block absolute top-[15%] lg:top-[20%] left-[5%] text-[#0064f5]">&lt;FormacaoIA /&gt;</motion.div>
         <motion.div animate={{ y: [0, -15, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 2 }} className="hidden lg:block absolute top-[25%] lg:top-[30%] right-[5%] lg:right-[10%] text-[#0064f5] text-lg lg:text-xl">import &#123; AI &#125; from 'agibank';</motion.div>
       </div>
@@ -42,9 +41,9 @@ export default function Hero() {
             transition={{ duration: 0.8 }} 
             className="col-span-1 lg:col-span-5 flex flex-col items-center lg:items-start justify-center text-center lg:text-left w-full z-30"
           >
-            {/* Imagem do Logo: Se você exportar como PNG, mude a extensão aqui para .png */}
+            {/* A MÁGICA DO CACHE BUSTING: Adicionei ?v=2 no final do .svg */}
             <img 
-              src="/images/Logo-Formacao-Devs.svg" 
+              src="/images/Logo-Formacao-Devs.svg?v=2" 
               alt="Formação de Devs" 
               className="w-[90%] lg:w-full max-w-[400px] lg:max-w-[700px] xl:max-w-[850px] mb-8 object-contain object-center lg:object-left lg:-ml-8 xl:-ml-12"
             />
@@ -67,7 +66,6 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* AQUI: Adicionado -mt-10 no mobile para puxar a foto do rapaz para cima e grudar no texto */}
           <div className="col-span-1 lg:col-span-7 relative h-[380px] md:h-[600px] lg:h-[800px] xl:h-[950px] flex justify-center items-end pointer-events-none -mt-10 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] bg-[#0064f5] rounded-full blur-[80px] lg:blur-[120px] opacity-30 z-0" />
             

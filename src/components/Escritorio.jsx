@@ -1,28 +1,32 @@
 'use client'
 import { motion } from 'framer-motion'
-// Importando o Swiper e o efeito Coverflow
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { EffectCoverflow, Autoplay, Pagination } from 'swiper/modules'
+import { EffectCoverflow, Autoplay, Pagination, Navigation } from 'swiper/modules'
 
-// Importando os estilos necessários do Swiper
 import 'swiper/css'
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 
 export default function Escritorio() {
   
-  const fotos = [
+  // As 5 imagens reais que você subiu
+  const baseFotos = [
     "Escritorio-1.png",
     "Escritorio-2.png",
     "Escritorio-3.png",
     "Escritorio-4.png",
-    "Escritorio-1.png" // Repetido para garantir o loop visual
+    "Escritorio-5.png"
   ]
 
+  // Duplicamos o array para garantir que o Swiper tenha slides suficientes para um Loop perfeito
+  const fotos = [...baseFotos, ...baseFotos]
+
   return (
-    <section className="bg-white py-24 md:py-32 relative z-10 overflow-hidden">
+    // -mt-16 puxa a seção para cima, colando no bloco do depoimento
+    <section className="bg-white pt-12 pb-32 relative z-10 overflow-hidden -mt-16">
       
-      {/* Efeito Pixels no Fundo (Bem suave) */}
+      {/* Efeito Pixels no Fundo */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
@@ -41,61 +45,113 @@ export default function Escritorio() {
           </h2>
         </motion.div>
 
-        {/* CARROSSEL COVERFLOW (Estilo Agibank) */}
+        {/* CARROSSEL COVERFLOW PREMIUM */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full relative"
+          // w-[100vw] e margens negativas fazem o carrossel não ter cortes secos nas laterais
+          className="w-[100vw] -ml-[50vw] left-1/2 relative"
         >
           <Swiper
             effect={'coverflow'}
             grabCursor={true}
             centeredSlides={true}
+            // 'auto' permite que o Swiper calcule quantas imagens cabem na tela
             slidesPerView={'auto'}
             loop={true}
             autoplay={{
               delay: 3000,
               disableOnInteraction: false,
             }}
-            coverflowEffect={{
-              rotate: 0, // 0 rotação para manter os cards retos
-              stretch: 0,
-              depth: 150, // O quanto as imagens laterais vão para trás (ficam menores)
-              modifier: 1.5,
-              slideShadows: false, // Desativado para não escurecer as imagens
+            navigation={{
+              nextEl: '.swiper-button-next-custom',
+              prevEl: '.swiper-button-prev-custom',
             }}
             pagination={{
+              el: '.swiper-pagination-custom',
               clickable: true,
               dynamicBullets: true,
             }}
-            modules={[EffectCoverflow, Autoplay, Pagination]}
-            // Uma classe extra para dar respiro ao pagination
-            className="pb-16 w-full max-w-[1200px]"
+            coverflowEffect={{
+              rotate: 0, 
+              stretch: 80, // Aproxima as imagens laterais para caberem 5 na tela
+              depth: 300,  // Empurra as imagens laterais muito mais para trás (ficam menores)
+              modifier: 1,
+              slideShadows: false, // Desativamos a sombra padrão do Swiper para usarmos a nossa
+            }}
+            modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
+            className="pb-20 pt-10"
           >
             {fotos.map((foto, index) => (
-              // A largura do slide define o tamanho da imagem central
-              <SwiperSlide key={index} className="!w-[300px] md:!w-[500px] lg:!w-[700px] aspect-video">
-                <div className="w-full h-full rounded-[32px] overflow-hidden shadow-[0_20px_40px_rgba(0,15,68,0.2)]">
+              // A largura do slide dita o tamanho da imagem central
+              <SwiperSlide key={index} className="!w-[300px] md:!w-[500px] lg:!w-[700px] aspect-video group">
+                <div className="w-full h-full rounded-[32px] overflow-hidden shadow-[0_20px_40px_rgba(0,15,68,0.2)] relative transition-all duration-500">
+                  
                   <img 
                     src={`/images/${foto}`} 
                     alt="Escritório Agibank" 
                     className="w-full h-full object-cover"
-                    onError={(e) => { e.target.src = `https://placehold.co/800x500/0064f5/ffffff?text=Escritório+${index + 1}` }}
+                    onError={(e) => { e.target.src = `https://placehold.co/800x500/0064f5/ffffff?text=Escritório+${(index % 5) + 1}` }}
                   />
+
+                  {/* OVERLAY AZUL MARINHO: Fica ativo nas imagens laterais. A classe global do CSS abaixo apaga ele na imagem central */}
+                  <div className="absolute inset-0 bg-[#000f44]/60 transition-opacity duration-500 swiper-overlay" />
+                  
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
+
+          {/* CONTROLES CUSTOMIZADOS (Setas e Bolinhas) */}
+          <div className="flex items-center justify-center gap-8 mt-4 relative z-20">
+            {/* Seta Esquerda */}
+            <button className="swiper-button-prev-custom w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+              </svg>
+            </button>
+
+            {/* Bolinhas */}
+            <div className="swiper-pagination-custom flex items-center gap-2"></div>
+
+            {/* Seta Direita */}
+            <button className="swiper-button-next-custom w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
+          </div>
+
         </motion.div>
 
       </div>
 
-      {/* Ajuste do CSS da paginação do Swiper para ficar com a cor do Agibank */}
+      {/* ESTILOS GLOBAIS DO SWIPER */}
       <style dangerouslySetContent={{__html: `
-        .swiper-pagination-bullet { background: #000f44; opacity: 0.3; }
-        .swiper-pagination-bullet-active { background: #0064f5; opacity: 1; }
+        /* A imagem do centro (.swiper-slide-active) perde o overlay azul marinho */
+        .swiper-slide-active .swiper-overlay {
+          opacity: 0 !important;
+        }
+        
+        /* Estilização das bolinhas */
+        .swiper-pagination-custom {
+          width: auto !important;
+          position: relative !important;
+        }
+        .swiper-pagination-bullet { 
+          background: #000f44 !important; 
+          opacity: 0.3 !important; 
+          width: 10px !important;
+          height: 10px !important;
+          transition: all 0.3s ease !important;
+        }
+        .swiper-pagination-bullet-active { 
+          background: #0064f5 !important; 
+          opacity: 1 !important; 
+          transform: scale(1.3) !important;
+        }
       `}} />
     </section>
   )

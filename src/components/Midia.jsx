@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-// Importando o carrossel profissional
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 
@@ -35,79 +34,69 @@ export default function Midia() {
       </div>
 
       <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-12 gap-8 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* LADO ESQUERDO: Textos e Controles */}
-          <div className="col-span-12 lg:col-span-4 relative z-20">
-            
-            {/* A MÁGICA DA MÁSCARA: Este bloco branco cobre toda a lateral esquerda da tela, escondendo os cards que passam por baixo dele */}
-            <div className="absolute -inset-y-24 right-0 w-[100vw] bg-white z-10" />
-
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className="relative z-20 py-8 lg:pr-8"
-            >
-              <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#0064f5] leading-tight mb-8 tracking-tight">
-                Agibank na mídia
-              </h2>
-              
-              <p className="text-lg md:text-xl text-[#000f44] font-light mb-10 leading-relaxed">
-                Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
-              </p>
-              
-              {/* Botões do Carrossel controlando o Swiper */}
-              <div className="flex gap-4">
-                <button 
-                  onClick={() => swiperInstance?.slidePrev()}
-                  className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                  </svg>
-                </button>
-                <button 
-                  onClick={() => swiperInstance?.slideNext()}
-                  className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </button>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* LADO DIREITO: Carrossel Swiper Profissional */}
           <motion.div 
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="col-span-12 lg:col-span-8 relative z-10"
+            className="col-span-12 lg:col-span-4 flex flex-col items-start relative z-20 py-8"
           >
-            {/* !overflow-visible permite que os cards vazem para a direita da tela */}
-            <Swiper
-              onSwiper={setSwiperInstance}
-              slidesPerView="auto"
-              spaceBetween={32}
-              className="!overflow-visible"
-            >
-              {noticias.map((noticia, index) => (
-                // A largura fixa no SwiperSlide garante que o 3º card fique sempre cortado na borda
-                <SwiperSlide key={index} className="!w-[280px] md:!w-[340px] xl:!w-[400px] py-12">
-                  
-                  {/* O Card (Hover limpo e fluido em CSS puro) */}
-                  <a 
-                    href={noticia.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="block h-full group"
-                  >
-                    <div className="bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,15,68,0.12)] group-hover:shadow-[0_20px_40px_rgba(0,15,68,0.25)] transition-all duration-300 ease-out group-hover:-translate-y-2 group-hover:scale-[1.02] flex flex-col overflow-hidden h-full">
-                      
+            {/* Título com espaçamento (leading-tight) restaurado */}
+            <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#0064f5] leading-tight mb-8 tracking-tight">
+              Agibank na mídia
+            </h2>
+            
+            <p className="text-lg md:text-xl text-[#000f44] font-light mb-10 leading-relaxed">
+              Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
+            </p>
+            
+            {/* Botões Verdes */}
+            <div className="flex gap-4">
+              <button 
+                onClick={() => swiperInstance?.slidePrev()}
+                className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+              </button>
+              <button 
+                onClick={() => swiperInstance?.slideNext()}
+                className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </button>
+            </div>
+          </motion.div>
+
+          {/* LADO DIREITO: Carrossel Swiper */}
+          <div className="col-span-12 lg:col-span-8 relative z-10">
+            
+            {/* A MÁGICA: clipPath corta apenas a esquerda (0), deixando vazar topo, baixo e direita (-50vh/vw) */}
+            <div style={{ clipPath: 'inset(-50vh -50vw -50vh 0)' }} className="py-12 -my-12">
+              
+              {/* !overflow-visible permite que o carrossel vá até o infinito na direita */}
+              <Swiper
+                onSwiper={setSwiperInstance}
+                slidesPerView="auto"
+                spaceBetween={32}
+                className="!overflow-visible"
+              >
+                {noticias.map((noticia, index) => (
+                  <SwiperSlide key={index} className="!w-[280px] md:!w-[340px] xl:!w-[400px]">
+                    
+                    {/* O Card: Animação 100% CSS Puro para fluidez máxima */}
+                    <a 
+                      href={noticia.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="block h-full group bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,15,68,0.12)] hover:shadow-[0_20px_40px_rgba(0,15,68,0.25)] transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] flex flex-col overflow-hidden"
+                    >
                       <div className="p-4 pb-0 h-[220px] md:h-[250px]">
                         <img 
                           src={`/images/${noticia.img}`} 
@@ -122,13 +111,14 @@ export default function Midia() {
                           {noticia.title}
                         </p>
                       </div>
+                    </a>
 
-                    </div>
-                  </a>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </motion.div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+
+            </div>
+          </div>
 
         </div>
       </div>

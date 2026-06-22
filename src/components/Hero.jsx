@@ -44,9 +44,9 @@ export default function Hero() {
             transition={{ duration: 0.8 }} 
             className="hidden lg:flex col-span-5 flex-col items-start justify-center text-left w-full z-30"
           >
-            {/* Note que mudei a extensão para .png caso você tenha salvo assim no Figma para evitar o bug do Safari */}
+            {/* CORRIGIDO: Voltei para .svg */}
             <img 
-              src="/images/Logo-Formacao-Devs.png" 
+              src="/images/Logo-Formacao-Devs.svg" 
               alt="Formação de Devs nativos em IA" 
               className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain -ml-8 xl:-ml-12"
               style={{ objectPosition: 'left center' }}
@@ -79,8 +79,9 @@ export default function Hero() {
             transition={{ duration: 0.8 }} 
             className="flex lg:hidden col-span-1 flex-col items-center justify-center text-center w-full z-30"
           >
+            {/* CORRIGIDO: Voltei para .svg */}
             <img 
-              src="/images/Logo-Formacao-Devs.png" 
+              src="/images/Logo-Formacao-Devs.svg" 
               alt="Formação de Devs nativos em IA" 
               className="w-[90%] max-w-[400px] mb-8 object-contain"
               style={{ objectPosition: 'center' }}
@@ -101,7 +102,7 @@ export default function Hero() {
           </motion.div>
 
           {/* ========================================================= */}
-          {/* IMAGEM DO DEV (COMPARTILHADA ENTRE MOBILE E DESKTOP) */}
+          {/* IMAGEM DO DEV */}
           {/* ========================================================= */}
           <div className="col-span-1 lg:col-span-7 relative h-[380px] md:h-[600px] lg:h-[800px] xl:h-[950px] flex justify-center items-end pointer-events-none -mt-10 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] bg-[#0064f5] rounded-full blur-[80px] lg:blur-[120px] opacity-30 z-0" />
@@ -121,6 +122,7 @@ export default function Hero() {
 
         </div>
       </div>
+
     </section>
   )
 }

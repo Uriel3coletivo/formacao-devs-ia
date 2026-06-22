@@ -5,11 +5,11 @@ import { motion } from 'framer-motion'
 export default function Midia() {
   const carouselRef = useRef(null)
 
-  // Scroll matemático: Pega a largura exata do card + gap para a rolagem perfeita
   const scroll = (direction) => {
     if (carouselRef.current && carouselRef.current.children.length > 0) {
+      // Pega a largura do primeiro card + o gap (24px)
       const cardWidth = carouselRef.current.children[0].offsetWidth
-      const gap = 24 // 24px é o equivalente ao gap-6 do Tailwind
+      const gap = 24 
       const scrollAmount = direction === 'left' ? -(cardWidth + gap) : (cardWidth + gap)
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
     }
@@ -36,97 +36,95 @@ export default function Midia() {
   return (
     <section className="bg-white py-24 md:py-32 relative overflow-hidden z-10">
       
-      {/* Efeito Pixels no Fundo */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
 
-      <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div className="relative z-10">
+        <div className="grid lg:grid-cols-12 gap-0 items-center">
           
-          {/* LADO ESQUERDO: Textos e Controles (Limpo, sem fundo branco falso) */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="col-span-12 lg:col-span-4 flex flex-col items-start relative z-20 py-8"
-          >
-            <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#0064f5] leading-[1.1] mb-6 tracking-tight">
-              Agibank na mídia
-            </h2>
+          {/* LADO ESQUERDO: Textos e Controles */}
+          {/* A MÁGICA 1: Fundo branco absoluto que cobre a lateral esquerda da tela */}
+          <div className="col-span-12 lg:col-span-4 relative z-30">
+            {/* Bloco branco cobrindo a esquerda do carrossel */}
+            <div className="absolute top-0 right-0 w-[100vw] h-full bg-white z-0" style={{ transform: 'translateX(-100%)' }}></div>
             
-            <p className="text-lg md:text-xl text-[#000f44] font-light mb-10 leading-relaxed">
-              Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
-            </p>
-            
-            <div className="flex gap-4">
-              <button 
-                onClick={() => scroll('left')}
-                className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                </svg>
-              </button>
-              <button 
-                onClick={() => scroll('right')}
-                className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </button>
-            </div>
-          </motion.div>
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col items-start relative z-10 bg-white py-8 pl-6 md:pl-[80px] lg:pl-[calc(50vw-700px+80px)] pr-8"
+              // O padding-left maluco acima garante que o texto fique alinhado com o container de 1400px
+            >
+              <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#0064f5] leading-[1.1] mb-6 tracking-tight">
+                Agibank na mídia
+              </h2>
+              
+              <p className="text-lg md:text-xl text-[#000f44] font-light mb-10 leading-relaxed">
+                Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
+              </p>
+              
+              <div className="flex gap-4">
+                <button 
+                  onClick={() => scroll('left')}
+                  className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                  </svg>
+                </button>
+                <button 
+                  onClick={() => scroll('right')}
+                  className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </button>
+              </div>
+            </motion.div>
+          </div>
 
-          {/* LADO DIREITO: Carrossel com a Guilhotina Invisível */}
+          {/* LADO DIREITO: Carrossel */}
           <div className="col-span-12 lg:col-span-8 relative z-10">
             
-            {/* 
-              A MÁGICA DO CLIP-PATH:
-              Corta exatamente na esquerda (0), mas deixa vazar para cima (-50vh), baixo (-50vh) e direita (-50vw).
-              Isso faz o card sumir perfeitamente quando rola pra esquerda, sem cortar a sombra em cima/embaixo!
-            */}
+            {/* A MÁGICA 2: O carrossel ocupa a largura total da tela, mas tem padding na esquerda para alinhar com a coluna */}
             <div 
-              style={{ clipPath: 'inset(-50vh -50vw -50vh 0)' }} 
-              className="py-12 -my-12"
+              ref={carouselRef}
+              className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar py-12 -my-12 pl-6 md:pl-[80px] lg:pl-0 pr-[20vw]"
+              // pr-[20vw] garante que o último card não grude na borda direita quando o usuário rolar até o fim
             >
-              <div 
-                ref={carouselRef}
-                className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pr-[50vw]"
-              >
-                {noticias.map((noticia, index) => (
-                  <motion.a
-                    key={index}
-                    href={noticia.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.5, delay: index * 0.2 }}
-                    whileHover={{ y: -10, scale: 1.02 }}
-                    // Aumentei o tamanho xl:w-[400px] para garantir que o 3º card vaze na tela do Mac 14"
-                    className="snap-start shrink-0 w-[280px] md:w-[340px] xl:w-[400px] bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,100,245,0.15)] transition-all duration-300 flex flex-col overflow-hidden group block"
-                  >
-                    <div className="p-4 pb-0 h-[220px] md:h-[250px]">
-                      <img 
-                        src={`/images/${noticia.img}`} 
-                        alt="Notícia Agibank" 
-                        className="w-full h-full object-cover rounded-[24px]"
-                        onError={(e) => { e.target.src = `https://placehold.co/400x300/0064f5/ffffff?text=Notícia+${index + 1}` }}
-                      />
-                    </div>
-                    
-                    <div className="p-6 md:p-8 flex-1 flex items-center">
-                      <p className="text-[#0064f5] font-medium text-base md:text-lg xl:text-xl leading-snug group-hover:text-[#0033b0] transition-colors">
-                        {noticia.title}
-                      </p>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
+              {noticias.map((noticia, index) => (
+                <motion.a
+                  key={index}
+                  href={noticia.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  whileHover={{ y: -10, scale: 1.02 }}
+                  // Largura fixa dos cards
+                  className="snap-start shrink-0 w-[280px] md:w-[340px] xl:w-[380px] bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,100,245,0.15)] transition-all duration-300 flex flex-col overflow-hidden group block"
+                >
+                  <div className="p-4 pb-0 h-[220px] md:h-[250px]">
+                    <img 
+                      src={`/images/${noticia.img}`} 
+                      alt="Notícia Agibank" 
+                      className="w-full h-full object-cover rounded-[24px]"
+                      onError={(e) => { e.target.src = `https://placehold.co/400x300/0064f5/ffffff?text=Notícia+${index + 1}` }}
+                    />
+                  </div>
+                  
+                  <div className="p-6 md:p-8 flex-1 flex items-center">
+                    <p className="text-[#0064f5] font-medium text-base md:text-lg xl:text-xl leading-snug group-hover:text-[#0033b0] transition-colors">
+                      {noticia.title}
+                    </p>
+                  </div>
+                </motion.a>
+              ))}
             </div>
 
           </div>

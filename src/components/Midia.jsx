@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-// Usando o Swiper profissional igual ao site oficial do Agibank
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 
@@ -29,27 +28,22 @@ export default function Midia() {
   return (
     <section className="bg-white py-24 md:py-32 relative overflow-hidden z-10">
       
-      {/* Efeito Pixels no Fundo */}
+      {/* Efeito Pixels no Fundo (Intacto) */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
 
       <div className="container-custom relative z-10">
-        {/* A MÁGICA 1: gap-12 cria o "corredor" para a sombra respirar antes de bater na parede branca */}
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* LADO ESQUERDO: Textos e Controles (z-20 para ficar POR CIMA do carrossel) */}
+          {/* LADO ESQUERDO: Textos e Controles (Sem fundo branco!) */}
           <div className="col-span-12 lg:col-span-4 relative z-20">
-            
-            {/* A PAREDE BRANCA: Cobre toda a esquerda da tela e para exatamente no limite da coluna 4 */}
-            <div className="absolute top-0 right-0 w-[100vw] h-full bg-white z-0" />
-
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
-              className="relative z-10 py-8"
+              className="py-8"
             >
               <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-[#0064f5] leading-tight mb-8 tracking-tight">
                 Agibank na mídia
@@ -59,7 +53,7 @@ export default function Midia() {
                 Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
               </p>
               
-              {/* Botões do Carrossel controlando o Swiper nativamente */}
+              {/* Botões do Carrossel */}
               <div className="flex gap-4">
                 <button 
                   onClick={() => swiperInstance?.slidePrev()}
@@ -81,7 +75,7 @@ export default function Midia() {
             </motion.div>
           </div>
 
-          {/* LADO DIREITO: Carrossel Swiper Profissional (z-10 para passar POR BAIXO da parede branca) */}
+          {/* LADO DIREITO: Carrossel com Máscara Invisível na Esquerda */}
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -89,43 +83,50 @@ export default function Midia() {
             transition={{ duration: 0.8 }}
             className="col-span-12 lg:col-span-8 relative z-10"
           >
-            {/* !overflow-visible permite que os cards vazem para a direita da tela */}
-            {/* py-12 e -my-12 dão espaço vertical para a sombra não ser cortada em cima/embaixo */}
-            <Swiper
-              onSwiper={setSwiperInstance}
-              slidesPerView="auto"
-              spaceBetween={32}
-              className="!overflow-visible py-12 -my-12"
+            {/* 
+              A MÁGICA DA MÁSCARA: 
+              Apaga 100% o que estiver à esquerda (0% a 5%), 
+              e deixa 100% visível o que for para a direita, sem estragar o fundo!
+            */}
+            <div 
+              style={{ maskImage: 'linear-gradient(to right, transparent 0%, transparent 2%, black 10%, black 100%)', WebkitMaskImage: 'linear-gradient(to right, transparent 0%, transparent 2%, black 10%, black 100%)' }}
+              className="py-12 -my-12 -ml-8 pl-8"
             >
-              {noticias.map((noticia, index) => (
-                <SwiperSlide key={index} className="!w-[280px] md:!w-[340px] xl:!w-[400px]">
-                  
-                  {/* O Card (Hover limpo e fluido em CSS puro) */}
-                  <a 
-                    href={noticia.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="block h-full group bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,15,68,0.12)] hover:shadow-[0_20px_40px_rgba(0,15,68,0.25)] transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] flex flex-col overflow-hidden"
-                  >
-                    <div className="p-4 pb-0 h-[220px] md:h-[250px]">
-                      <img 
-                        src={`/images/${noticia.img}`} 
-                        alt="Notícia Agibank" 
-                        className="w-full h-full object-cover rounded-[24px]"
-                        onError={(e) => { e.target.src = `https://placehold.co/400x300/0064f5/ffffff?text=Notícia+${index + 1}` }}
-                      />
-                    </div>
+              <Swiper
+                onSwiper={setSwiperInstance}
+                slidesPerView="auto"
+                spaceBetween={32}
+                className="!overflow-visible"
+              >
+                {noticias.map((noticia, index) => (
+                  <SwiperSlide key={index} className="!w-[280px] md:!w-[340px] xl:!w-[400px]">
                     
-                    <div className="p-6 md:p-8 flex-1 flex items-center">
-                      <p className="text-[#0064f5] font-medium text-base md:text-lg xl:text-xl leading-snug group-hover:text-[#0033b0] transition-colors">
-                        {noticia.title}
-                      </p>
-                    </div>
-                  </a>
+                    <a 
+                      href={noticia.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="block h-full group bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,15,68,0.12)] hover:shadow-[0_20px_40px_rgba(0,15,68,0.25)] transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] flex flex-col overflow-hidden"
+                    >
+                      <div className="p-4 pb-0 h-[220px] md:h-[250px]">
+                        <img 
+                          src={`/images/${noticia.img}`} 
+                          alt="Notícia Agibank" 
+                          className="w-full h-full object-cover rounded-[24px]"
+                          onError={(e) => { e.target.src = `https://placehold.co/400x300/0064f5/ffffff?text=Notícia+${index + 1}` }}
+                        />
+                      </div>
+                      
+                      <div className="p-6 md:p-8 flex-1 flex items-center">
+                        <p className="text-[#0064f5] font-medium text-base md:text-lg xl:text-xl leading-snug group-hover:text-[#0033b0] transition-colors">
+                          {noticia.title}
+                        </p>
+                      </div>
+                    </a>
 
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </motion.div>
 
         </div>

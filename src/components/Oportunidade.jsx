@@ -3,18 +3,18 @@ import { motion } from 'framer-motion'
 
 export default function Oportunidade() {
   return (
-    <section id="programa" className="relative bg-[#000f44] pt-0 pb-32 overflow-hidden -mt-12 z-20">
+    <section id="programa" className="relative bg-gradient-to-b from-[#000f44] to-[#001a66] pt-0 pb-32 overflow-hidden -mt-12 z-20">
       
       {/* CAMADA 1: Efeito Pixels */}
       <div className="absolute top-0 right-0 w-full md:w-1/2 h-full z-0 pointer-events-none flex justify-end items-start opacity-70 transform rotate-180">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="object-contain max-h-full" />
       </div>
 
-      {/* CAMADA 2: Código Flutuante Background (Agora 100% fluido) */}
+      {/* CAMADA 2: Código Flutuante Background - OCULTO NO MOBILE */}
       <motion.div 
         animate={{ y: [-15, 15, -15] }}
         transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
-        className="absolute top-[5%] right-[2%] lg:right-[4%] text-white font-mono text-xs md:text-sm whitespace-pre select-none pointer-events-none z-10 opacity-15"
+        className="hidden lg:block absolute top-[5%] right-[2%] lg:right-[4%] text-white font-mono text-xs md:text-sm whitespace-pre select-none pointer-events-none z-10 opacity-15"
       >
 {`import future from agibank
 import ai_models as ai
@@ -26,11 +26,11 @@ def start_journey(dev):
 # system.init(career_mode="ON")`}
       </motion.div>
 
-      {/* Símbolo < (Branco) */}
+      {/* Símbolo < (Branco) - OCULTO NO MOBILE */}
       <motion.div 
         animate={{ y: [-20, 20, -20] }}
         transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
-        className="absolute top-10 left-[2%] text-white text-6xl md:text-8xl font-light select-none pointer-events-none z-10 opacity-60"
+        className="hidden lg:block absolute top-10 left-[2%] text-white text-6xl md:text-8xl font-light select-none pointer-events-none z-10 opacity-60"
       >
         &lt;
       </motion.div>
@@ -44,7 +44,7 @@ def start_journey(dev):
         /&gt;
       </motion.div>
 
-      <div className="container-custom relative z-20">
+      <div className="container-custom relative z-20 pt-16 lg:pt-0">
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}

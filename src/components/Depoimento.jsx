@@ -46,7 +46,8 @@ export default function Depoimento() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="bg-[#0064f5] rounded-[40px] overflow-hidden shadow-2xl relative max-w-6xl mx-auto min-h-[500px] lg:min-h-[600px]"
+          // REMOVIDO: shadow-2xl. Agora o card é 100% flat (chapado)
+          className="bg-[#0064f5] rounded-[40px] overflow-hidden relative max-w-6xl mx-auto min-h-[500px] lg:min-h-[600px]"
         >
           {/* Efeito Pixels */}
           <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
@@ -55,7 +56,7 @@ export default function Depoimento() {
 
           <div className="grid lg:grid-cols-12 gap-0 items-stretch relative z-10 h-full">
             
-            {/* LADO ESQUERDO: Foto (Limpo, sem fundos ou sombras retas) */}
+            {/* LADO ESQUERDO: Foto */}
             <div className="col-span-12 lg:col-span-5 relative flex justify-center items-end pt-12 lg:pt-0 min-h-[400px] lg:min-h-full">
               <AnimatePresence mode="wait">
                 <motion.img 
@@ -66,6 +67,7 @@ export default function Depoimento() {
                   transition={{ duration: 0.4 }}
                   src={`/images/${depoimentos[currentIndex].img}`} 
                   alt={depoimentos[currentIndex].nome} 
+                  // Mantida apenas a drop-shadow na imagem da pessoa para ela destacar do fundo
                   className="absolute bottom-0 w-full h-full object-contain object-bottom drop-shadow-2xl"
                   onError={(e) => { e.target.src = `https://placehold.co/500x600/0033b0/ffffff?text=${depoimentos[currentIndex].nome.replace(/ /g, '+')}` }}
                 />
@@ -75,7 +77,6 @@ export default function Depoimento() {
             {/* LADO DIREITO: Depoimento */}
             <div className="col-span-12 lg:col-span-7 p-8 md:p-12 lg:p-16 flex flex-col justify-center min-h-[450px]">
               
-              {/* Título Ajustado (Tamanho, Entrelinhas e Cor Verde) */}
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-normal mb-8">
                 Quem abraçou as oportunidades <br className="hidden lg:block"/> <span className="text-[#77df40]">chegou muito longe</span> por aqui.
               </h2>
@@ -110,7 +111,8 @@ export default function Depoimento() {
               <div className="flex gap-4 mt-8">
                 <button 
                   onClick={prevSlide}
-                  className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-white transition-colors shadow-md active:scale-95"
+                  // Removido o shadow-md dos botões também
+                  className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-white transition-colors active:scale-95"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -118,7 +120,7 @@ export default function Depoimento() {
                 </button>
                 <button 
                   onClick={nextSlide}
-                  className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-white transition-colors shadow-md active:scale-95"
+                  className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-white transition-colors active:scale-95"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />

@@ -27,7 +27,8 @@ export default function Hero() {
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="object-contain max-h-full" />
       </div>
 
-      <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden font-mono text-sm md:text-base">
+      {/* AJUSTE 1: Adicionado "hidden lg:block" para sumir com os códigos no celular e limpar a tela */}
+      <div className="hidden lg:block absolute inset-0 z-10 pointer-events-none overflow-hidden font-mono text-sm md:text-base">
         <motion.div animate={{ y: [0, -20, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} className="absolute top-[20%] left-[5%] text-[#0064f5]">&lt;FormacaoIA /&gt;</motion.div>
         <motion.div animate={{ y: [0, -15, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 2 }} className="absolute top-[30%] right-[10%] text-[#0064f5] text-xl">import &#123; AI &#125; from 'agibank';</motion.div>
       </div>
@@ -48,7 +49,6 @@ export default function Hero() {
               style={{ objectPosition: 'left center' }}
             />
             
-            {/* Recuo restaurado para a versão exata que você aprovou */}
             <div className="pl-6 md:pl-8 lg:pl-10 xl:pl-12">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
@@ -67,7 +67,8 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          <div className="col-span-12 lg:col-span-7 relative h-[600px] md:h-[800px] lg:h-[950px] flex justify-center items-end pointer-events-none mt-10 lg:mt-0 z-20">
+          {/* AJUSTE 2: Trocado "mt-10" para "-mt-10" no mobile, puxando o rapaz para cima, perto do botão */}
+          <div className="col-span-12 lg:col-span-7 relative h-[600px] md:h-[800px] lg:h-[950px] flex justify-center items-end pointer-events-none -mt-10 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#0064f5] rounded-full blur-[120px] opacity-30 z-0" />
             
             <motion.div

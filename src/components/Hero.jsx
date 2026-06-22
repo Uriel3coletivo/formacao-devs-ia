@@ -41,14 +41,23 @@ export default function Hero() {
             transition={{ duration: 0.8 }} 
             className="col-span-1 lg:col-span-5 flex flex-col items-center lg:items-start justify-center text-center lg:text-left w-full z-30"
           >
-            {/* A MÁGICA DO CACHE BUSTING: Adicionei ?v=2 no final do .svg */}
+            {/* 
+              ALINHAMENTO DO LOGO: 
+              Mobile: centralizado (object-center). 
+              Desktop: ancorado na esquerda (lg:object-left) com a margem negativa aprovada (lg:-ml-12) 
+            */}
             <img 
-              src="/images/Logo-Formacao-Devs.svg?v=2" 
+              src="/images/Logo-Formacao-Devs.svg?v=3" 
               alt="Formação de Devs" 
               className="w-[90%] lg:w-full max-w-[400px] lg:max-w-[700px] xl:max-w-[850px] mb-8 object-contain object-center lg:object-left lg:-ml-8 xl:-ml-12"
             />
             
-            <div className="pl-0 md:pl-8 lg:pl-10 xl:pl-12 w-full flex flex-col items-center lg:items-start">
+            {/* 
+              RECUO DO BOTÃO E CÓDIGO: 
+              Mobile: sem recuo (pl-0). 
+              Desktop: Recuo restaurado para alinhar perfeitamente com a letra F (lg:pl-[75px] xl:pl-[90px]) 
+            */}
+            <div className="pl-0 md:pl-8 lg:pl-[75px] xl:pl-[90px] w-full flex flex-col items-center lg:items-start">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
               </button>

@@ -36,9 +36,12 @@ export default function Escritorio() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 mt-20"
         >
-          {/* AQUI ESTÁ A CORREÇÃO: leading-[1.4] força um espaçamento de 140% do tamanho da fonte, garantindo o respiro */}
-          <h2 className="text-3xl md:text-4xl lg:text-[44px] font-bold text-[#000f44] leading-[1.4] tracking-tight max-w-2xl mx-auto">
-            Conheça o escritório mais agilizado de Campinas e Região!
+          {/* A MÁGICA AQUI: style={{ lineHeight: '1.6' }} força o navegador a obedecer o espaçamento, ignorando qualquer bug da fonte */}
+          <h2 
+            className="text-3xl md:text-4xl lg:text-[44px] font-bold text-[#000f44] tracking-tight max-w-2xl mx-auto"
+            style={{ lineHeight: '1.6' }}
+          >
+            Conheça o escritório mais agilizado <br className="hidden md:block" /> de Campinas e Região!
           </h2>
         </motion.div>
       </div>

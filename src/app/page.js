@@ -9,6 +9,7 @@ import Beneficios from '../components/Beneficios'
 import PreRequisitos from '../components/PreRequisitos'
 import RotinaVideo from '../components/RotinaVideo'
 import Midia from '../components/Midia'
+import Depoimento from '../components/Depoimento'
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <PreRequisitos />
       <RotinaVideo />
       <Midia />
+      <Depoimento />
     </main>
   )
 }

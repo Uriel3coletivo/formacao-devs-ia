@@ -36,7 +36,8 @@ export default function Escritorio() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 mt-20"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-[44px] font-bold text-[#000f44] leading-tight tracking-tight max-w-2xl mx-auto">
+          {/* AQUI: Mudei de leading-tight para leading-normal para dar espaço entre as linhas */}
+          <h2 className="text-3xl md:text-4xl lg:text-[44px] font-bold text-[#000f44] leading-normal tracking-tight max-w-2xl mx-auto">
             Conheça o escritório mais agilizado de Campinas e Região!
           </h2>
         </motion.div>
@@ -73,7 +74,6 @@ export default function Escritorio() {
           {fotos.map((foto, index) => (
             <SwiperSlide key={index} className="!w-[300px] md:!w-[500px] lg:!w-[650px] xl:!w-[750px] aspect-[16/10]">
               {({ isActive }) => (
-                // REMOVIDO: shadow-[0_20px_40px_rgba(0,15,68,0.3)]
                 <div className="w-full h-full rounded-[32px] overflow-hidden relative">
                   
                   <img 

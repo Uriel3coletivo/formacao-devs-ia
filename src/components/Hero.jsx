@@ -35,29 +35,24 @@ export default function Hero() {
       <div className="container-custom relative z-20 w-full mt-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
           
+          {/* ========================================================= */}
+          {/* 🖥️ VERSÃO DESKTOP (BLINDADA) */}
+          {/* ========================================================= */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.8 }} 
-            className="col-span-1 lg:col-span-5 flex flex-col items-center lg:items-start justify-center text-center lg:text-left w-full z-30"
+            className="hidden lg:flex col-span-5 flex-col items-start justify-center text-left w-full z-30"
           >
-            {/* 
-              ALINHAMENTO DO LOGO: 
-              Mobile: centralizado (object-center). 
-              Desktop: ancorado na esquerda (lg:object-left) com a margem negativa aprovada (lg:-ml-12) 
-            */}
+            {/* Note que mudei a extensão para .png caso você tenha salvo assim no Figma para evitar o bug do Safari */}
             <img 
-              src="/images/Logo-Formacao-Devs.svg?v=3" 
-              alt="Formação de Devs" 
-              className="w-[90%] lg:w-full max-w-[400px] lg:max-w-[700px] xl:max-w-[850px] mb-8 object-contain object-center lg:object-left lg:-ml-8 xl:-ml-12"
+              src="/images/Logo-Formacao-Devs.png" 
+              alt="Formação de Devs nativos em IA" 
+              className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain -ml-8 xl:-ml-12"
+              style={{ objectPosition: 'left center' }}
             />
             
-            {/* 
-              RECUO DO BOTÃO E CÓDIGO: 
-              Mobile: sem recuo (pl-0). 
-              Desktop: Recuo restaurado para alinhar perfeitamente com a letra F (lg:pl-[75px] xl:pl-[90px]) 
-            */}
-            <div className="pl-0 md:pl-8 lg:pl-[75px] xl:pl-[90px] w-full flex flex-col items-center lg:items-start">
+            <div className="pl-[75px] xl:pl-[90px] w-full flex flex-col items-start">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
               </button>
@@ -65,7 +60,7 @@ export default function Hero() {
               <motion.div 
                 animate={{ x: mousePosition.x * 0.3, y: mousePosition.y * 0.3 }}
                 transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-                className="mt-10 text-xs md:text-sm lg:text-base text-[#0064f5] font-mono opacity-90 leading-relaxed text-left"
+                className="mt-10 text-base text-[#0064f5] font-mono opacity-90 leading-relaxed text-left"
               >
                 <p>&lt;DevAgibank&gt; &lt;Carreira</p>
                 <p className="pl-4">status="growing" /&gt;  &lt;Futuro</p>
@@ -75,6 +70,39 @@ export default function Hero() {
             </div>
           </motion.div>
 
+          {/* ========================================================= */}
+          {/* 📱 VERSÃO MOBILE (CENTRALIZADA E COMPACTA) */}
+          {/* ========================================================= */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.8 }} 
+            className="flex lg:hidden col-span-1 flex-col items-center justify-center text-center w-full z-30"
+          >
+            <img 
+              src="/images/Logo-Formacao-Devs.png" 
+              alt="Formação de Devs nativos em IA" 
+              className="w-[90%] max-w-[400px] mb-8 object-contain"
+              style={{ objectPosition: 'center' }}
+            />
+            
+            <div className="w-full flex flex-col items-center">
+              <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
+                Fazer inscrição
+              </button>
+
+              <div className="mt-8 text-xs sm:text-sm text-[#0064f5] font-mono opacity-90 leading-relaxed text-center">
+                <p>&lt;DevAgibank&gt; &lt;Carreira</p>
+                <p>status="growing" /&gt;  &lt;Futuro</p>
+                <p>bright=&#123;true&#125; /&gt;  &lt;/DevAgibank&gt; //</p>
+                <p className="mt-2 text-[#77df40]">Props: você</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ========================================================= */}
+          {/* IMAGEM DO DEV (COMPARTILHADA ENTRE MOBILE E DESKTOP) */}
+          {/* ========================================================= */}
           <div className="col-span-1 lg:col-span-7 relative h-[380px] md:h-[600px] lg:h-[800px] xl:h-[950px] flex justify-center items-end pointer-events-none -mt-10 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] bg-[#0064f5] rounded-full blur-[80px] lg:blur-[120px] opacity-30 z-0" />
             
@@ -93,12 +121,6 @@ export default function Hero() {
 
         </div>
       </div>
-
-      <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden font-mono text-xs md:text-base">
-        <motion.div animate={{ y: [0, 30, 0], opacity: [0.3, 0.8, 0.3] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }} className="absolute bottom-[30%] lg:bottom-[20%] left-[5%] lg:left-[45%] xl:left-[55%] text-[#77df40]">if (learning) &#123; grow(); &#125;</motion.div>
-        <motion.div animate={{ y: [0, 25, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }} className="absolute top-[50%] lg:top-[65%] right-[5%] lg:right-[15%] text-white">const future = new Developer();</motion.div>
-      </div>
-
     </section>
   )
 }

@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
@@ -32,6 +32,7 @@ export default function Midia() {
   return (
     <section className="bg-white py-20 lg:py-32 relative overflow-hidden z-10 w-full">
       
+      {/* Efeito Pixels no Fundo */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="w-full h-full object-cover" />
       </div>
@@ -39,20 +40,22 @@ export default function Midia() {
       <div className="container-custom relative z-10">
         
         {/* ========================================================= */}
-        {/* 🖥️ VERSÃO DESKTOP */}
+        {/* 🖥️ VERSÃO DESKTOP (BLINDADA E RESOLVIDA) */}
         {/* ========================================================= */}
-        <div className="hidden lg:grid grid-cols-12 gap-0 items-center">
+        <div className="hidden lg:grid grid-cols-12 gap-12 items-center">
           
-          <div className="col-span-4 flex flex-col items-start relative z-20 py-8 pr-8">
-            {/* A PAREDE BRANCA: Agora com h-[200%] e -top-[50%] para garantir que cubra do teto ao chão absoluto da seção */}
-            <div className="absolute -top-[50%] right-0 w-[100vw] h-[200%] bg-white z-0" style={{ transform: 'translateX(-100%)' }} />
+          {/* LADO ESQUERDO: Textos e Controles (z-20 = Parede Branca Sólida) */}
+          <div className="col-span-4 relative z-20 py-8">
+            
+            {/* A PAREDE BRANCA: Esticada para a esquerda para cobrir a tela toda, mas terminando exatamente na borda do texto */}
+            <div className="absolute -top-[50%] right-0 w-[100vw] h-[200%] bg-white z-0" />
             
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
-              className="relative z-10"
+              className="relative z-10 pr-4"
             >
               <h2 className="text-[56px] font-bold text-[#0064f5] leading-tight mb-8 tracking-tight">
                 Agibank na mídia
@@ -62,6 +65,7 @@ export default function Midia() {
                 Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
               </p>
               
+              {/* Botões do Carrossel */}
               <div className="flex gap-4">
                 <button onClick={() => swiperDesktop?.slidePrev()} className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md cursor-pointer">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
@@ -73,13 +77,15 @@ export default function Midia() {
             </motion.div>
           </div>
 
+          {/* LADO DIREITO: Carrossel (z-10 = Passa por BAIXO da parede branca) */}
           <div className="col-span-8 relative z-10">
             <Swiper
               onSwiper={setSwiperDesktop}
               slidesPerView="auto"
               spaceBetween={32}
               modules={[Navigation]}
-              className="!overflow-visible py-12 -my-12 pl-8 -ml-8 -mr-[50vw] pr-[50vw]"
+              // -mr-[50vw] pr-[50vw] faz vazar na direita. py-12 protege as sombras de cima e de baixo.
+              className="!overflow-visible py-12 -my-12 -mr-[50vw] pr-[50vw]"
             >
               {noticias.map((noticia, index) => (
                 <SwiperSlide key={index} className="!w-[420px]">
@@ -99,10 +105,9 @@ export default function Midia() {
         </div>
 
         {/* ========================================================= */}
-        {/* 📱 VERSÃO MOBILE */}
+        {/* 📱 VERSÃO MOBILE (INTOCADA) */}
         {/* ========================================================= */}
         <div className="flex flex-col lg:hidden w-full gap-8">
-          
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -113,11 +118,9 @@ export default function Midia() {
             <h2 className="text-4xl md:text-5xl font-bold text-[#0064f5] leading-[1.1] mb-6 tracking-tight">
               Agibank na mídia
             </h2>
-            
             <p className="text-lg md:text-xl text-[#000f44] font-light mb-8 leading-relaxed max-w-[90%] break-words">
               Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
             </p>
-            
             <div className="flex gap-4">
               <button onClick={() => swiperMobile?.slidePrev()} className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center shadow-md active:scale-95 z-40 relative">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
@@ -134,8 +137,7 @@ export default function Midia() {
               slidesPerView="auto"
               spaceBetween={24}
               modules={[Navigation]}
-              // O padding protege as sombras no mobile
-              className="!overflow-visible py-8"
+              className="!overflow-visible py-8 -my-8 pr-[20vw]"
             >
               {noticias.map((noticia, index) => (
                 <SwiperSlide key={index} className="!w-[280px] md:!w-[340px]">
@@ -151,8 +153,8 @@ export default function Midia() {
               ))}
             </Swiper>
           </div>
-
         </div>
+
       </div>
     </section>
   )

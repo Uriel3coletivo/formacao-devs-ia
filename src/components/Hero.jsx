@@ -16,8 +16,7 @@ export default function Hero() {
   }, [])
 
   return (
-    // MOBILE: pt-20 pb-0. DESKTOP: lg:pt-32 lg:pb-12
-    <section className="relative flex items-center bg-[#000f44] overflow-hidden pt-20 pb-0 lg:min-h-screen lg:pt-32 lg:pb-12">
+    <section className="relative flex items-center bg-[#000f44] overflow-hidden pt-24 pb-0 lg:min-h-screen lg:pt-32 lg:pb-12">
       
       <div className="absolute inset-0 z-0">
         <img src="/images/Hero-Banner-1.jpg" alt="Background" className="w-full h-full object-cover" />
@@ -35,10 +34,10 @@ export default function Hero() {
       </div>
 
       <div className="container-custom relative z-20 w-full mt-4 lg:mt-4">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
           
           {/* ========================================================= */}
-          {/* 🖥️ VERSÃO DESKTOP (BLINDADA - EXATAMENTE O SEU CÓDIGO) */}
+          {/* 🖥️ VERSÃO DESKTOP (BLINDADA) */}
           {/* ========================================================= */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
@@ -49,11 +48,12 @@ export default function Hero() {
             <img 
               src="/images/Logo_Formacao_Devs.png" 
               alt="Formação de Devs nativos em IA" 
-              className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain mt-12 lg:mt-0 -ml-8 xl:-ml-12"
+              className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain -ml-8 xl:-ml-12"
               style={{ objectPosition: 'left center' }}
             />
             
-            <div className="pl-6 md:pl-8 lg:pl-10 xl:pl-12 w-full flex flex-col items-start">
+            {/* A MÁGICA AQUI: Reduzi o padding-left (pl) para 40px/48px. Isso puxa o botão e o código para a ESQUERDA, alinhando com o F */}
+            <div className="pl-[40px] xl:pl-[48px] w-full flex flex-col items-start">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
               </button>
@@ -72,7 +72,7 @@ export default function Hero() {
           </motion.div>
 
           {/* ========================================================= */}
-          {/* 📱 VERSÃO MOBILE (CENTRALIZADA E COMPACTA) */}
+          {/* 📱 VERSÃO MOBILE (CENTRALIZADA E COMPACTA - INTOCADA) */}
           {/* ========================================================= */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
@@ -102,16 +102,16 @@ export default function Hero() {
           </motion.div>
 
           {/* ========================================================= */}
-          {/* IMAGEM DO DEV (COMPARTILHADA) */}
+          {/* IMAGEM DO DEV (COMPARTILHADA ENTRE MOBILE E DESKTOP) */}
           {/* ========================================================= */}
-          <div className="col-span-1 lg:col-span-7 relative h-[400px] md:h-[600px] lg:h-[800px] xl:h-[950px] flex justify-center items-end pointer-events-none -mt-8 lg:mt-0 z-20">
+          <div className="col-span-1 lg:col-span-7 relative h-[450px] md:h-[600px] lg:h-[800px] xl:h-[950px] flex justify-center items-end pointer-events-none mt-2 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] bg-[#0064f5] rounded-full blur-[80px] lg:blur-[120px] opacity-30 z-0" />
             
             {/* Código BRANCO ATRÁS do rapaz - MOBILE */}
             <motion.div 
               animate={{ y: [0, 25, 0], opacity: [0.2, 0.6, 0.2] }}
               transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }}
-              className="lg:hidden absolute top-[25%] right-[2%] text-white font-mono text-xs z-0"
+              className="lg:hidden absolute top-[35%] right-[2%] text-white font-mono text-base z-0"
             >
               const future = new Developer();
             </motion.div>
@@ -119,7 +119,7 @@ export default function Hero() {
             <motion.div
               animate={{ x: mousePosition.x, y: mousePosition.y }}
               transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-              className="relative w-full h-full flex justify-center items-end z-10 scale-[1.3] lg:scale-[1.8] origin-bottom lg:-translate-x-32"
+              className="relative w-full h-full flex justify-center items-end z-10 scale-[1.65] lg:scale-[1.8] origin-bottom lg:-translate-x-32"
             >
               <img
                 src="/images/Dev-01.png"
@@ -132,7 +132,7 @@ export default function Hero() {
             <motion.div 
               animate={{ y: [0, 30, 0], opacity: [0.3, 0.8, 0.3] }}
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
-              className="lg:hidden absolute bottom-[35%] left-[2%] text-[#77df40] font-mono text-xs z-20"
+              className="lg:hidden absolute bottom-[35%] left-[5%] text-[#77df40] font-mono text-base z-20"
             >
               if (learning) &#123; grow(); &#125;
             </motion.div>

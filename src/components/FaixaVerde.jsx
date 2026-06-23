@@ -3,11 +3,12 @@ import { motion } from 'framer-motion'
 
 export default function FaixaVerde() {
   return (
-    <section className="bg-white relative z-10 overflow-hidden flex flex-col min-h-[400px] lg:min-h-[600px] lg:justify-center lg:items-center">
+    // Aumentei a altura mínima do mobile para min-h-[450px] para caber o novo espaçamento
+    <section className="bg-white relative z-10 overflow-hidden flex flex-col min-h-[450px] lg:min-h-[600px] lg:justify-center lg:items-center">
       
       {/* Faixa Verde Diagonal */}
-      {/* MOBILE: top-6 (Grudada no teto). DESKTOP: lg:top-[12%] (Intocada) */}
-      <div className="absolute top-6 lg:top-[12%] left-1/2 transform -translate-x-1/2 -rotate-6 w-[120vw] bg-[#77df40] py-4 shadow-xl z-0 overflow-hidden flex">
+      {/* MOBILE: top-8 (fixa no topo). DESKTOP: lg:top-[12%] (Intocada) */}
+      <div className="absolute top-8 lg:top-[12%] left-1/2 transform -translate-x-1/2 -rotate-6 w-[120vw] bg-[#77df40] py-4 shadow-xl z-0 overflow-hidden flex">
         <motion.div
           animate={{ x: [0, -1000] }}
           transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
@@ -48,10 +49,10 @@ export default function FaixaVerde() {
       </div>
 
       {/* ========================================================= */}
-      {/* 📱 VERSÃO MOBILE (ESPAÇAMENTO GIGANTE FORÇADO) */}
+      {/* 📱 VERSÃO MOBILE (ESPAÇAMENTO FORÇADO BRUTO) */}
       {/* ========================================================= */}
-      {/* MOBILE: pt-48 (192px de empurrão para baixo, fugindo da faixa) */}
-      <div className="lg:hidden container-custom relative z-10 text-center w-full pt-48 pb-16">
+      {/* A MÁGICA: mt-[160px] obriga o texto a descer 160 pixels, fugindo da faixa verde */}
+      <div className="lg:hidden container-custom relative z-10 text-center w-full mt-[160px] pb-12">
         <motion.h2 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

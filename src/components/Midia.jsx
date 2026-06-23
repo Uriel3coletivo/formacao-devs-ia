@@ -39,7 +39,7 @@ export default function Midia() {
       <div className="container-custom relative z-10">
         
         {/* ========================================================= */}
-        {/* 🖥️ VERSÃO DESKTOP (SOMBRA RESOLVIDA) */}
+        {/* 🖥️ VERSÃO DESKTOP */}
         {/* ========================================================= */}
         <div className="hidden lg:grid grid-cols-12 gap-0 items-center">
           
@@ -48,7 +48,6 @@ export default function Midia() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            // Removida a parede branca e o bg-white que estavam conflitando com a sombra
             className="col-span-4 flex flex-col items-start relative z-20 py-8 pr-8"
           >
             <h2 className="text-[56px] font-bold text-[#0064f5] leading-tight mb-8 tracking-tight relative z-10">
@@ -69,35 +68,41 @@ export default function Midia() {
             </div>
           </motion.div>
 
+          {/* LADO DIREITO: Carrossel com Máscara de Opacidade Horizontal */}
           <div className="col-span-8 relative z-10">
-            <Swiper
-              onSwiper={setSwiperDesktop}
-              slidesPerView="auto"
-              spaceBetween={32}
-              modules={[Navigation]}
-              // A MÁGICA AQUI: pl-8 cria um espaço de 32px na esquerda para a sombra nascer e respirar livremente.
-              // -ml-8 compensa esse espaço para o card continuar visualmente alinhado onde deveria estar.
-              className="!overflow-visible py-12 -my-12 pl-8 -ml-8 pr-[50vw] -mr-[50vw]"
+            {/* A MÁGICA AQUI: A máscara faz o carrossel sumir suavemente na margem esquerda, sem usar paredes brancas! */}
+            <div 
+              style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 100%)', WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 100%)' }}
+              className="-my-12 py-12"
             >
-              {noticias.map((noticia, index) => (
-                <SwiperSlide key={index} className="!w-[420px]">
-                  <a href={noticia.link} target="_blank" rel="noopener noreferrer" className="block h-full group bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,15,68,0.12)] hover:shadow-[0_20px_40px_rgba(0,15,68,0.25)] hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col overflow-hidden">
-                    <div className="p-4 pb-0 h-[250px]">
-                      <img src={`/images/${noticia.img}`} alt="Notícia" className="w-full h-full object-cover rounded-[24px] bg-gray-100" onError={(e) => { e.target.src = `https://placehold.co/400x300/0064f5/ffffff?text=Notícia+${index + 1}` }} />
-                    </div>
-                    <div className="p-8 flex-1 flex items-center">
-                      <p className="text-[#0064f5] font-medium text-xl leading-snug group-hover:text-[#0033b0] transition-colors">{noticia.title}</p>
-                    </div>
-                  </a>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+              <Swiper
+                onSwiper={setSwiperDesktop}
+                slidesPerView="auto"
+                spaceBetween={32}
+                modules={[Navigation]}
+                // pl-8 empurra o primeiro card para fora da área transparente da máscara
+                className="!overflow-visible pl-8 -ml-8 pr-[50vw] -mr-[50vw]"
+              >
+                {noticias.map((noticia, index) => (
+                  <SwiperSlide key={index} className="!w-[420px]">
+                    <a href={noticia.link} target="_blank" rel="noopener noreferrer" className="block h-full group bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,15,68,0.12)] hover:shadow-[0_20px_40px_rgba(0,15,68,0.25)] hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col overflow-hidden">
+                      <div className="p-4 pb-0 h-[250px]">
+                        <img src={`/images/${noticia.img}`} alt="Notícia" className="w-full h-full object-cover rounded-[24px] bg-gray-100" onError={(e) => { e.target.src = `https://placehold.co/400x300/0064f5/ffffff?text=Notícia+${index + 1}` }} />
+                      </div>
+                      <div className="p-8 flex-1 flex items-center">
+                        <p className="text-[#0064f5] font-medium text-xl leading-snug group-hover:text-[#0033b0] transition-colors">{noticia.title}</p>
+                      </div>
+                    </a>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </div>
 
         </div>
 
         {/* ========================================================= */}
-        {/* 📱 VERSÃO MOBILE (INTOCADA - FUNCIONANDO 100%) */}
+        {/* 📱 VERSÃO MOBILE (INTOCADA) */}
         {/* ========================================================= */}
         <div className="flex flex-col lg:hidden w-full gap-8">
           

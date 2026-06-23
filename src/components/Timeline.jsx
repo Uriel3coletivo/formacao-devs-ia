@@ -43,8 +43,11 @@ export default function Timeline() {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           
-          {/* LADO ESQUERDO */}
-          <div className="relative w-full flex justify-start lg:justify-end mt-20 lg:mt-0">
+          {/* ========================================================= */}
+          {/* LADO ESQUERDO: FOTO E CÓDIGO (OCULTO NO MOBILE, VISÍVEL NO DESKTOP) */}
+          {/* ========================================================= */}
+          {/* A MÁGICA AQUI: hidden lg:flex esconde tudo isso no celular e mantém no desktop */}
+          <div className="hidden lg:flex relative w-full justify-end mt-20 lg:mt-0">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -56,7 +59,6 @@ export default function Timeline() {
               <div className="absolute top-0 right-0 w-full h-[30%] bg-gradient-to-b from-[#000f44]/60 to-transparent" />
             </motion.div>
 
-            {/* CÓDIGO FLUTUANTE CORRIGIDO: Usando a classe CSS para animação super fluida */}
             <motion.div 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -76,13 +78,15 @@ model.train(
             </motion.div>
           </div>
 
-          {/* LADO DIREITO */}
+          {/* ========================================================= */}
+          {/* LADO DIREITO: TIMELINE (COMPARTILHADA) */}
+          {/* ========================================================= */}
           <div className="relative py-4 flex flex-col">
             
             <motion.h2 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8 }}
               className="text-4xl md:text-5xl lg:text-[56px] font-bold text-white mb-16 text-left"
             >
@@ -105,7 +109,8 @@ model.train(
                       <motion.div 
                         initial={{ scale: 0, opacity: 0 }}
                         whileInView={{ scale: 1, opacity: 1 }}
-                        viewport={{ once: true, margin: "-20%" }}
+                        // CORREÇÃO CRUCIAL: margin 0px garante que a bolinha apareça no mobile sem falhar
+                        viewport={{ once: true, margin: "0px" }}
                         transition={{ type: "spring", stiffness: 200, damping: 15 }}
                         className="relative w-12 h-12 md:w-16 md:h-16 shrink-0 flex items-center justify-center"
                       >
@@ -119,7 +124,7 @@ model.train(
                       <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-20%" }}
+                        viewport={{ once: true, margin: "0px" }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className="flex-1"
                       >
@@ -133,7 +138,7 @@ model.train(
                       <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
-                        viewport={{ once: true, margin: "-20%" }}
+                        viewport={{ once: true, margin: "0px" }}
                         transition={{ duration: 0.5, delay: 0.4 }}
                         className="ml-[0px] md:ml-[0px]"
                       >

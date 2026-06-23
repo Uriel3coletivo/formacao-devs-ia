@@ -111,6 +111,12 @@ export default function Hero() {
         <motion.div animate={{ y: [0, 25, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }} className="absolute top-[65%] right-[15%] text-white">const future = new Developer();</motion.div>
       </div>
 
+      <div className="block lg:hidden absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-white z-40 pointer-events-none" />
+
+    </section>
+  )
+}
+
     </section>
   )
 }

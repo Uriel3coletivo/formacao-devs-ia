@@ -32,7 +32,6 @@ export default function Beneficios() {
   const col2Images = ["Img-B-5.png", "Img-B-6.png", "Img-B-7.png", "Img-B-8.png"]
 
   return (
-    // overflow-hidden garante que nada vaze a tela e crie scroll horizontal
     <section id="beneficios" className="bg-[#000f44] pt-20 lg:pt-24 pb-20 lg:pb-24 relative z-20 overflow-hidden w-full">
       
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -40,9 +39,9 @@ export default function Beneficios() {
         <div className="absolute inset-0 bg-[#000f44]/80" />
       </div>
 
-      {/* Ajustei o container-custom para ter menos padding no mobile, dando mais espaço para o texto */}
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+      {/* A MÁGICA AQUI: Substituí o "container-custom" por classes nativas para recuperar o controle do layout mobile */}
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-20 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* LADO ESQUERDO: Textos */}
           <motion.div 
@@ -61,8 +60,8 @@ export default function Beneficios() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              // Text-base garante que o texto não fique gigante no mobile
-              className="space-y-4 lg:space-y-6 text-base md:text-lg lg:text-xl text-white font-light w-full pr-2"
+              // w-[95%] garante que o texto nunca encoste na borda da tela
+              className="space-y-5 lg:space-y-6 text-base md:text-lg lg:text-xl text-white font-light w-[95%] lg:w-full break-words"
             >
               <motion.li variants={itemVariants} className="flex gap-3">
                 <span className="text-[#0064f5] font-bold shrink-0">•</span>
@@ -74,6 +73,7 @@ export default function Beneficios() {
               </motion.li>
               <motion.li variants={itemVariants} className="flex gap-3">
                 <span className="text-[#0064f5] font-bold shrink-0">•</span>
+                {/* O texto longo vai quebrar de linha naturalmente agora */}
                 <span>Professores especialistas e mentoria contínua com profissionais de referência do Agibank</span>
               </motion.li>
               <motion.li variants={itemVariants} className="flex gap-3">
@@ -89,11 +89,10 @@ export default function Beneficios() {
 
           {/* LADO DIREITO: Carrossel Infinito Duplo */}
           <div 
-            // Adicionado flex e justify-center no container principal para centralizar o carrossel
             className="col-span-12 lg:col-span-6 relative h-[450px] md:h-[600px] overflow-hidden flex justify-center items-center w-full"
             style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)' }}
           >
-            {/* mx-auto garante que o grid fique no centro da div flex */}
+            {/* O mx-auto agora vai funcionar e centralizar o grid no celular */}
             <div className="grid grid-cols-2 gap-3 lg:gap-4 md:gap-6 h-full w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[450px] mx-auto">
               
               <div className="flex flex-col gap-3 lg:gap-4 md:gap-8 animate-scroll-up">

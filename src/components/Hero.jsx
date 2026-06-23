@@ -16,7 +16,6 @@ export default function Hero() {
   }, [])
 
   return (
-    // MOBILE: pt-20 (reduzido para subir o conteúdo). DESKTOP: lg:pt-32 mantido.
     <section className="relative flex items-center bg-[#000f44] overflow-hidden pt-20 pb-0 lg:min-h-screen lg:pt-32 lg:pb-12">
       
       <div className="absolute inset-0 z-0">
@@ -35,10 +34,10 @@ export default function Hero() {
       </div>
 
       <div className="container-custom relative z-20 w-full mt-4 lg:mt-4">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
           
           {/* ========================================================= */}
-          {/* 🖥️ VERSÃO DESKTOP (BLINDADA - EXATAMENTE A QUE VOCÊ APROVOU) */}
+          {/* 🖥️ VERSÃO DESKTOP (BLINDADA) */}
           {/* ========================================================= */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
@@ -46,8 +45,9 @@ export default function Hero() {
             transition={{ duration: 0.8 }} 
             className="hidden lg:flex col-span-5 flex-col items-start justify-center text-left w-full z-30"
           >
+            {/* CORRIGIDO: Logo_Formacao_Devs.png (com underline) */}
             <img 
-              src="/images/Logo-Formacao-Devs.png" 
+              src="/images/Logo_Formacao_Devs.png" 
               alt="Formação de Devs nativos em IA" 
               className="w-full max-w-[700px] xl:max-w-[850px] mb-8 object-contain -ml-8 xl:-ml-12"
               style={{ objectPosition: 'left center' }}
@@ -80,8 +80,9 @@ export default function Hero() {
             transition={{ duration: 0.8 }} 
             className="flex lg:hidden col-span-1 flex-col items-center justify-center text-center w-full z-30"
           >
+            {/* CORRIGIDO: Logo_Formacao_Devs.png (com underline) */}
             <img 
-              src="/images/Logo-Formacao-Devs.png" 
+              src="/images/Logo_Formacao_Devs.png" 
               alt="Formação de Devs nativos em IA" 
               className="w-[90%] max-w-[400px] mb-8 object-contain"
               style={{ objectPosition: 'center' }}
@@ -104,8 +105,7 @@ export default function Hero() {
           {/* ========================================================= */}
           {/* IMAGEM DO DEV (COMPARTILHADA ENTRE MOBILE E DESKTOP) */}
           {/* ========================================================= */}
-          {/* MOBILE: mt-2 (para descolar do botão). DESKTOP: lg:mt-0 mantido */}
-          <div className="col-span-12 lg:col-span-7 relative h-[450px] md:h-[600px] lg:h-[800px] xl:h-[950px] flex justify-center items-end pointer-events-none mt-2 lg:mt-0 z-20">
+          <div className="col-span-1 lg:col-span-7 relative h-[450px] md:h-[600px] lg:h-[800px] xl:h-[950px] flex justify-center items-end pointer-events-none mt-2 lg:mt-0 z-20">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] bg-[#0064f5] rounded-full blur-[80px] lg:blur-[120px] opacity-30 z-0" />
             
             {/* Código BRANCO ATRÁS do rapaz - MOBILE */}
@@ -117,7 +117,6 @@ export default function Hero() {
               const future = new Developer();
             </motion.div>
 
-            {/* MOBILE: Scale mantido em 1.65. DESKTOP: lg:scale-[1.8] lg:-translate-x-32 mantido */}
             <motion.div
               animate={{ x: mousePosition.x, y: mousePosition.y }}
               transition={{ type: 'spring', stiffness: 50, damping: 20 }}
@@ -134,7 +133,7 @@ export default function Hero() {
             <motion.div 
               animate={{ y: [0, 30, 0], opacity: [0.3, 0.8, 0.3] }}
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
-              className="lg:hidden absolute bottom-[35%] left-[5%] text-[#77df40] font-mono text-base z-20"
+              className="lg:hidden absolute bottom-[25%] left-[2%] text-[#77df40] font-mono text-base z-20"
             >
               if (learning) &#123; grow(); &#125;
             </motion.div>
@@ -149,7 +148,7 @@ export default function Hero() {
         <motion.div animate={{ y: [0, 25, 0], opacity: [0.2, 0.6, 0.2] }} transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }} className="absolute top-[65%] right-[15%] text-white">const future = new Developer();</motion.div>
       </div>
 
-      {/* MÁGICA MOBILE: Gradiente de transição para o próximo bloco (Escondido no Desktop) */}
+      {/* MÁGICA MOBILE: Gradiente de transição para o próximo bloco */}
       <div className="lg:hidden absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#000f44] via-[#000f44]/80 to-transparent z-40 pointer-events-none" />
 
     </section>

@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
@@ -8,8 +8,16 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 export default function Midia() {
-  const [swiperDesktop, setSwiperDesktop] = useState(null)
-  const [swiperMobile, setSwiperMobile] = useState(null)
+  const carouselRef = useRef(null)
+
+  const scroll = (direction) => {
+    if (carouselRef.current && carouselRef.current.children.length > 0) {
+      const cardWidth = carouselRef.current.children[0].getBoundingClientRect().width
+      const gap = 32 
+      const scrollAmount = direction === 'left' ? -(cardWidth + gap) : (cardWidth + gap)
+      carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    }
+  }
 
   const noticias = [
     {
@@ -43,13 +51,17 @@ export default function Midia() {
         {/* ========================================================= */}
         <div className="hidden lg:grid grid-cols-12 gap-0 items-center">
           
+          {/* A MÁGICA AQUI: bg-white e z-50 garantem que esta coluna inteira seja uma parede sólida que esconde o carrossel */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="col-span-4 flex flex-col items-start relative z-20 py-8 pr-8"
+            className="col-span-4 flex flex-col items-start relative z-50 bg-white py-8 pr-8"
           >
+            {/* Bloco branco estendido para a esquerda para garantir que a tela toda fique coberta */}
+            <div className="absolute top-0 right-0 w-[100vw] h-full bg-white z-0" style={{ transform: 'translateX(-100%)' }} />
+
             <h2 className="text-[56px] font-bold text-[#0064f5] leading-tight mb-8 tracking-tight relative z-10">
               Agibank na mídia
             </h2>
@@ -58,39 +70,43 @@ export default function Midia() {
               Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
             </p>
             
-            <div className="flex gap-4 relative z-40">
-              <button onClick={() => swiperDesktop?.slidePrev()} className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md cursor-pointer">
+            <div className="flex gap-4 relative z-10">
+              <button onClick={() => scroll('left')} className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
               </button>
-              <button onClick={() => swiperDesktop?.slideNext()} className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md cursor-pointer">
+              <button onClick={() => scroll('right')} className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-md cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
               </button>
             </div>
           </motion.div>
 
+          {/* LADO DIREITO: Carrossel (z-10 para passar por baixo da coluna de texto) */}
           <div className="col-span-8 relative z-10">
-            {/* O VAZAMENTO RESTAURADO: -mr-[50vw] pr-[50vw] garante que o carrossel fure a borda direita da tela */}
-            {/* A SOMBRA PROTEGIDA: pl-8 cria o recuo na esquerda para a sombra do card 1 não ser cortada */}
-            <Swiper
-              onSwiper={setSwiperDesktop}
-              slidesPerView="auto"
-              spaceBetween={32}
-              modules={[Navigation]}
-              className="!overflow-visible py-12 -my-12 pl-8 -ml-8 -mr-[50vw] pr-[50vw]"
+            <div 
+              ref={carouselRef}
+              className="flex gap-8 overflow-x-auto snap-x snap-mandatory no-scrollbar py-12 -my-12 pl-8 -ml-8 -mr-[50vw] pr-[50vw]"
             >
               {noticias.map((noticia, index) => (
-                <SwiperSlide key={index} className="!w-[420px]">
-                  <a href={noticia.link} target="_blank" rel="noopener noreferrer" className="block h-full group bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,15,68,0.12)] hover:shadow-[0_20px_40px_rgba(0,15,68,0.25)] hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col overflow-hidden">
-                    <div className="p-4 pb-0 h-[250px]">
-                      <img src={`/images/${noticia.img}`} alt="Notícia" className="w-full h-full object-cover rounded-[24px] bg-gray-100" onError={(e) => { e.target.src = `https://placehold.co/400x300/0064f5/ffffff?text=Notícia+${index + 1}` }} />
-                    </div>
-                    <div className="p-8 flex-1 flex items-center">
-                      <p className="text-[#0064f5] font-medium text-xl leading-snug group-hover:text-[#0033b0] transition-colors">{noticia.title}</p>
-                    </div>
-                  </a>
-                </SwiperSlide>
+                <motion.a
+                  key={index}
+                  href={noticia.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  className="snap-start shrink-0 w-[420px] bg-white border border-gray-100 rounded-[32px] shadow-[0_10px_30px_rgba(0,15,68,0.15)] hover:shadow-[0_20px_40px_rgba(0,15,68,0.25)] hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col overflow-hidden group block"
+                >
+                  <div className="p-4 pb-0 h-[250px]">
+                    <img src={`/images/${noticia.img}`} alt="Notícia" className="w-full h-full object-cover rounded-[24px] bg-gray-100" onError={(e) => { e.target.src = `https://placehold.co/400x300/0064f5/ffffff?text=Notícia+${index + 1}` }} />
+                  </div>
+                  <div className="p-8 flex-1 flex items-center">
+                    <p className="text-[#0064f5] font-medium text-xl leading-snug group-hover:text-[#0033b0] transition-colors">{noticia.title}</p>
+                  </div>
+                </motion.a>
               ))}
-            </Swiper>
+            </div>
           </div>
 
         </div>
@@ -99,7 +115,6 @@ export default function Midia() {
         {/* 📱 VERSÃO MOBILE (INTOCADA) */}
         {/* ========================================================= */}
         <div className="flex flex-col lg:hidden w-full gap-8">
-          
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -110,24 +125,13 @@ export default function Midia() {
             <h2 className="text-4xl md:text-5xl font-bold text-[#0064f5] leading-[1.1] mb-6 tracking-tight">
               Agibank na mídia
             </h2>
-            
             <p className="text-lg md:text-xl text-[#000f44] font-light mb-8 leading-relaxed max-w-[90%] break-words">
               Aqui, a inteligência artificial vem pra somar, <span className="font-bold">desde que exista uma pessoa por trás que saiba operar.</span>
             </p>
-            
-            <div className="flex gap-4">
-              <button onClick={() => swiperMobile?.slidePrev()} className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center shadow-md active:scale-95 z-40 relative">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
-              </button>
-              <button onClick={() => swiperMobile?.slideNext()} className="w-12 h-12 rounded-full bg-[#77df40] text-[#000f44] flex items-center justify-center shadow-md active:scale-95 z-40 relative">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-              </button>
-            </div>
           </motion.div>
 
           <div className="w-full relative">
             <Swiper
-              onSwiper={setSwiperMobile}
               slidesPerView="auto"
               spaceBetween={24}
               modules={[Navigation]}
@@ -147,8 +151,8 @@ export default function Midia() {
               ))}
             </Swiper>
           </div>
-
         </div>
+
       </div>
     </section>
   )

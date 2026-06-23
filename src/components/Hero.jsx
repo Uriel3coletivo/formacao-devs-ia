@@ -36,7 +36,7 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
           
           {/* ========================================================= */}
-          {/* 🖥️ VERSÃO DESKTOP (BLINDADA - ALINHAMENTO CORRIGIDO) */}
+          {/* 🖥️ VERSÃO DESKTOP (BLINDADA) */}
           {/* ========================================================= */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
@@ -44,7 +44,6 @@ export default function Hero() {
             transition={{ duration: 0.8 }} 
             className="hidden lg:flex col-span-5 flex-col items-start justify-center text-left w-full z-30"
           >
-            {/* O objectPosition: '0% 50%' força a imagem a grudar na esquerda da caixa dela */}
             <img 
               src="/images/Logo_Formacao_Devs.png" 
               alt="Formação de Devs nativos em IA" 
@@ -52,8 +51,8 @@ export default function Hero() {
               style={{ objectPosition: '0% 50%' }}
             />
             
-            {/* Removido o padding-left (pl-0). Agora o botão e o código nascem no mesmo eixo "0" da imagem */}
-            <div className="pl-0 w-full flex flex-col items-start">
+            {/* A MÁGICA AQUI: Adicionado lg:pl-[56px] xl:pl-[72px] para empurrar o botão e o código para baixo do "F" */}
+            <div className="w-full flex flex-col items-start pl-0 lg:pl-[56px] xl:pl-[72px]">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
               </button>

@@ -32,8 +32,8 @@ export default function Beneficios() {
   const col2Images = ["Img-B-5.png", "Img-B-6.png", "Img-B-7.png", "Img-B-8.png"]
 
   return (
-    // TRAVA DE SEGURANÇA: w-full max-w-[100vw] overflow-hidden garante zero scroll horizontal
-    <section id="beneficios" className="bg-[#000f44] pt-24 pb-24 relative z-20 w-full max-w-[100vw] overflow-hidden">
+    // ATENÇÃO: overflow-x-hidden garante zero scroll horizontal em qualquer tela
+    <section id="beneficios" className="bg-[#000f44] pt-20 lg:pt-24 pb-20 lg:pb-24 relative z-20 overflow-hidden w-full">
       
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img src="/images/Hero-Banner-1.jpg" alt="Background" className="w-full h-full object-cover" />
@@ -43,7 +43,7 @@ export default function Beneficios() {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           
-          {/* LADO ESQUERDO: Textos */}
+          {/* LADO ESQUERDO: Textos adaptados para Mobile */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -51,7 +51,8 @@ export default function Beneficios() {
             transition={{ duration: 0.8 }}
             className="col-span-12 lg:col-span-6 relative z-20"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-[#0064f5] mb-10 tracking-tight">
+            {/* Título menor no mobile (text-3xl) e maior no desktop (lg:text-5xl) */}
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0064f5] mb-8 lg:mb-10 tracking-tight">
               Pra impulsionar sua carreira:
             </h2>
             
@@ -60,27 +61,28 @@ export default function Beneficios() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="space-y-4 text-lg md:text-xl text-white font-light"
+              // Textos menores no mobile (text-base) e maiores no desktop (lg:text-xl)
+              className="space-y-4 lg:space-y-6 text-base md:text-lg lg:text-xl text-white font-light"
             >
               <motion.li variants={itemVariants} className="flex gap-3">
                 <span className="text-[#0064f5] font-bold">•</span>
-                Bolsa-auxílio de R$ 2.400,00 nos primeiros 6 meses
+                <span>Bolsa-auxílio de R$ 2.400,00 nos primeiros 6 meses</span>
               </motion.li>
               <motion.li variants={itemVariants} className="flex gap-3">
                 <span className="text-[#0064f5] font-bold">•</span>
-                Jornada de 40 horas semanais presencial
+                <span>Jornada de 40 horas semanais presencial</span>
               </motion.li>
               <motion.li variants={itemVariants} className="flex gap-3">
                 <span className="text-[#0064f5] font-bold">•</span>
-                Professores especialistas e mentoria contínua com profissionais de referência do Agibank
+                <span>Professores especialistas e mentoria contínua com profissionais de referência do Agibank</span>
               </motion.li>
               <motion.li variants={itemVariants} className="flex gap-3">
                 <span className="text-[#0064f5] font-bold">•</span>
-                Certificação em Back-end JAVA após a 1ª etapa
+                <span>Certificação em Back-end JAVA após a 1ª etapa</span>
               </motion.li>
               <motion.li variants={itemVariants} className="flex gap-3">
                 <span className="text-[#0064f5] font-bold">•</span>
-                Possibilidade de contratação CLT depois de 6 meses
+                <span>Possibilidade de contratação CLT depois de 6 meses</span>
               </motion.li>
             </motion.ul>
           </motion.div>
@@ -90,12 +92,12 @@ export default function Beneficios() {
             className="col-span-12 lg:col-span-6 relative h-[450px] md:h-[600px] overflow-hidden flex justify-center w-full"
             style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)' }}
           >
-            {/* A MÁGICA: max-w-[280px] no mobile garante que o grid inteiro caiba na tela. */}
+            {/* Grid restrito a 280px no mobile para nunca vazar a tela (iPhone menor tem 320px) */}
             <div className="grid grid-cols-2 gap-3 lg:gap-4 md:gap-6 h-full w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[450px] mx-auto">
               
               <div className="flex flex-col gap-3 lg:gap-4 md:gap-8 animate-scroll-up">
+                {/* Código limpo sem comentários no JSX para evitar erro de build */}
                 {[...col1Images, ...col1Images].map((img, index) => (
-                  {/* w-full sem tamanho fixo em pixels faz a imagem respeitar o container perfeitamente */}
                   <div key={index} className="w-full aspect-square rounded-[16px] lg:rounded-[24px] overflow-hidden shadow-xl bg-[#0033b0]">
                     <img src={`/images/${img}`} alt="Rotina Agibank" className="w-full h-full object-cover" onError={(e) => { e.target.src = `https://placehold.co/200x200/0033b0/ffffff?text=Foto+${(index % 4) + 1}` }} />
                   </div>

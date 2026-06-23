@@ -6,7 +6,8 @@ export default function FaixaVerde() {
     <section className="bg-white py-16 lg:py-32 relative z-10 overflow-hidden flex flex-col justify-center items-center min-h-[400px] lg:min-h-[600px]">
       
       {/* Faixa Verde Diagonal */}
-      <div className="absolute top-[10%] md:top-[12%] left-1/2 transform -translate-x-1/2 -rotate-6 w-[120vw] bg-[#77df40] py-4 shadow-xl z-0 overflow-hidden flex">
+      {/* A MÁGICA AQUI: top-0 no mobile empurra a faixa lá pro teto. lg:top-[12%] mantém o desktop intocado */}
+      <div className="absolute top-0 lg:top-[12%] left-1/2 transform -translate-x-1/2 -rotate-6 w-[120vw] bg-[#77df40] py-4 shadow-xl z-0 overflow-hidden flex mt-8 lg:mt-0">
         <motion.div
           animate={{ x: [0, -1000] }}
           transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
@@ -21,8 +22,7 @@ export default function FaixaVerde() {
       </div>
 
       {/* Conteúdo Central */}
-      {/* AQUI: Mudei de mt-24 para mt-36 no mobile. Isso empurra o texto para baixo, afastando da faixa verde */}
-      <div className="container-custom relative z-10 text-center max-w-4xl mx-auto mt-36 md:mt-48">
+      <div className="container-custom relative z-10 text-center max-w-4xl mx-auto mt-16 md:mt-48">
         
         <motion.h2 
           initial={{ opacity: 0, y: 30 }}

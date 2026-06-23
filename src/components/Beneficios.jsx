@@ -32,7 +32,6 @@ export default function Beneficios() {
   const col2Images = ["Img-B-5.png", "Img-B-6.png", "Img-B-7.png", "Img-B-8.png"]
 
   return (
-    // Adicionado overflow-hidden para garantir que nada vase a tela e crie scroll horizontal
     <section id="beneficios" className="bg-[#000f44] pt-24 pb-24 relative z-20 overflow-hidden">
       
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -90,12 +89,10 @@ export default function Beneficios() {
             className="col-span-12 lg:col-span-6 relative h-[500px] md:h-[600px] overflow-hidden flex justify-center w-full"
             style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)' }}
           >
-            {/* MOBILE: max-w-full e px-2. DESKTOP: lg:max-w-[450px] lg:px-0 (Intocado) */}
             <div className="grid grid-cols-2 gap-3 lg:gap-4 md:gap-6 h-full w-full max-w-full lg:max-w-[450px] px-2 lg:px-0">
               
               <div className="flex flex-col gap-3 lg:gap-4 md:gap-8 animate-scroll-up">
                 {[...col1Images, ...col1Images].map((img, index) => (
-                  {/* MOBILE: max-w-[150px] e rounded-[16px]. DESKTOP: lg:max-w-[200px] lg:rounded-[24px] (Intocado) */}
                   <div key={index} className="w-full max-w-[150px] lg:max-w-[200px] mx-auto aspect-square rounded-[16px] lg:rounded-[24px] overflow-hidden shadow-xl bg-[#0033b0]">
                     <img src={`/images/${img}`} alt="Rotina Agibank" className="w-full h-full object-cover" onError={(e) => { e.target.src = `https://placehold.co/200x200/0033b0/ffffff?text=Foto+${(index % 4) + 1}` }} />
                   </div>
@@ -104,7 +101,6 @@ export default function Beneficios() {
 
               <div className="flex flex-col gap-3 lg:gap-4 md:gap-8 animate-scroll-down">
                 {[...col2Images, ...col2Images].map((img, index) => (
-                  {/* MOBILE: max-w-[150px] e rounded-[16px]. DESKTOP: lg:max-w-[200px] lg:rounded-[24px] (Intocado) */}
                   <div key={index} className="w-full max-w-[150px] lg:max-w-[200px] mx-auto aspect-square rounded-[16px] lg:rounded-[24px] overflow-hidden shadow-xl bg-[#0064f5]">
                     <img src={`/images/${img}`} alt="Rotina Agibank" className="w-full h-full object-cover" onError={(e) => { e.target.src = `https://placehold.co/200x200/0064f5/ffffff?text=Foto+${(index % 4) + 5}` }} />
                   </div>
@@ -117,7 +113,7 @@ export default function Beneficios() {
         </div>
       </div>
 
-      {/* CÓDIGO FLUTUANTE (Sem alterações no desktop, ajustado no mobile para não quebrar a tela) */}
+      {/* CÓDIGO FLUTUANTE */}
       <motion.div 
         animate={{ x: mousePosition.x * 0.8, y: mousePosition.y * 0.8 }}
         transition={{ type: "spring", stiffness: 50, damping: 20 }}

@@ -52,7 +52,7 @@ export default function Hero() {
             />
             
             {/* A MÁGICA AQUI: Adicionado lg:pl-[56px] xl:pl-[72px] para empurrar o botão e o código para baixo do "F" */}
-            <div className="w-full flex flex-col items-start pl-0 lg:pl-[51px] xl:pl-[65px]">
+            <div className="w-full flex flex-col items-start pl-0 lg:pl-[29px] xl:pl-[72px]">
               <button className="bg-[#77df40] text-[#000f44] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0064f5] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(119,223,64,0.3)]">
                 Fazer inscrição
               </button>

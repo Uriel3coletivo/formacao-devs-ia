@@ -5,6 +5,9 @@ export default function Oportunidade() {
   return (
     <section id="programa" className="relative bg-[#000f44] pt-20 lg:pt-0 pb-32 overflow-hidden -mt-12 z-20">
       
+      {/* Degradê de transição - APENAS MOBILE */}
+      <div className="lg:hidden absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-[#000f44] to-transparent z-[5] pointer-events-none" style={{ marginTop: '-160px' }} />
+      
       {/* CAMADA 1: Efeito Pixels */}
       <div className="absolute top-0 right-0 w-full md:w-1/2 h-full z-0 pointer-events-none flex justify-end items-start opacity-70 transform rotate-180">
         <img src="/images/Pixels.png" alt="Pixels Decorativos" className="object-contain max-h-full" />

@@ -3,11 +3,11 @@ import { motion } from 'framer-motion'
 
 export default function FaixaVerde() {
   return (
-    // Removi o "items-center" global. Agora o alinhamento vertical é manual.
     <section className="bg-white relative z-10 overflow-hidden flex flex-col min-h-[400px] lg:min-h-[600px] lg:justify-center lg:items-center">
       
-      {/* Faixa Verde Diagonal (Compartilhada) */}
-      <div className="absolute top-[5%] lg:top-[12%] left-1/2 transform -translate-x-1/2 -rotate-6 w-[120vw] bg-[#77df40] py-4 shadow-xl z-0 overflow-hidden flex">
+      {/* Faixa Verde Diagonal */}
+      {/* MOBILE: top-6 (Grudada no teto). DESKTOP: lg:top-[12%] (Intocada) */}
+      <div className="absolute top-6 lg:top-[12%] left-1/2 transform -translate-x-1/2 -rotate-6 w-[120vw] bg-[#77df40] py-4 shadow-xl z-0 overflow-hidden flex">
         <motion.div
           animate={{ x: [0, -1000] }}
           transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
@@ -48,15 +48,16 @@ export default function FaixaVerde() {
       </div>
 
       {/* ========================================================= */}
-      {/* 📱 VERSÃO MOBILE (ESPAÇAMENTO FORÇADO DE CIMA PARA BAIXO) */}
+      {/* 📱 VERSÃO MOBILE (ESPAÇAMENTO GIGANTE FORÇADO) */}
       {/* ========================================================= */}
-      <div className="lg:hidden container-custom relative z-10 text-center w-full pt-32 pb-16">
+      {/* MOBILE: pt-48 (192px de empurrão para baixo, fugindo da faixa) */}
+      <div className="lg:hidden container-custom relative z-10 text-center w-full pt-48 pb-16">
         <motion.h2 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-bold text-[#000f44] leading-tight mb-10 mt-12"
+          className="text-3xl md:text-4xl font-bold text-[#000f44] leading-tight mb-10"
         >
           <span className="text-[#0064f5] block mb-4 text-xl md:text-2xl font-medium">Java + inteligência artificial + Agibank =</span>
           sua carreira tech na era da inovação

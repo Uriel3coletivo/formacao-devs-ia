@@ -26,8 +26,8 @@ export default function Home() {
       <Beneficios />
       <PreRequisitos />
       <RotinaVideo />
-      <Midia />
       <Depoimento />
+      <Midia />
       <Escritorio />
       <Footer />
     </main>

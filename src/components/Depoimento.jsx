@@ -10,19 +10,19 @@ export default function Depoimento() {
       img: "depoimento-1.png",
       nome: "Juliana Marques",
       cargo: "Backend Software Engineer Specialist (Turma 2021)",
-      texto1: `"Participar do Programa de Devs mudou completamente minha trajetória profissional e possibilitou minha transição para a área de tecnologia. O contato com mentores e profissionais do Agi ampliou minha visão sobre o mercado e as possibilidades da carreira. A vivência prática com desafios reais fez toda a diferença no aprendizado. Foi uma experiência intensa que me preparou de verdade para o mercado."`.
+      texto1: `"Participar do Programa de Devs mudou completamente minha trajetória profissional e possibilitou minha transição para a área de tecnologia. O contato com mentores e profissionais do Agi ampliou minha visão sobre o mercado e as possibilidades da carreira. A vivência prática com desafios reais fez toda a diferença no aprendizado. Foi uma experiência intensa que me preparou de verdade para o mercado."`,
     },
     {
       img: "depoimento-2.png",
       nome: "Amanda Lara",
       cargo: "Backend Software Engineer I (Turma 2025)",
-      texto1: `"O Programa de Devs foi meu primeiro contato de verdade com programação, já que venho da área de Economia. O ambiente colaborativo e o apoio do professor e dos colegas tornaram o aprendizado muito rico. Durante o Programa, consegui conectar meu conhecimento em finanças com o desenvolvimento de software e passei a me ver não apenas como economista, mas também como programadora."`.
+      texto1: `"O Programa de Devs foi meu primeiro contato de verdade com programação, já que venho da área de Economia. O ambiente colaborativo e o apoio do professor e dos colegas tornaram o aprendizado muito rico. Durante o Programa, consegui conectar meu conhecimento em finanças com o desenvolvimento de software e passei a me ver não apenas como economista, mas também como programadora."`,
     },
     {
       img: "depoimento-3.png",
       nome: "Juan Henrique",
       cargo: "Backend Software Engineer I (Turma 2025) ",
-      texto1: `"O Programa foi uma experiência transformadora! Tive muito aprendizado e troca entre colegas e mentores, e os desafios práticos me ajudaram a desenvolver habilidades que vão além de programação... Como resolução de problemas e trabalho em equipe. Também tive contato próximo com profissionais do Agi, sempre dispostos a ajudar, o que agilizou o meu crescimento e a minha contratação ao final da capacitação."`.
+      texto1: `"O Programa foi uma experiência transformadora! Tive muito aprendizado e troca entre colegas e mentores, e os desafios práticos me ajudaram a desenvolver habilidades que vão além de programação... Como resolução de problemas e trabalho em equipe. Também tive contato próximo com profissionais do Agi, sempre dispostos a ajudar, o que agilizou o meu crescimento e a minha contratação ao final da capacitação."`,
     }
   ]
 

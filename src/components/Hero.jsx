@@ -16,7 +16,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative flex items-center bg-[#000f44] overflow-hidden pt-24 pb-0 lg:min-h-screen lg:pt-32 lg:pb-12">
+    <section className="relative flex items-center bg-[#000f44] overflow-hidden pt-24 pb-0 lg:min-h-screen lg:pt-20 lg:pb-12">
       
       <div className="absolute inset-0 z-0">
         <img src="/images/Hero-Banner-1.jpg" alt="Background" className="w-full h-full object-cover" />

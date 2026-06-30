@@ -57,7 +57,7 @@ export default function Beneficios() {
             <motion.li variants={itemVariants} className="flex gap-3"><span className="text-[#0064f5] font-bold">•</span> Bolsa-auxílio de R$ 2.400,00 nos primeiros 6 meses</motion.li>
             <motion.li variants={itemVariants} className="flex gap-3"><span className="text-[#0064f5] font-bold">•</span> Jornada de 40 horas semanais presencial</motion.li>
             <motion.li variants={itemVariants} className="flex gap-3"><span className="text-[#0064f5] font-bold">•</span> Professores especialistas e mentoria contínua com profissionais de referência do Agibank</motion.li>
-            <motion.li variants={itemVariants} className="flex gap-3"><span className="text-[#0064f5] font-bold">•</span> Certificação em Back-end JAVA após a 1ª etapa</motion.li>
+            <motion.li variants={itemVariants} className="flex gap-3"><span className="text-[#0064f5] font-bold">•</span> Certificação em Back-end JAVA e IA após a 1ª etapa</motion.li>
             <motion.li variants={itemVariants} className="flex gap-3"><span className="text-[#0064f5] font-bold">•</span> Possibilidade de contratação CLT depois de 6 meses</motion.li>
           </motion.ul>
         </motion.div>

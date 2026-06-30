@@ -14,7 +14,7 @@ export default function Diferenciais() {
     },
     {
       paths: ["M15 10.5a3 3 0 11-6 0 3 3 0 016 0z", "M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"],
-      text: "O curso é 100% presencial, com infraestrutura dividida entre nossa sede, o Agi Campus e o Instituto, em Campinas."
+      text: "O curso é 100% presencial, com infraestrutura dividida entre nossa sede, o Agi Campus e o Instituto Eldorado, em Campinas."
     },
     {
       paths: ["M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"],

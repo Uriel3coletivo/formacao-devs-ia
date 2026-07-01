@@ -51,12 +51,12 @@ export default function Depoimento() {
           </div>
 
           {/* ========================================================= */}
-          {/* 🖥️ VERSÃO DESKTOP (BLINDADA E INTOCADA) */}
+          {/* 🖥️ VERSÃO DESKTOP (AJUSTADA - IMAGEM CENTRALIZADA) */}
           {/* ========================================================= */}
           <div className="hidden lg:grid grid-cols-12 gap-0 items-stretch relative z-10 h-full">
             
             {/* LADO ESQUERDO: Foto */}
-            <div className="col-span-5 relative flex justify-center items-end pt-12 lg:pt-0 min-h-[400px] lg:min-h-full">
+            <div className="col-span-5 relative flex justify-center items-center min-h-[400px] lg:min-h-full">
               <AnimatePresence mode="wait">
                 <motion.img 
                   key={currentIndex}
@@ -66,7 +66,7 @@ export default function Depoimento() {
                   transition={{ duration: 0.4 }}
                   src={`/images/${depoimentos[currentIndex].img}`} 
                   alt={depoimentos[currentIndex].nome} 
-                  className="absolute bottom-0 w-full h-full object-contain object-bottom drop-shadow-2xl"
+                  className="w-full h-full object-contain drop-shadow-2xl"
                   onError={(e) => { e.target.src = `https://placehold.co/500x600/0033b0/ffffff?text=${depoimentos[currentIndex].nome.replace(/ /g, '+')}` }}
                 />
               </AnimatePresence>
@@ -130,7 +130,7 @@ export default function Depoimento() {
           </div>
 
           {/* ========================================================= */}
-          {/* 📱 VERSÃO MOBILE (REORDENADA: TÍTULO -> FOTO -> TEXTO) */}
+          {/* 📱 VERSÃO MOBILE (INTOCADA) */}
           {/* ========================================================= */}
           <div className="flex flex-col lg:hidden relative z-10 h-full">
             

@@ -72,10 +72,7 @@ export default function PreRequisitos() {
                   </div>
                 </div>
               </li>
-              <li className="text-white font-light text-lg flex gap-3">
-                <span className="text-[#77df40] mt-1">•</span>
-                Pessoas em transição de carreira
-              </li>
+              
             </ul>
           </motion.div>
 

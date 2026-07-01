@@ -152,7 +152,7 @@ export default function Depoimento() {
                   transition={{ duration: 0.4 }}
                   src={`/images/${depoimentos[currentIndex].img}`} 
                   alt={depoimentos[currentIndex].nome} 
-                  className="absolute bottom-0 w-full h-full object-contain object-bottom drop-shadow-2xl"
+                  className="absolute bottom-0 w-full h-full object-contain object-bottom"
                   onError={(e) => { e.target.src = `https://placehold.co/500x600/0033b0/ffffff?text=${depoimentos[currentIndex].nome.replace(/ /g, '+')}` }}
                 />
               </AnimatePresence>

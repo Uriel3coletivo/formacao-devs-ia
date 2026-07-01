@@ -56,7 +56,7 @@ export default function Depoimento() {
           <div className="hidden lg:grid grid-cols-12 gap-0 items-stretch relative z-10 h-full">
             
             {/* LADO ESQUERDO: Foto */}
-            <div className="col-span-5 relative flex justify-center items-center min-h-[400px] lg:min-h-full">
+           <div className="col-span-5 relative flex justify-center items-center min-h-[400px] lg:min-h-full pl-8">
               <AnimatePresence mode="wait">
                 <motion.img 
                   key={currentIndex}

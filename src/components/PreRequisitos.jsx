@@ -62,7 +62,7 @@ export default function PreRequisitos() {
               <li className="text-white font-light text-lg flex gap-3">
                 <span className="text-[#77df40] mt-1">•</span>
                 <div>
-                  Maiores de 18 anos com Ensino Médio completo que estejam cursando graduação ou tecnólogo em:
+                 Maiores de 18 anos, com Ensino Médio completo, que estejam cursando Bacharelado ou Tecnólogo em:
                   <div className="flex flex-wrap gap-3 mt-4">
                     {cursos.map((curso, i) => (
                       <span key={i} className="border border-[#77df40] text-[#77df40] px-4 py-2 rounded-full text-sm font-medium hover:bg-[#77df40] hover:text-[#000f44] transition-colors cursor-default">
@@ -90,7 +90,7 @@ export default function PreRequisitos() {
             </div>
             <div>
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Localização</h3>
-              <p className="text-white font-light text-lg">É preciso residir em Campinas e Região ou em endereço que fique até 1h de distância da nossa sede ou do Eldorado (Unicamp).</p>
+              <p className="text-white font-light text-lg">É preciso residir em Campinas e Região ou em endereço que fique até 1h de distância da nossa sede ou do Instituto Eldorado (Unicamp).</p>
             </div>
           </motion.div>
 

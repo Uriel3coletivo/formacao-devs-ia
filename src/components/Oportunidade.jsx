@@ -61,7 +61,7 @@ def start_journey(dev):
 
           <div className="space-y-6 text-lg md:text-xl text-white/90 font-light leading-relaxed mb-12">
             <p>
-              A Formação de Devs nativa em IA é para quem quer começar na área de tecnologia de forma <span className="font-bold text-[#77df40]">agilizada, praticando o desenvolvimento de software aliado à inteligência artificial desde o dia um.</span>
+              A Formação de Devs nativos em IA é para quem quer começar uma carreira na área de tecnologia de forma <span className="font-bold text-[#77df40]">agilizada, praticando o desenvolvimento de software aliado à inteligência artificial desde o dia um.</span>
             </p>
             <p>
               Com uma verdadeira imersão na teoria e na prática, você passa por <span className="font-bold text-[#77df40]">6 meses de treinamento em Java + IA, recebendo uma bolsa-auxílio de R$ 2.400,</span> podendo seguir para a 2ª etapa e fazer parte de uma das nossas squads. 

@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Agi Organograma">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="Assets/agi-icone.png">
+<title>Organograma · Agibank</title>
+<style>
+@font-face {
+  font-family: 'AgibankSans';
+  src: url('Assets/AgibankSans-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'AgibankSans';
+  src: url('Assets/AgibankSans-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+:root {
+  --blue: #0064F9;
+  --dark-text: #0B1A33;
+  --bg-app: #EEF1F5;
+  --card-border-light: #E1E5EC;
+  --card-white: #FFFFFF;
+  --line-color: #D3D8E0;
+  --header-bg: #E9F1FF;
+  --muted-text: #6B7684;
+}
+
+* {
+  box-sizing: border-box; margin: 0; padding: 0;
+  -webkit-user-select: none; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+html, body {
+  width: 100%; height: 100%; overflow: hidden;
+  background: var(--bg-app);
+  font-family: 'AgibankSans', Arial, sans-serif;
+  color: var(--dark-text);
+}
+#app {
+  position: relative; width: 100vw; height: 100vh; height: 100dvh;
+  overflow: hidden; background: var(--bg-app);
+}
+.oc-screen {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  opacity: 0; visibility: hidden; transition: opacity 0.35s ease;
+}
+.oc-screen.active { opacity: 1; visibility: visible; z-index: 5; }
+
+/* ===== STANDBY ===== */
+#screen-standby { background: #000; z-index: 50; cursor: pointer; }
+#standby-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.standby-fallback {
+  position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
+  flex-direction: column; gap: 20px; background: var(--blue); color: #fff; text-align: center; padding: 40px;
+}
+.standby-fallback .emoji { font-size: 90px; }
+.standby-fallback p { font-size: clamp(20px, 3vw, 32px); font-weight: 700; max-width: 700px; }
+.standby-hint {
+  position: absolute; bottom: clamp(30px, 5vh, 80px); left: 50%; transform: translateX(-50%);
+  color: #fff; font-size: clamp(16px, 2vw, 26px); font-weight: 700;
+  background: rgba(0,0,0,0.35); padding: 14px 34px; border-radius: 50px;
+  animation: hintPulse 2s infinite; pointer-events: none;
+}
+@keyframes hintPulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+
+/* ===== HEADER ===== */
+.oc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(14px, 2vw, 22px);
+  padding: clamp(16px, 2.8vh, 30px) clamp(20px, 4vw, 56px);
+  flex-shrink: 0;
+  min-height: clamp(60px, 7.5vh, 92px);
+  transition: background 0.2s;
+}
+
+/* modo TV / tela vertical — fundo claro */
+.oc-header.header-light { background: var(--bg-app); }
+.header-light .oc-title { color: var(--dark-text); }
+
+/* modo iPad — fundo azul cheio */
+.oc-header.header-blue { background: var(--blue); }
+.header-blue .oc-title { color: #FFFFFF; }
+
+.oc-logo {
+  height: clamp(28px, 4vh, 44px);
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+}
+
+.oc-header-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.4vw, 16px);
+}
+
+.oc-title {
+  font-size: clamp(22px, 2.8vw, 38px);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.back-btn {
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0; transition: transform 0.15s;
+}
+.back-btn:active { transform: scale(0.9); }
+.back-btn svg { width: 46%; height: 46%; }
+
+/* botão de voltar — versão TV: menor, azul com ícone branco */
+.header-light .back-btn {
+  width: clamp(30px, 3.4vw, 40px);
+  height: clamp(30px, 3.4vw, 40px);
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+}
+
+/* botão de voltar — versão iPad (não aparece, mas mantém regra por consistência) */
+.header-blue .back-btn {
+  width: clamp(42px, 5vw, 58px);
+  height: clamp(42px, 5vw, 58px);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--blue);
+  box-shadow: 0 2px 8px rgba(11,26,51,0.12);
+}
+
+/* ===== BOARD (TODAS AS COLUNAS) ===== */
+#org-board { background: var(--bg-app); }
+
+.board-scroll {
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: clamp(6px, 1.2vh, 16px) 0 0;
+  gap: clamp(16px, 2.4vw, 26px);
+  scroll-padding-left: clamp(20px, 4vw, 40px);
+}
+.board-scroll::-webkit-scrollbar { display: none; }
+
+/* desativa temporariamente o snap durante scroll programático (setas) */
+.board-scroll.snap-disabled {
+  scroll-snap-type: none;
+}
+
+.board-col {
+  position: relative;
+  flex: 0 0 clamp(240px, 82vw, 340px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.4vh, 14px);
+  padding-left: 22px;
+  padding-bottom: clamp(120px, 16vh, 200px); /* espaço p/ QR + texto, igual em TV e iPad */
+  overflow-y: auto;
+  height: 100%;
+  scrollbar-width: none;
+}
+.board-col::-webkit-scrollbar { display: none; }
+.board-col:first-child { margin-left: clamp(20px, 4vw, 40px); }
+.board-col:last-child { margin-right: clamp(20px, 4vw, 40px); }
+
+.col-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.col-line-path {
+  stroke: var(--line-color);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+}
+
+/* card da diretoria (cabeçalho da coluna) */
+.col-header-card {
+  position: relative;
+  z-index: 1;
+  background: var(--header-bg);
+  border: 2px solid var(--blue);
+  border-radius: 16px;
+  padding: clamp(14px, 1.8vh, 20px) clamp(18px, 2.2vw, 24px);
+  flex-shrink: 0;
+  min-height: clamp(80px, 10vh, 104px);
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(11,26,51,0.06);
+}
+.col-header-card span {
+  font-size: clamp(16px, 1.8vw, 21px);
+  font-weight: 700;
+  color: var(--dark-text);
+  line-height: 1.3;
+}
+
+/* no iPad, o card da diretoria é clicável (abre o modal de detalhes) */
+body.mode-ipad .col-header-card { cursor: pointer; }
+
+/* card de área */
+.area-card {
+  position: relative;
+  z-index: 1;
+  background: var(--card-white);
+  border: 1px solid var(--card-border-light);
+  border-radius: 14px;
+  padding: clamp(20px, 2.6vh, 26px) clamp(20px, 2.4vw, 26px);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  min-height: clamp(72px, 9vh, 86px);
+  box-shadow: 0 2px 6px rgba(11,26,51,0.05);
+}
+.area-card::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 6px;
+  background: var(--blue);
+  border-radius: 6px;
+}
+.area-card span {
+  font-size: clamp(13.5px, 1.4vw, 16px);
+  font-weight: 700;
+  color: var(--dark-text);
+  line-height: 1.35;
+  display: block;
+}
+
+/* ===== SETAS DE NAVEGAÇÃO ===== */
+.board-nav-arrow {
+  position: absolute;
+  bottom: clamp(74px, 10.5vh, 130px);
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid var(--card-border-light);
+  color: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 8;
+  box-shadow: 0 2px 10px rgba(11,26,51,0.12);
+}
+.board-nav-arrow.left { left: 8px; }
+.board-nav-arrow.right { right: 8px; }
+.board-nav-arrow svg { width: 20px; height: 20px; }
+
+/* ===== RODAPÉ FIXO — CARREIRAS ===== */
+.app-footer {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1vh, 10px);
+  padding: clamp(10px, 1.4vh, 16px) 0 clamp(12px, 1.6vh, 18px);
+  background: linear-gradient(to top, var(--bg-app) 55%, rgba(238,241,245,0));
+  z-index: 6;
+  pointer-events: none;
+}
+.app-footer span {
+  font-size: clamp(14px, 1.6vw, 19px);
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.2px;
+}
+
+/* QR Code — proporção real do arquivo: 404,4 x 399,37px */
+.qr-code {
+  width: clamp(64px, 7vh, 110px);
+  aspect-ratio: 404.4 / 399.37;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ===== MODAL DE DETALHES DA DIRETORIA (somente iPad) ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 26, 51, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+}
+.modal-overlay.active { display: flex; }
+
+.modal-box {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: clamp(24px, 3vw, 36px);
+  box-shadow: 0 20px 60px rgba(11,26,51,0.25);
+}
+.modal-box::-webkit-scrollbar { display: none; }
+
+.modal-close {
+  position: absolute;
+  top: 18px; right: 18px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-app);
+  color: var(--dark-text);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+.modal-close:active { transform: scale(0.9); }
+
+.modal-title {
+  font-size: clamp(22px, 2.6vw, 28px);
+  font-weight: 700;
+  color: var(--dark-text);
+  padding-right: 40px;
+  margin-bottom: clamp(20px, 3vh, 28px);
+}
+
+.modal-section { margin-bottom: clamp(20px, 3vh, 28px); }
+.modal-section:last-child { margin-bottom: 0; }
+
+.modal-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: clamp(14px, 2vh, 18px);
+}
+.modal-section-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--header-bg);
+  color: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.modal-section-icon svg { width: 20px; height: 20px; }
+.modal-section-header span {
+  font-size: clamp(17px, 1.9vw, 20px);
+  font-weight: 700;
+  color: var(--dark-text);
+}
+
+.modal-field {
+  font-size: clamp(15px, 1.6vw, 17px);
+  margin-bottom: 12px;
+  color: var(--muted-text);
+  line-height: 1.5;
+}
+.modal-field:last-child { margin-bottom: 0; }
+.modal-field strong { color: var(--dark-text); font-weight: 700; }
+
+.modal-description {
+  font-size: clamp(15px, 1.6vw, 17px);
+  color: var(--muted-text);
+  line-height: 1.65;
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- STAND-BY -->
+  <div id="screen-standby" class="oc-screen active">
+    <video id="standby-video" autoplay muted loop playsinline webkit-playsinline>
+      <source src="Assets/Video_Standby_Facamp.mp4" type="video/mp4">
+    </video>
+    <div class="standby-fallback" id="standby-fallback">
+      <div class="emoji">🎬</div>
+      <p>Vídeo ainda não adicionado.<br>Toque para ver o organograma.</p>
+    </div>
+    <div class="standby-hint">Toque na tela para continuar</div>
+  </div>
+
+  <!-- BOARD COMPLETO (ÚNICA TELA DE CONTEÚDO) -->
+  <div id="org-board" class="oc-screen">
+    <div class="oc-header header-light" id="oc-header">
+      <div class="oc-header-right">
+        <button class="back-btn" id="back-btn" aria-label="Voltar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H6M11 6l-6 6 6 6"/>
+          </svg>
+        </button>
+        <div class="oc-title" id="oc-title">Organograma</div>
+      </div>
+      <img src="Assets/logo-agi-blue.svg" alt="Agibank" class="oc-logo" id="oc-logo">
+    </div>
+
+    <div style="position:relative; flex:1; overflow:hidden;">
+      <div class="board-scroll" id="board-scroll"></div>
+
+      <button class="board-nav-arrow left" id="nav-left" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="board-nav-arrow right" id="nav-right" aria-label="Próximo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+
+      <div class="app-footer">
+        <img src="Assets/qr-code.png" alt="QR Code Carreiras Agibank" class="qr-code" id="qr-code">
+        <span>carreiras.agibank.com.br</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE DETALHES DA DIRETORIA (SOMENTE IPAD) -->
+  <div class="modal-overlay" id="area-modal-overlay">
+    <div class="modal-box" id="area-modal-box">
+      <button class="modal-close" id="modal-close-btn" aria-label="Fechar">✕</button>
+      <div class="modal-title" id="modal-title"></div>
+
+      <div class="modal-section">
+        <div class="modal-section-header">
+          <div class="modal-section-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+              <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+              <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+              <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+            </svg>
+          </div>
+          <span>Ficha técnica</span>
+        </div>
+        <div class="modal-field"><strong>Área:</strong> <span id="modal-field-area"></span></div>
+        <div class="modal-field"><strong>Responsável:</strong> <span id="modal-field-responsavel"></span></div>
+        <div class="modal-field"><strong>Áreas relacionadas:</strong> <span id="modal-field-relacionadas"></span></div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-header">
+          <div class="modal-section-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/>
+              <line x1="8" y1="9" x2="16" y2="9"/>
+              <line x1="8" y1="13" x2="16" y2="13"/>
+              <line x1="8" y1="17" x2="13" y2="17"/>
+            </svg>
+          </div>
+          <span>Descrição da área</span>
+        </div>
+        <div class="modal-description" id="modal-field-descricao"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ============ CONFIGURAÇÃO DE MODO ============ */
+var STANDBY_ENABLED = true;
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  if (params.has('standby')) STANDBY_ENABLED = params.get('standby') !== '0';
+})();
+
+var IDLE_TIMEOUT = 30000;
+var idleTimer = null;
+
+/* ============ DADOS ============ */
+/* responsavel e descricao: preencher conforme materiais enviados.
+   "Áreas relacionadas" no modal é calculado automaticamente (areas.length) */
+var ORG_DATA = [
+  {
+    nome: "Clientes",
+    responsavel: "A definir",
+    descricao: "Texto descritivo a ser adicionado.",
+    areas: ["BU Atendimento","BU Folha de Pagamento","BU Membership","Desempenho","Rede e Expansão"]
+  },
+  {
+    nome: "Controladoria e Riscos",
+    responsavel: "A definir",
+    descricao: "Texto descritivo a ser adicionado.",
+    areas: ["Compras","Controladoria","FP&A","Risco Operacional e Controles Internos","Riscos Financeiro e de Capital","Tributário"]
+  },
+  {
+    nome: "Crédito",
+    responsavel: "A definir",
+    descricao: "Texto descritivo a ser adicionado.",
+    areas: ["Estratégia de Crédito","Gestão de Débitos, Portfólio e Legal Analytics","Jurídico","Modelagem de Crédito e Machine Learning","Ouvidoria","Prevenção à Fraudes"]
+  },
+  {
+    nome: "Gente e Governança",
+    responsavel: "Lucas Araujo De Aguiar",
+    descricao: "A diretoria de Gente e Governança é responsável por promover e disseminar a nossa cultura e garantir o alinhamento de interesses entre todas as camadas da organização, desde os sócios até os estagiários. Cuidando também da atração dos melhores talentos ao desenvolvimento no decorrer da jornada, esses times criam mecanismos para garantir meritocracia para as pessoas que tem o nosso jeito e entregam resultados.",
+    areas: ["Cultura e Workplace","Gestão e Governança","Recrutamento","Serviços de Gestão de Pessoas e Administrativo"]
+  },
+  {
+    nome: "Produtos",
+    responsavel: "A definir",
+    descricao: "Texto descritivo a ser adicionado.",
+    areas: ["BU Consignado Privado","BU Consignado Público + INSS","BU Consumer Banking","BU Crédito Pessoal","BU Meios de Pagamento","Operações"]
+  },
+  {
+    nome: "Tecnologia",
+    responsavel: "A definir",
+    descricao: "Texto descritivo a ser adicionado.",
+    areas: ["Dados e IA","Engenharia de Software","Engenharia e Arquitetura de Software","Infraestrutura, Operações e Governança","Segurança da Informação"]
+  },
+  {
+    nome: "Tesouraria e Relação com Investidores",
+    responsavel: "A definir",
+    descricao: "Texto descritivo a ser adicionado.",
+    areas: ["ALM","Relação com Investidor e M&A","Tesouraria"]
+  }
+];
+
+function showOrgScreen(id) {
+  var all = document.querySelectorAll('.oc-screen');
+  for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
+  document.getElementById(id).classList.add('active');
+}
+
+/* ===== MODO GLOBAL: classes no <body> para diferenciar TV x iPad via CSS ===== */
+function applyModeClasses() {
+  document.body.classList.toggle('mode-tv', STANDBY_ENABLED);
+  document.body.classList.toggle('mode-ipad', !STANDBY_ENABLED);
+}
+
+/* ===== CABEÇALHO: aplica visual conforme o modo de acesso ===== */
+function applyHeaderMode() {
+  var header = document.getElementById('oc-header');
+  var backBtn = document.getElementById('back-btn');
+  var logo = document.getElementById('oc-logo');
+
+  if (!STANDBY_ENABLED) {
+    // Modo iPad: sem stand-by, sem botão voltar, header azul cheio
+    header.classList.remove('header-light');
+    header.classList.add('header-blue');
+    backBtn.style.display = 'none';
+    logo.src = 'Assets/logo-agi-white.svg';
+  } else {
+    // Modo tela vertical / TV: header claro, com botão voltar menor
+    header.classList.remove('header-blue');
+    header.classList.add('header-light');
+    backBtn.style.display = 'flex';
+    logo.src = 'Assets/logo-agi-blue.svg';
+  }
+}
+
+/* ===== RODAPÉ: QR Code visível em ambos os modos (TV e iPad) ===== */
+function applyFooterMode() {
+  var qr = document.getElementById('qr-code');
+  if (!qr) return;
+  qr.style.display = 'block';
+}
+
+/* ===== BOARD (TODAS AS COLUNAS) ===== */
+function renderBoard() {
+  var scroll = document.getElementById('board-scroll');
+  scroll.innerHTML = '';
+
+  ORG_DATA.forEach(function (dir, idx) {
+    var col = document.createElement('div');
+    col.className = 'board-col';
+    col.dataset.index = idx;
+
+    var svgNS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('class', 'col-lines');
+    col.appendChild(svg);
+
+    var header = document.createElement('div');
+    header.className = 'col-header-card';
+    var hSpan = document.createElement('span');
+    hSpan.textContent = dir.nome;
+    header.appendChild(hSpan);
+    header.addEventListener('click', function () {
+      openAreaModal(idx);
+    });
+    col.appendChild(header);
+
+    dir.areas.forEach(function (areaNome) {
+      var card = document.createElement('div');
+      card.className = 'area-card';
+      var span = document.createElement('span');
+      span.textContent = areaNome;
+      card.appendChild(span);
+      col.appendChild(card);
+    });
+
+    scroll.appendChild(col);
+  });
+
+  requestAnimationFrame(function () {
+    requestAnimationFrame(drawAllColumnLines);
+  });
+}
+
+/* ============ MODAL DE DETALHES DA DIRETORIA (somente iPad) ============ */
+function openAreaModal(idx) {
+  if (STANDBY_ENABLED) return; // no modo TV, o clique não faz nada
+
+  var dir = ORG_DATA[idx];
+  if (!dir) return;
+
+  document.getElementById('modal-title').textContent = dir.nome;
+  document.getElementById('modal-field-area').textContent = dir.nome;
+  document.getElementById('modal-field-responsavel').textContent = dir.responsavel || 'A definir';
+  document.getElementById('modal-field-relacionadas').textContent = dir.areas.length;
+  document.getElementById('modal-field-descricao').textContent = dir.descricao || 'Descrição a ser adicionada.';
+
+  document.getElementById('area-modal-overlay').classList.add('active');
+}
+
+function closeAreaModal() {
+  document.getElementById('area-modal-overlay').classList.remove('active');
+}
+
+/* ============ DESENHO DAS LINHAS CONECTORAS ============ */
+function drawColumnLines(col) {
+  var svg = col.querySelector('.col-lines');
+  var header = col.querySelector('.col-header-card');
+  var cards = col.querySelectorAll('.area-card');
+  if (!svg || !header || !cards.length) return;
+
+  svg.innerHTML = '';
+
+  var lineX = 9;
+  var hookOffsetY = 28;
+  var radius = 10;
+
+  var headerBottom = header.offsetTop + header.offsetHeight;
+  var headerLeft = header.offsetLeft;
+  var cardLeft = cards[0].offsetLeft;
+
+  var svgNS = 'http://www.w3.org/2000/svg';
+  var frag = document.createDocumentFragment();
+
+  /* Conector do card da diretoria até o tronco vertical (ligado ao box) */
+  var headerHookY = headerBottom + radius;
+  var headerElbow = document.createElementNS(svgNS, 'path');
+  var hd = 'M ' + headerLeft + ' ' + headerBottom +
+           ' L ' + (lineX + radius) + ' ' + headerBottom +
+           ' Q ' + lineX + ' ' + headerBottom + ' ' + lineX + ' ' + headerHookY;
+  headerElbow.setAttribute('d', hd);
+  headerElbow.setAttribute('class', 'col-line-path');
+  frag.appendChild(headerElbow);
+
+  var lastHookY = headerHookY;
+
+  cards.forEach(function (card) {
+    var hookY = card.offsetTop + hookOffsetY;
+    lastHookY = hookY;
+
+    var elbow = document.createElementNS(svgNS, 'path');
+    var d = 'M ' + lineX + ' ' + (hookY - radius) +
+            ' Q ' + lineX + ' ' + hookY + ' ' + (lineX + radius) + ' ' + hookY +
+            ' L ' + cardLeft + ' ' + hookY;
+    elbow.setAttribute('d', d);
+    elbow.setAttribute('class', 'col-line-path');
+    frag.appendChild(elbow);
+  });
+
+  var trunk = document.createElementNS(svgNS, 'path');
+  trunk.setAttribute('d', 'M ' + lineX + ' ' + headerHookY + ' L ' + lineX + ' ' + (lastHookY - radius));
+  trunk.setAttribute('class', 'col-line-path');
+  frag.insertBefore(trunk, frag.firstChild);
+
+  svg.appendChild(frag);
+  svg.style.height = col.scrollHeight + 'px';
+}
+
+function drawAllColumnLines() {
+  var cols = document.querySelectorAll('.board-col');
+  cols.forEach(drawColumnLines);
+}
+
+var redrawScheduled = false;
+function scheduleRedraw() {
+  if (redrawScheduled) return;
+  redrawScheduled = true;
+  requestAnimationFrame(function () {
+    redrawScheduled = false;
+    if (document.getElementById('org-board').classList.contains('active')) {
+      drawAllColumnLines();
+    }
+  });
+}
+
+/* ============ NAVEGAÇÃO ENTRE COLUNAS (setas) ============ */
+var currentColIndex = 0;
+var scrollAnimFrame = null;
+
+/* animação manual de scroll — não depende do "smooth" nativo do navegador,
+   que variava de duração entre dispositivos e brigava com o scroll-snap */
+function animateScrollTo(scrollEl, targetLeft, duration, onDone) {
+  if (scrollAnimFrame) cancelAnimationFrame(scrollAnimFrame);
+
+  var startLeft = scrollEl.scrollLeft;
+  var distance = targetLeft - startLeft;
+  var startTime = null;
+
+  function step(timestamp) {
+    if (startTime === null) startTime = timestamp;
+    var elapsed = timestamp - startTime;
+    var progress = Math.min(elapsed / duration, 1);
+    var eased = 1 - Math.pow(1 - progress, 3); /* easeOutCubic */
+    scrollEl.scrollLeft = startLeft + distance * eased;
+
+    if (progress < 1) {
+      scrollAnimFrame = requestAnimationFrame(step);
+    } else {
+      scrollAnimFrame = null;
+      if (onDone) onDone();
+    }
+  }
+  scrollAnimFrame = requestAnimationFrame(step);
+}
+
+function scrollToColumn(idx, smooth) {
+  var scroll = document.getElementById('board-scroll');
+  var col = scroll.querySelector('.board-col[data-index="' + idx + '"]');
+  if (!col) return;
+
+  var targetLeft = col.offsetLeft - scroll.offsetLeft;
+  currentColIndex = idx;
+
+  if (smooth === false) {
+    scroll.scrollLeft = targetLeft;
+    return;
+  }
+
+  /* desativa o snap durante a animação e só reativa quando ela
+     realmente terminar (controlado por nós, não por timeout fixo) */
+  scroll.classList.add('snap-disabled');
+  animateScrollTo(scroll, targetLeft, 380, function () {
+    scroll.classList.remove('snap-disabled');
+  });
+}
+
+function getCurrentColumnIndex() {
+  var scroll = document.getElementById('board-scroll');
+  var cols = scroll.querySelectorAll('.board-col');
+  var scrollCenter = scroll.scrollLeft + scroll.clientWidth / 2;
+  var closest = 0, minDist = Infinity;
+  cols.forEach(function (col, i) {
+    var colCenter = col.offsetLeft - scroll.offsetLeft + col.clientWidth / 2;
+    var dist = Math.abs(colCenter - scrollCenter);
+    if (dist < minDist) { minDist = dist; closest = i; }
+  });
+  return closest;
+}
+
+/* mantém o índice atualizado quando o usuário arrasta manualmente (touch) */
+var colIndexSyncTimer = null;
+function syncCurrentColIndex() {
+  clearTimeout(colIndexSyncTimer);
+  colIndexSyncTimer = setTimeout(function () {
+    currentColIndex = getCurrentColumnIndex();
+  }, 150);
+}
+
+/* ============ STAND-BY / TIMEOUT ============ */
+function goStandby() {
+  if (!STANDBY_ENABLED) return;
+  showOrgScreen('screen-standby');
+  var v = document.getElementById('standby-video');
+  if (v) { v.currentTime = 0; v.play().catch(function () {}); }
+  scrollToColumn(0, false);
+}
+function exitStandby() {
+  showOrgScreen('org-board');
+  var v = document.getElementById('standby-video');
+  if (v) v.pause();
+  resetIdle();
+  scheduleRedraw();
+}
+function resetIdle() {
+  if (!STANDBY_ENABLED) return;
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(goStandby, IDLE_TIMEOUT);
+}
+
+window.addEventListener('load', function () {
+  applyModeClasses();
+  applyHeaderMode();
+  applyFooterMode();
+  renderBoard();
+
+  document.getElementById('back-btn').onclick = goStandby;
+  document.getElementById('screen-standby').onclick = exitStandby;
+
+  document.getElementById('nav-left').onclick = function () {
+    var idx = Math.max(0, currentColIndex - 1);
+    scrollToColumn(idx);
+  };
+  document.getElementById('nav-right').onclick = function () {
+    var idx = Math.min(ORG_DATA.length - 1, currentColIndex + 1);
+    scrollToColumn(idx);
+  };
+
+  document.getElementById('modal-close-btn').onclick = closeAreaModal;
+  document.getElementById('area-modal-overlay').onclick = function (e) {
+    if (e.target === this) closeAreaModal();
+  };
+
+  var boardScroll = document.getElementById('board-scroll');
+  boardScroll.addEventListener('scroll', function () {
+    scheduleRedraw();
+    syncCurrentColIndex();
+  });
+
+  var video = document.getElementById('standby-video');
+  video.addEventListener('error', function () {
+    document.getElementById('standby-fallback').style.display = 'flex';
+  });
+
+  if (STANDBY_ENABLED) {
+    showOrgScreen('screen-standby');
+    video.play().catch(function () {});
+  } else {
+    showOrgScreen('org-board');
+  }
+
+  document.addEventListener('click', resetIdle);
+  document.addEventListener('touchstart', resetIdle);
+  resetIdle();
+
+  window.addEventListener('resize', scheduleRedraw);
+  window.addEventListener('orientationchange', scheduleRedraw);
+  setTimeout(scheduleRedraw, 400);
+});
+</script>
+</body>
+</html>
